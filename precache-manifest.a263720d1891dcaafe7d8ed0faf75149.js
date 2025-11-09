@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e5d23fca77a88cf42565c4ec0e6c3e8d",
+    "revision": "0c488facbfa0687bd9d19b4eb206d0d6",
     "url": "/index.html"
   },
   {
-    "revision": "472458cc366c5e47c5cd",
-    "url": "/static/css/main.9c27953e.chunk.css"
+    "revision": "300fc372403d09725d3c",
+    "url": "/static/css/main.555a3f2c.chunk.css"
   },
   {
-    "revision": "291f4a0d89f14722ecce",
-    "url": "/static/js/2.0b1cc61a.chunk.js"
+    "revision": "a0636a181abe984c1633",
+    "url": "/static/js/2.1bfb7b37.chunk.js"
   },
   {
-    "revision": "472458cc366c5e47c5cd",
-    "url": "/static/js/main.8936a92b.chunk.js"
+    "revision": "300fc372403d09725d3c",
+    "url": "/static/js/main.be4ff1a2.chunk.js"
   },
   {
     "revision": "f4163cc1361175add5e6",
@@ -94,6 +94,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "63f707f224c8a842ac928c36e3be879a",
     "url": "/static/media/dsc_logo.63f707f2.png"
+  },
+  {
+    "revision": "fc07fdbe05853d00a74bb476a3a3e5f8",
+    "url": "/static/media/dyson_logo.fc07fdbe.svg"
   },
   {
     "revision": "3bab7a9dc4324f1b2364d25a47fcfcf0",
@@ -188,6 +192,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/googleAssistant.a6addc3f.svg"
   },
   {
+    "revision": "98c61a20ae333fbf645dba3d3920b902",
+    "url": "/static/media/gt_logo.98c61a20.png"
+  },
+  {
     "revision": "d3fccbe1db76b96f4f320d9c0f7da30c",
     "url": "/static/media/ibm_logo.d3fccbe1.png"
   },
@@ -224,6 +232,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/nptel_logo.95a12a2b.png"
   },
   {
+    "revision": "658d2a4b16aa949c5318c72bb89297d2",
+    "url": "/static/media/ntu_logo.658d2a4b.png"
+  },
+  {
+    "revision": "524a3a7696c901b059cc5534e65464af",
+    "url": "/static/media/nus_logo.524a3a76.png"
+  },
+  {
     "revision": "414dfbd98516b39255a3e22ed90b3f7d",
     "url": "/static/media/portfolio.414dfbd9.gif"
   },
@@ -238,6 +254,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "71408db71465afd742233e4a96f06526",
     "url": "/static/media/pwa.71408db7.png"
+  },
+  {
+    "revision": "5db62bb6af0dd467306fdfe33e58f6b9",
+    "url": "/static/media/rovisys_logo.5db62bb6.png"
+  },
+  {
+    "revision": "214c81ab8cfabc36a27121e7dade0d5e",
+    "url": "/static/media/smart_logo.214c81ab.avif"
+  },
+  {
+    "revision": "757113e0507e5ebce2013f8d9e519a33",
+    "url": "/static/media/soranova_logo.757113e0.svg"
   },
   {
     "revision": "2c497738be3831492aeb6bdc43f19154",
@@ -258,5 +286,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "d63630893eb8cb64af65f395d393c481",
     "url": "/static/media/ui_ux_design.d6363089.svg"
+  },
+  {
+    "revision": "79448cc609d942396ab3a28f9e691b2a",
+    "url": "/static/media/uot_logo.79448cc6.png"
   }
 ]);
