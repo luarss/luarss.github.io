@@ -4,16 +4,16 @@ import Footer from "../../components/footer/Footer";
 import TopButton from "../../components/topButton/TopButton";
 import Educations from "../../containers/education/Educations";
 import Certifications from "../../containers/certifications/Certifications";
-import CompetitiveSites from "../../components/competitiveSites/CompetitiveSites";
-import EducationImg from "./EducationImg";
-import { competitiveSites } from "../../portfolio";
+// import CompetitiveSites from "../../components/competitiveSites/CompetitiveSites";
+// import EducationImg from "./EducationImg";
+// import { competitiveSites } from "../../portfolio";
 import { certifications } from "../../portfolio";
 import "./EducationComponent.css";
-import { Fade } from "react-reveal";
+// import { Fade } from "react-reveal";
 
 class Education extends Component {
   render() {
-    const theme = this.props.theme;
+    // const theme = this.props.theme;
     return (
       <div className="education-main">
         <Header theme={this.props.theme} />
