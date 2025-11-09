@@ -24,8 +24,7 @@ const greeting = {
   // nickname: "layman_brother",
   subTitle:
     "Fueling innovation at the intersection of machine intelligence and real-world challenges. I ❤️ engineering intelligent solutions that redefine possibilities for making the world a better place.",
-  resumeLink:
-    "https://drive.google.com/file/d/1bXRknv_h-XI_3CQ3SGPteGODtvEb7YvI/view?usp=sharing",
+  resumeLink: "/Song_Resume.pdf",
   portfolio_repository: "https://github.com/luarss/luarss.github.io",
   githubProfile: "https://github.com/luarss",
 };
