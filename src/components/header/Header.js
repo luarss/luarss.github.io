@@ -96,7 +96,7 @@ class Header extends Component {
                   Open Source
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink
                   to="/contact"
                   tag={Link}
@@ -107,7 +107,7 @@ class Header extends Component {
                 >
                   Contact Me
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </header>
         </div>
