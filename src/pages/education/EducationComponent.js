@@ -18,13 +18,10 @@ class Education extends Component {
       <div className="education-main">
         <Header theme={this.props.theme} />
         <div className="basic-education">
-          <Fade bottom duration={2000} distance="40px">
+          <Educations theme={this.props.theme} />
+          {/* <Fade bottom duration={2000} distance="40px">
             <div className="heading-div">
               <div className="heading-img-div">
-                {/* <img
-									src={require("../../assets/images/education.svg")}
-									alt=""
-								/> */}
                 <EducationImg theme={theme} />
               </div>
               <div className="heading-text-div">
@@ -37,8 +34,7 @@ class Education extends Component {
                 <CompetitiveSites logos={competitiveSites.competitiveSites} />
               </div>
             </div>
-          </Fade>
-          <Educations theme={this.props.theme} />
+          </Fade> */}
           {certifications.certifications.length > 0 ? (
             <Certifications theme={this.props.theme} />
           ) : null}
