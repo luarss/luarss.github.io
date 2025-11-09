@@ -496,7 +496,7 @@ const experience = {
 const projectsHeader = {
   title: "Projects",
   description:
-    "My projects makes use of vast variety of latest technology tools. My best experience is to create Data Science projects and deploy them to web applications using cloud infrastructure.",
+    "I actively contribute to open source projects, particularly in AI-assisted tools for chip design and development. My projects span from LLM chatbots to MCP servers for developer tooling.",
   avatar_image_path: "projects_image.svg",
 };
 
@@ -509,25 +509,22 @@ const publicationsHeader = {
 const publications = {
   data: [
     {
-      id: "neuro-symbolic-sudoku-solver",
-      name: "Neuro-Symbolic Sudoku Solver",
-      createdAt: "2023-07-02T00:00:00Z",
-      description: "Paper published in KDD KiML 2023",
-      url: "https://arxiv.org/abs/2307.00653",
+      id: "orassistant-paper",
+      name:
+        "ORAssistant: A Custom RAG-based Conversational Assistant for OpenROAD",
+      createdAt: "2024-10-04T00:00:00Z",
+      description:
+        "Paper on custom RAG-based conversational assistant for chip design automation using OpenROAD.",
+      url: "https://arxiv.org/pdf/2410.03845",
     },
     {
-      id: "mdp-diffusion",
-      name: "MDP-Diffusion",
-      createdAt: "2023-09-19T00:00:00Z",
-      description: "Blog published in Paperspace",
-      url: "https://blog.paperspace.com/mdp-diffusion/",
-    },
-    {
-      id: "consistency-models",
-      name: "Consistency Models",
-      createdAt: "2023-10-12T00:00:00Z",
-      description: "Blog published in Paperspace",
-      url: "https://blog.paperspace.com/consistency-models/",
+      id: "iros-2021-paper",
+      name:
+        "Extended Tactile Perception: Vibration Sensing through Tools and Grasped Objects",
+      createdAt: "2021-06-01T00:00:00Z",
+      description:
+        "IROS 2021 Best Paper Award - Research on deep reinforcement learning applied to real-world robotic applications with tactile sensing.",
+      url: "https://arxiv.org/pdf/2106.00489",
     },
   ],
 };
