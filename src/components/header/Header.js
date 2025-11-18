@@ -4,6 +4,7 @@ import { Fade } from "react-reveal";
 import { NavLink, Link } from "react-router-dom";
 import { greeting, settings } from "../../portfolio.js";
 import SeoHeader from "../seoHeader/SeoHeader";
+import ThemeToggle from "../themeToggle/ThemeToggle";
 
 const onMouseEnter = (event, color) => {
   const el = event.target;
@@ -108,6 +109,9 @@ class Header extends Component {
                   Contact Me
                 </NavLink>
               </li> */}
+              <li>
+                <ThemeToggle />
+              </li>
             </ul>
           </header>
         </div>
