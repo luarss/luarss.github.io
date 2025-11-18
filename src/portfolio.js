@@ -9,7 +9,7 @@ const settings = {
 const seo = {
   title: "Shui Song Luar's Portfolio",
   description:
-    "Fueling innovation at the intersection of machine intelligence and real-world challenges. I ❤️ engineering intelligent solutions that redefine possibilities for making the world a better place.",
+    "Fueling innovation at the intersection of machine intelligence and real-world challenges. I ❤️ engineering intelligent solutions for making the world a better place.",
   og: {
     title: "Shui Song Luar's Portfolio",
     type: "website",
@@ -23,7 +23,7 @@ const greeting = {
   logo_name: "luarss",
   // nickname: "layman_brother",
   subTitle:
-    "Fueling innovation at the intersection of machine intelligence and real-world challenges. I ❤️ engineering intelligent solutions that redefine possibilities for making the world a better place.",
+    "Fueling innovation at the intersection of machine intelligence and real-world challenges. I ❤️ engineering intelligent solutions for making the world a better place.",
   resumeLink: "/Song_Resume.pdf",
   portfolio_repository: "https://github.com/luarss/luarss.github.io",
   githubProfile: "https://github.com/luarss",
