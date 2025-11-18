@@ -234,7 +234,7 @@ const skills = {
     },
     {
       title: "Robotics & Deep Reinforcement Learning",
-      fileName: "CloudInfraImg",
+      fileName: "RoboticsImg",
       skills: [
         "⚡ Applying deep reinforcement learning to real-world robotic applications and control systems",
         "⚡ Developing classification and prediction models for high-dimensional time-series sensor data",
