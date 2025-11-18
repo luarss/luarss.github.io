@@ -85,16 +85,16 @@ class Header extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/opensource"
-                  tag={Link}
-                  activeStyle={{ fontWeight: "bold" }}
+                <a
+                  href="https://dev.to/luarss"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{ color: theme.text }}
                   onMouseEnter={(event) => onMouseEnter(event, theme.highlight)}
                   onMouseOut={(event) => onMouseOut(event)}
                 >
-                  Open Source
-                </NavLink>
+                  Blog
+                </a>
               </li>
               {/* <li>
                 <NavLink

@@ -531,6 +531,11 @@ const publications = {
   ],
 };
 
+// Blog Section
+const blogSection = {
+  link: "https://dev.to/luarss",
+};
+
 // Contact Page
 const contactPageData = {
   contactSection: {
@@ -576,5 +581,6 @@ export {
   projectsHeader,
   publicationsHeader,
   publications,
+  blogSection,
   contactPageData,
 };

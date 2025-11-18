@@ -2,7 +2,7 @@ import React from "react";
 import "./Greeting.css";
 import SocialMedia from "../../components/socialMedia/SocialMedia";
 import Button from "../../components/button/Button";
-import { greeting } from "../../portfolio";
+import { greeting, blogSection } from "../../portfolio";
 import { Fade } from "react-reveal";
 import FeelingProud from "./FeelingProud";
 
@@ -40,11 +40,19 @@ export default function Greeting(props) {
               </div> */}
               <div className="button-greeting-div">
                 <Button
-                  text="See my resume"
+                  text="Resume"
                   newTab={true}
                   href={greeting.resumeLink}
                   theme={theme}
                 />
+                {blogSection.link && (
+                  <Button
+                    text="Blog"
+                    newTab={true}
+                    href={blogSection.link}
+                    theme={theme}
+                  />
+                )}
               </div>
             </div>
           </div>
