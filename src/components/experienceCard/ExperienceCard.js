@@ -106,7 +106,30 @@ class ExperienceCard extends Component {
                 }}
               >
                 <div className="repo-description" />
-                {experience["description"]}
+                {Array.isArray(experience["description"]) ? (
+                  <div>
+                    {experience["description"].map((point, i) => (
+                      <p
+                        key={i}
+                        className="experience-card-description"
+                        style={{
+                          color: theme.text,
+                          marginBottom: 10,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {point}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <p
+                    className="experience-card-description"
+                    style={{ color: theme.text }}
+                  >
+                    {experience["description"]}
+                  </p>
+                )}
               </div>
             </div>
           </div>

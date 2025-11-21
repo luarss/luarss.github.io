@@ -387,8 +387,13 @@ const experience = {
           logo_path: "soranova_logo.svg",
           duration: "Jun. 2024 - Present",
           location: "Singapore",
-          description:
-            "Built production RAG system processing documents from internal and public sources, improving answer relevance by 20% through hybrid retrieval architecture on Postgres with pgvector. Designed and deployed ML evaluation framework enabling systematic A/B testing that informed multiple successful model improvements. Built multi-agent research system orchestrating specialized LLM agents (search, analysis, synthesis) across web APIs, vector databases, and internal docs to generate comprehensive domain-specific research.",
+          description: [
+            "⚡ Architected and built entire AI knowledge platform from ground up - 159k net lines across 1,272 commits to FastAPI backend, multi-agent AI workflows, and React frontend; contributed 774 commits to multi-cloud infrastructure (GCP/AWS) managing GPU-accelerated ML workloads with Terraform, Nomad, and Consul",
+            "⚡ Engineered production RAG system with hybrid retrieval (PostgreSQL pgvector + keyword), improving answer relevance 20% through semantic search and query caching; optimized backend performance eliminating N+1 queries (90% connection pool reduction) and implemented 20+ Alembic migrations for schema evolution",
+            "⚡ Designed multi-agent research system orchestrating 5 specialized LLM agents (factual, technical, market, team, risk) with iterative gap analysis and automatic refinement, generating comprehensive VC investment research reports; built knowledge graph with entity extraction (15+ types) and two-tier citation provenance tracking",
+            "⚡ Implemented ML evaluation framework with DeepEval integration - 15+ metrics across completeness (0.80), accuracy (0.85), relevance (0.75), quality (0.80) - enabling systematic A/B testing and adaptive improvement loops that drove multiple successful model enhancements",
+            "⚡ Owned complete DevOps pipeline: GitHub Actions CI/CD with automated testing and deployment, Docker multi-stage builds, Packer workflows for GPU AMI creation (T4/L4/A100), Ansible configuration management, and Harbor container registry - enabling multiple daily deployments across distributed infrastructure",
+          ],
           color: "#000000",
         },
         {
@@ -398,8 +403,10 @@ const experience = {
           logo_path: "espressif_logo.png",
           duration: "Sep. 2022 - May. 2024",
           location: "Singapore",
-          description:
-            "Implemented ML algorithms (GNN, RL, BO) for chip design, saving 20% time as compared to manual baseline. Managed 8-GPU cluster to perform parallel training, model management and hyperparameter optimisation.",
+          description: [
+            "⚡ Implemented ML algorithms (GNN, RL, BO) for chip design, saving 20% time compared to manual baseline",
+            "⚡ Managed 8-GPU cluster to perform parallel training, model management and hyperparameter optimization",
+          ],
           color: "#0879bf",
         },
         {
@@ -409,8 +416,12 @@ const experience = {
           logo_path: "nus_logo.png",
           duration: "Aug. 2020 - Aug. 2022",
           location: "Singapore",
-          description:
-            "Applied deep reinforcement learning to real-world robotic applications outperforming classical control baselines. Translated high-dimensional time-series tactile sensor data to useful insights via feature engineering. Implemented high accuracy classification models using machine learning. Published paper in IROS 2021 that achieved the Best Paper Award.",
+          description: [
+            "⚡ Applied deep reinforcement learning to real-world robotic applications outperforming classical control baselines",
+            "⚡ Translated high-dimensional time-series tactile sensor data to useful insights via feature engineering",
+            "⚡ Implemented high accuracy classification models using machine learning",
+            "⚡ Published paper in IROS 2021 that achieved the Best Paper Award",
+          ],
           color: "#4285F4",
         },
       ],
@@ -425,8 +436,11 @@ const experience = {
           logo_path: "rovisys_logo.png",
           duration: "Jul. 2018 - Dec. 2018",
           location: "Singapore",
-          description:
-            "Internship in Building Automation Services (BAS) Department, Data Center Project. Maintained Human-Machine Interface (HMI) Graphics and verified Programmable Logic Controller (PLC) code via software bench tests. Designed and implemented software automation to optimise work processes using Python, reducing cognitive load and time by 66%. Oversaw commissioning process for software and hardware integration for over 1000 monitoring points and 100 instruments.",
+          description: [
+            "⚡ Designed and implemented software automation to optimize work processes using Python, reducing cognitive load and time by 66%",
+            "⚡ Maintained Human-Machine Interface (HMI) Graphics and verified Programmable Logic Controller (PLC) code via software bench tests",
+            "⚡ Oversaw commissioning process for software and hardware integration for over 1000 monitoring points and 100 instruments",
+          ],
           color: "#0071C5",
         },
         {
@@ -436,8 +450,10 @@ const experience = {
           logo_path: "dyson_logo.svg",
           duration: "May 2018 - Jul. 2018",
           location: "Singapore",
-          description:
-            "Designed automation tests for position tracking, reduced 75% time in manual monitoring. Utilised VICON with LabVIEW for 3D Pose, and the Python SDK for AWS IoT MQTT protocol.",
+          description: [
+            "⚡ Designed automation tests for position tracking, reduced 75% time in manual monitoring",
+            "⚡ Utilized VICON with LabVIEW for 3D Pose, and the Python SDK for AWS IoT MQTT protocol",
+          ],
           color: "#ee3c26",
         },
       ],
@@ -452,8 +468,10 @@ const experience = {
           logo_path: "uot_logo.png",
           duration: "Aug. 2019 - Dec. 2019",
           location: "Toronto, Canada",
-          description:
-            "Thesis project in fulfilment of Bachelors Degree. Research attachment under Professor Jonathan Kelly in joint (revolute, prismatic) classification in articulated objects using computer vision. Techniques involved: PyTorch, fine-tuning, data augmentation.",
+          description: [
+            "⚡ Research attachment under Professor Jonathan Kelly in joint (revolute, prismatic) classification in articulated objects using computer vision",
+            "⚡ Techniques: PyTorch, fine-tuning, data augmentation",
+          ],
           color: "#8C1515",
         },
         {
@@ -463,8 +481,11 @@ const experience = {
           logo_path: "smart_logo.avif",
           duration: "Jun. 2019 - Jul. 2019",
           location: "Singapore",
-          description:
-            "Research attachment under Dr. Malika Meghjani and Dr. Daniel Kondor, entitled 'Robust Route Planning for Peak Hour Congestion Management'. Implemented and compared various shortest path algorithms using different weights of Singapore road network. Using non-conventional weights: historical data and lagging data were robust enough to closely approximate performance of real-time data. Techniques involved: Python NetworkX, GIS.",
+          description: [
+            "⚡ Research on 'Robust Route Planning for Peak Hour Congestion Management' under Dr. Malika Meghjani and Dr. Daniel Kondor",
+            "⚡ Implemented and compared various shortest path algorithms using different weights of Singapore road network",
+            "⚡ Demonstrated non-conventional weights (historical data, lagging data) closely approximate real-time data performance",
+          ],
           color: "#D83B01",
         },
         {
@@ -474,8 +495,11 @@ const experience = {
           logo_path: "gt_logo.png",
           duration: "Jan. 2019 - May. 2019",
           location: "United States",
-          description:
-            "Research attachment under Professor Patricio Antonio Vela, entitled 'Vision-based Manipulation'. Aim is to implement the functionalities of a puzzle solving robotic arm with 5 joints. Developed accurate algorithms for puzzle piece segmentation and pose detection. Techniques involved: OpenCV Background subtraction (MoG), image moments (Hu and standard), erosion, ARUCO; ROS.",
+          description: [
+            "⚡ Research on 'Vision-based Manipulation' under Professor Patricio Antonio Vela",
+            "⚡ Implemented functionalities of a puzzle solving robotic arm with 5 joints",
+            "⚡ Developed accurate algorithms for puzzle piece segmentation and pose detection using OpenCV and ROS",
+          ],
           color: "#4285F4",
         },
         {
@@ -485,8 +509,11 @@ const experience = {
           logo_path: "ntu_logo.png",
           duration: "Jan. 2017 - May. 2017",
           location: "Singapore",
-          description:
-            "Research attachment under Professor Justin Dauwels, entitled 'Emotion analysis in schizophrenia with supervised learning'. Aim is to generate an objective and effective method towards diagnosing negative schizophrenia using machine learning and emotional variables. By applying supervised learning, the extracted emotional features by Affectiva software is used to predict negative symptoms according to the Negative Symptom Assessment (NSA-16) tool. Techniques involved: MATLAB implementation of ML techniques.",
+          description: [
+            "⚡ Research on 'Emotion analysis in schizophrenia with supervised learning' under Professor Justin Dauwels",
+            "⚡ Developed objective method for diagnosing negative schizophrenia using machine learning and emotional variables",
+            "⚡ Applied supervised learning to predict negative symptoms using emotional features from Affectiva software",
+          ],
           color: "#0C9D58",
         },
       ],
