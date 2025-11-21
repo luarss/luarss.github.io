@@ -552,7 +552,7 @@ const publications = {
         "Extended Tactile Perception: Vibration Sensing through Tools and Grasped Objects",
       createdAt: "2021-06-01T00:00:00Z",
       description:
-        "IROS 2021 Best Paper Award - Research on deep reinforcement learning applied to real-world robotic applications with tactile sensing.",
+        "IROS 2021 Best Paper Award - Machine learning classification models for high-dimensional time-series tactile sensor data to enable vibration sensing through tools and grasped objects.",
       url: "https://arxiv.org/pdf/2106.00489",
     },
   ],
