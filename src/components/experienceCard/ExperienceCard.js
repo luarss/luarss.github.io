@@ -6,7 +6,7 @@ class ExperienceCard extends Component {
   render() {
     const experience = this.props.experience;
     const index = this.props.index;
-    const totalCards = this.props.totalCards;
+    // const totalCards = this.props.totalCards;
     const theme = this.props.theme;
     return (
       <div
@@ -22,29 +22,7 @@ class ExperienceCard extends Component {
             />
           </div>
         </Fade>
-        <div className="experience-card-stepper">
-          <div
-            style={{
-              width: 20,
-              height: 20,
-              backgroundColor: `${theme.headerColor}`,
-              borderRadius: 50,
-              zIndex: 100,
-            }}
-          />
-          {index !== totalCards - 1 && (
-            <div
-              style={{
-                height: 190,
-                width: 2,
-                backgroundColor: `${theme.headerColor}`,
-                position: "absolute",
-                marginTop: 20,
-              }}
-            />
-          )}
-        </div>
-        <Fade right duration={2000} distance="40px">
+        <Fade right duration={2000} distance="40px" style={{ flex: 1 }}>
           <div style={{ display: "flex", flexDirection: "row", flex: 1 }}>
             <div
               className="arrow-left"
