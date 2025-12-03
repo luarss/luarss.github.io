@@ -1,11 +1,25 @@
 {
   "data": [
     {
+      "id": "nova-agent-runtime",
+      "name": "nova-agent-runtime",
+      "createdAt": "2025-11-24T00:00:00Z",
+      "url": "https://github.com/SoraNovaAI/agent-runtime",
+      "description": "🤖 AI agent framework with integrated tools, multi-agent workflows, and evaluation loops. Features native MCP integration, automatic context management, and YAML-based declarative configuration.",
+      "isFork": false,
+      "languages": [
+        {
+          "name": "Python",
+          "iconifyClass": "logos-python"
+        }
+      ]
+    },
+    {
       "id": "openroad-mcp",
       "name": "openroad-mcp",
       "createdAt": "2024-12-01T00:00:00Z",
       "url": "https://github.com/luarss/openroad-mcp",
-      "description": "🔧 MCP server for real-time AI-driven debugging for chip designers. Sole maintainer for OR-MCP, a MCP server for OpenROAD.",
+      "description": "🔧 MCP server for real-time AI-driven debugging for chip designers in OpenROAD.",
       "isFork": false,
       "languages": [
         {
@@ -23,7 +37,7 @@
       "name": "ORAssistant",
       "createdAt": "2023-05-01T00:00:00Z",
       "url": "https://github.com/luarss/ORAssistant",
-      "description": "🤖 Proof-of-concept Large Language Model chatbot assistant for OpenROAD chip design tool. Conceptualized and open-sourced as part of OpenROAD Project contributions.",
+      "description": "🤖 Production-ready Large Language Model chatbot assistant for OpenROAD chip design tool. Conceptualized and open-sourced as part of OpenROAD Project contributions.",
       "isFork": false,
       "languages": [
         {

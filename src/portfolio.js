@@ -526,7 +526,7 @@ const experience = {
 const projectsHeader = {
   title: "Projects",
   description:
-    "I actively contribute to open source projects, particularly in AI-assisted tools for chip design and development. My projects span from LLM chatbots to MCP servers for developer tooling.",
+    "I actively contribute to open source projects, particularly in AI agents, and AI-assisted tools for chip design. My projects span from production AI agent runtimes to MCP servers for developer tooling.",
   avatar_image_path: "projects_image.svg",
 };
 
@@ -538,6 +538,24 @@ const publicationsHeader = {
 
 const publications = {
   data: [
+    {
+      id: "deep-research-blog",
+      name: "Building Robust AI Research Agents: A tale of five specialists",
+      createdAt: "2025-11-20T00:00:00Z",
+      description:
+        "Journey through four architectural iterations of building a deep research workflow for VCs - from a single agent to five specialized agents with hierarchical citations, MCP integration, and iterative refinement. Learn what it actually takes to build useful AI systems in 2025.",
+      url: "https://soranovaai.github.io/post/deep-research",
+    },
+    {
+      id: "multi-agent-benchmark-blog",
+      name:
+        "Multi-Agent Systems Are 23x Cheaper Than Deep Research Models with Higher Quality",
+      createdAt: "2025-11-13T00:00:00Z",
+      description:
+        "We benchmarked multi-agent systems with 11 specialized agents against single-model approaches and deep reasoning models across 5 scientific domains. Multi-agent won or tied in all 5 with 23x lower cost and higher novelty scores.",
+      url:
+        "https://soranovaai.github.io/post/multi-agent-hypothesis-generation-benchmark",
+    },
     {
       id: "orassistant-paper",
       name:
