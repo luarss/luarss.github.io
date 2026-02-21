@@ -2,12 +2,13 @@ baseURL = 'https://luarss.github.io/'
 languageCode = 'en-us'
 title = "Shui Song Luar"
 theme = "PaperMod"
+
 [pagination]
   pagerSize = 10
 
 [params]
   author = "Shui Song Luar"
-  description = "Fueling innovation at the intersection of machine intelligence and real-world challenges."
+  description = "Founding Engineer · AI/ML Systems"
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -16,9 +17,17 @@ theme = "PaperMod"
   ShowShareButtons = false
   ShowToc = true
 
-  [params.homeInfoParams]
-    Title = "Hi, I'm Song"
-    Content = "I engineer intelligent solutions at the intersection of machine intelligence and real-world challenges."
+  [params.profileMode]
+    enabled = true
+    title = "Shui Song Luar"
+    subtitle = "Founding Engineer · AI/ML Systems · Singapore"
+    imageUrl = ""
+    [[params.profileMode.buttons]]
+      name = "Resume"
+      url = "/Song_Resume.pdf"
+    [[params.profileMode.buttons]]
+      name = "About"
+      url = "/about/"
 
   [[params.socialIcons]]
     name = "github"
@@ -28,20 +37,24 @@ theme = "PaperMod"
     name = "linkedin"
     url = "https://www.linkedin.com/in/song-luar/"
 
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:espsluar@gmail.com"
+
 [menu]
   [[menu.main]]
-    name = "Blog"
-    url = "/posts/"
+    name = "About"
+    url = "/about/"
     weight = 1
   [[menu.main]]
     name = "Projects"
     url = "/projects/"
     weight = 2
   [[menu.main]]
-    name = "TIL"
-    url = "/til/"
+    name = "Blog"
+    url = "/posts/"
     weight = 3
   [[menu.main]]
-    name = "About"
-    url = "/about/"
+    name = "TIL"
+    url = "/til/"
     weight = 4
