@@ -51,7 +51,3 @@ theme = "PaperMod"
     name = "Blog"
     url = "/posts/"
     weight = 3
-  [[menu.main]]
-    name = "TIL"
-    url = "/til/"
-    weight = 4
