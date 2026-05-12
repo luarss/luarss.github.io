@@ -23,9 +23,6 @@ theme = "PaperMod"
     subtitle = "Founding Engineer · AI/ML Systems · Singapore"
     imageUrl = ""
     [[params.profileMode.buttons]]
-      name = "Resume"
-      url = "/Song_Resume.pdf"
-    [[params.profileMode.buttons]]
       name = "About"
       url = "/about/"
 
