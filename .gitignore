@@ -11,6 +11,11 @@
 
 
 
+# hugo build artifacts
+hugo/public/
+hugo/.hugo_build.lock
+hugo/resources/_gen/
+
 # misc
 .DS_Store
 .env 
