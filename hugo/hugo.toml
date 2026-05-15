@@ -29,6 +29,9 @@ enableRobotsTXT = true
     [[params.profileMode.buttons]]
       name = "Projects"
       url = "/projects/"
+    [[params.profileMode.buttons]]
+      name = "llms.txt"
+      url = "/llms.txt"
 
   [[params.socialIcons]]
     name = "github"
