@@ -6,3 +6,66 @@
     gtag('js', new Date());
     gtag('config', 'G-08XGCXHEJ5');
 </script>
+
+{{- /* Person / ProfilePage JSON-LD — emitted on homepage and About page only.
+       Helps search and AI systems resolve this site to a single Person entity
+       with verified social profiles and a concise professional summary. */ -}}
+{{- if and (hugo.IsProduction | or (eq site.Params.env "production")) (or .IsHome (eq .RelPermalink "/about/")) }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "dateCreated": "2026-02-22",
+  "dateModified": "{{ now.Format "2006-01-02" }}",
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "https://luarss.github.io/#person",
+    "name": "Shui Song Luar",
+    "alternateName": "luarss",
+    "url": "https://luarss.github.io/",
+    "jobTitle": "Founding Engineer",
+    "description": "Founding Engineer building production LLM systems, multi-agent AI workflows, RAG with hybrid retrieval, and cloud infrastructure.",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "SoraNova",
+      "url": "https://soranovaai.github.io"
+    },
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "National University of Singapore",
+        "url": "https://www.nus.edu.sg/"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Nanyang Technological University",
+        "url": "https://www.ntu.edu.sg/"
+      }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Singapore",
+      "addressCountry": "SG"
+    },
+    "knowsAbout": [
+      "Large Language Models",
+      "Retrieval-Augmented Generation",
+      "Multi-Agent Systems",
+      "Model Context Protocol",
+      "Production AI Systems",
+      "Cloud Infrastructure",
+      "DevOps",
+      "Deep Reinforcement Learning",
+      "Chip Design Automation"
+    ],
+    "knowsLanguage": ["en"],
+    "sameAs": [
+      "https://github.com/luarss",
+      "https://www.linkedin.com/in/song-luar/",
+      "https://soranovaai.github.io",
+      "https://dev.to/luarss"
+    ]
+  }
+}
+</script>
+{{- end }}

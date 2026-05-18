@@ -2,7 +2,9 @@
 title: "About"
 layout: "about"
 url: "/about/"
-summary: "about"
+description: "Shui Song Luar — Founding Engineer at SoraNova. Production LLM systems, multi-agent AI workflows, RAG with hybrid retrieval, and cloud infrastructure. Previously AI Engineer at Espressif Systems and Graduate Research Assistant at NUS (IROS 2021 Best Paper Award)."
+keywords: ["Shui Song Luar", "founding engineer", "AI engineer", "LLM systems", "RAG", "multi-agent", "SoraNova", "Espressif", "NUS", "IROS 2021"]
+summary: "Founding Engineer at SoraNova working on production LLM systems, multi-agent AI workflows, and cloud infrastructure."
 ---
 
 I'm a Founding Engineer at [SoraNova](https://soranovaai.github.io), building AI knowledge platforms from the ground up. My work sits at the intersection of production LLM systems, cloud infrastructure, and full-stack development.
