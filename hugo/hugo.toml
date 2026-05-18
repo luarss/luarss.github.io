@@ -27,6 +27,9 @@ enableRobotsTXT = true
       name = "About"
       url = "/about/"
     [[params.profileMode.buttons]]
+      name = "Now"
+      url = "/now/"
+    [[params.profileMode.buttons]]
       name = "Projects"
       url = "/projects/"
     [[params.profileMode.buttons]]
@@ -51,10 +54,14 @@ enableRobotsTXT = true
     url = "/about/"
     weight = 1
   [[menu.main]]
+    name = "Now"
+    url = "/now/"
+    weight = 2
+  [[menu.main]]
     name = "Projects"
     url = "/projects/"
-    weight = 2
+    weight = 3
   [[menu.main]]
     name = "Blog"
     url = "/posts/"
-    weight = 3
+    weight = 4
