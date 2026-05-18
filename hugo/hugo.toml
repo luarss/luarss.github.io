@@ -9,7 +9,8 @@ enableRobotsTXT = true
 
 [params]
   author = "Shui Song Luar"
-  description = "Founding Engineer · AI/ML Systems"
+  description = "Personal site of Shui Song Luar — Founding Engineer at SoraNova working on production LLM systems, multi-agent AI workflows, cloud infrastructure, and full-stack development. Based in Singapore."
+  keywords = ["Shui Song Luar", "luarss", "AI engineer", "LLM systems", "RAG", "multi-agent systems", "MCP", "founding engineer", "Singapore", "OpenROAD", "SoraNova"]
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -17,6 +18,14 @@ enableRobotsTXT = true
   ShowCodeCopyButtons = true
   ShowShareButtons = false
   ShowToc = true
+
+  [params.schema]
+    publisherType = "Person"
+    sameAs = [
+      "https://github.com/luarss",
+      "https://www.linkedin.com/in/song-luar/",
+      "https://dev.to/luarss",
+    ]
 
   [params.profileMode]
     enabled = true
