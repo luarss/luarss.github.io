@@ -36,8 +36,19 @@ jobs:
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
 
-    - name: Submit to Wayback Machine
-      uses: JamieMagee/wayback@v2.2.0
-      with:
-        url: https://luarss.github.io/
-        saveOutlinks: true
+  submit-wayback:
+    needs: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        url:
+          - https://luarss.github.io/
+          - https://luarss.github.io/about/
+          - https://luarss.github.io/now/
+          - https://luarss.github.io/posts/
+          - https://luarss.github.io/projects/
+    steps:
+      - uses: JamieMagee/wayback@v2.2.0
+        with:
+          url: ${{ matrix.url }}
