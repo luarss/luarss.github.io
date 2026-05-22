@@ -35,3 +35,9 @@ jobs:
         publish_branch: gh-pages
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Submit to Wayback Machine
+      uses: JamieMagee/wayback@v2.2.0
+      with:
+        url: https://luarss.github.io/
+        saveOutlinks: true
