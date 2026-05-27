@@ -1,0 +1,125 @@
+/* ==========================================================
+   Minimal & clean UI refresh for luarss.github.io
+   Loaded last by PaperMod — overrides theme defaults safely.
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   Font
+   ---------------------------------------------------------- */
+body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ----------------------------------------------------------
+   CSS variable overrides
+   ---------------------------------------------------------- */
+
+/* Light mode */
+:root {
+    --theme: #FAFAFA;
+    --entry: #FFFFFF;
+    --secondary: #6B7280;   /* neutral-500 */
+    --border: #E5E7EB;
+    --radius: 6px;
+    --content-gap: 24px;
+}
+
+/* Dark mode */
+:root[data-theme="dark"] {
+    --theme: #111111;
+    --entry: #1C1C1E;
+    --secondary: #8B8B8B;
+    --border: #2D2D2D;
+}
+
+/* ----------------------------------------------------------
+   Typography — headings
+   ---------------------------------------------------------- */
+h1, h2, h3 {
+    letter-spacing: -0.02em;
+    font-weight: 600;
+}
+
+.page-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+}
+
+/* ----------------------------------------------------------
+   Typography — body content
+   ---------------------------------------------------------- */
+.post-content p,
+.post-content li {
+    line-height: 1.75;
+}
+
+/* ----------------------------------------------------------
+   Links — subtle offset underline
+   ---------------------------------------------------------- */
+.post-content a {
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.15s;
+}
+
+.post-content a:hover {
+    text-decoration-color: var(--primary);
+}
+
+/* ----------------------------------------------------------
+   HR — thin, delicate separator
+   ---------------------------------------------------------- */
+.post-content hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2em 0;
+}
+
+/* ----------------------------------------------------------
+   Profile homepage — ghost-style buttons
+   ---------------------------------------------------------- */
+.button {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.button:hover {
+    background: var(--entry);
+    border-color: var(--secondary);
+}
+
+.buttons {
+    gap: 4px;
+    max-width: 480px;
+}
+
+.button-inner {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 2px 14px;
+    color: var(--primary);
+}
+
+/* ----------------------------------------------------------
+   Profile homepage — subtitle
+   ---------------------------------------------------------- */
+.profile .profile_inner h2 {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--secondary);
+    letter-spacing: 0.01em;
+}
+
+/* ----------------------------------------------------------
+   Navigation — underline active item instead of bold
+   ---------------------------------------------------------- */
+.nav .menu a[aria-current="page"] {
+    font-weight: 500;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 2px;
+}
