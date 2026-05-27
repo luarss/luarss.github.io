@@ -2,7 +2,7 @@
 title: "Now"
 url: "/now/"
 date: 2026-05-18
-description: "What I'm working on right now — joining a Singapore university as AI & Systems Engineer to ship next-generation agentic AI applications."
+description: "What I'm working on right now - joining a Singapore university as AI & Systems Engineer to ship next-generation agentic AI applications."
 keywords: ["now page", "agentic AI", "AI systems engineer", "Singapore"]
 summary: "What I'm working on right now."
 ---
