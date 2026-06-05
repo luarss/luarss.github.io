@@ -47,4 +47,4 @@ Allow: /
 Disallow: /tags/
 Disallow: /categories/
 
-Sitemap: https://luarss.github.io/sitemap.xml
+Sitemap: https://luarss.dev/sitemap.xml
