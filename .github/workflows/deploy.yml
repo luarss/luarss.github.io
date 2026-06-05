@@ -33,6 +33,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./hugo/public
         publish_branch: gh-pages
+        cname: luarss.dev
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
 
@@ -43,11 +44,11 @@ jobs:
       fail-fast: false
       matrix:
         url:
-          - https://luarss.github.io/
-          - https://luarss.github.io/about/
-          - https://luarss.github.io/now/
-          - https://luarss.github.io/posts/
-          - https://luarss.github.io/projects/
+          - https://luarss.dev/
+          - https://luarss.dev/about/
+          - https://luarss.dev/now/
+          - https://luarss.dev/posts/
+          - https://luarss.dev/projects/
     steps:
       - uses: JamieMagee/wayback@v2.2.0
         with:
