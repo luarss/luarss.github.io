@@ -58,7 +58,7 @@ disableKinds = ["taxonomy", "term"]
 
   [[params.socialIcons]]
     name = "email"
-    url = "mailto:espsluar@gmail.com"
+    url = "mailto:me@luarss.dev"
 
 [menu]
   [[menu.main]]
