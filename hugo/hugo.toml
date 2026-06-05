@@ -3,6 +3,9 @@ locale = 'en-us'
 title = "Shui Song Luar"
 theme = "PaperMod"
 enableRobotsTXT = true
+# No tagged content yet — drop empty /tags/ and /categories/ pages so the
+# sitemap stops advertising URLs that robots.txt disallows.
+disableKinds = ["taxonomy", "term"]
 
 [pagination]
   pagerSize = 10
@@ -70,7 +73,3 @@ enableRobotsTXT = true
     name = "Projects"
     url = "/projects/"
     weight = 3
-  [[menu.main]]
-    name = "Blog"
-    url = "/posts/"
-    weight = 4
