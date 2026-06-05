@@ -26,10 +26,6 @@ This file follows the [llms.txt](https://llmstxt.org/) convention to help large 
 - [Building Robust AI Research Agents: A tale of five specialists](https://soranovaai.github.io/post/deep-research) (Nov 2025): Four architectural iterations of a deep research workflow for VCs.
 - [Multi-Agent Systems Are 23x Cheaper Than Deep Research Models with Higher Quality](https://soranovaai.github.io/post/multi-agent-hypothesis-generation-benchmark) (Nov 2025): Benchmarking 11 specialised agents against single-model and deep reasoning models across 5 scientific domains.
 
-## Blog
-
-- [Posts](https://luarss.github.io/posts/): Longer-form writing.
-
 ## Contact
 
 - GitHub: https://github.com/luarss
