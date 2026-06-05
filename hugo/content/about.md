@@ -65,4 +65,4 @@ Previously I was an AI Engineer at [Espressif Systems](https://www.espressif.com
 
 - GitHub: [github.com/luarss](https://github.com/luarss)
 - LinkedIn: [linkedin.com/in/song-luar](https://www.linkedin.com/in/song-luar/)
-- Email: [espsluar@gmail.com](mailto:espsluar@gmail.com)
+- Email: [me@luarss.dev](mailto:me@luarss.dev)
