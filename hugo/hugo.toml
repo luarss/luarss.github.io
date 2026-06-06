@@ -37,19 +37,19 @@ disableKinds = ["taxonomy", "term"]
     imageUrl = ""
     [[params.profileMode.buttons]]
       name = "Posts"
-      url = "/posts/"
+      url = "posts/"
     [[params.profileMode.buttons]]
       name = "About"
-      url = "/about/"
+      url = "about/"
     [[params.profileMode.buttons]]
       name = "Now"
-      url = "/now/"
+      url = "now/"
     [[params.profileMode.buttons]]
       name = "Projects"
-      url = "/projects/"
+      url = "projects/"
     [[params.profileMode.buttons]]
       name = "llms.txt"
-      url = "/llms.txt"
+      url = "llms.txt"
 
   [[params.socialIcons]]
     name = "github"
@@ -66,17 +66,17 @@ disableKinds = ["taxonomy", "term"]
 [menu]
   [[menu.main]]
     name = "Posts"
-    url = "/posts/"
+    url = "posts/"
     weight = 1
   [[menu.main]]
     name = "About"
-    url = "/about/"
+    url = "about/"
     weight = 2
   [[menu.main]]
     name = "Now"
-    url = "/now/"
+    url = "now/"
     weight = 3
   [[menu.main]]
     name = "Projects"
-    url = "/projects/"
+    url = "projects/"
     weight = 4
