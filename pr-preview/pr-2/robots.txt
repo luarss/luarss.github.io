@@ -1,0 +1,50 @@
+# Default policy
+User-agent: *
+Content-Signal: search=yes, ai-train=no, ai-input=yes
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+
+# AI training crawlers — opt out of training
+User-agent: GPTBot
+Content-Signal: ai-train=no
+Disallow: /
+
+User-agent: Google-Extended
+Content-Signal: ai-train=no
+Disallow: /
+
+User-agent: anthropic-ai
+Content-Signal: ai-train=no
+Disallow: /
+
+User-agent: CCBot
+Content-Signal: ai-train=no
+Disallow: /
+
+User-agent: Bytespider
+Content-Signal: ai-train=no
+Disallow: /
+
+User-agent: Applebot-Extended
+Content-Signal: ai-train=no
+Disallow: /
+
+User-agent: Amazonbot
+Content-Signal: ai-train=no
+Disallow: /
+
+# AI search and grounding crawlers — allow (drives traffic)
+User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+
+User-agent: Claude-Web
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+
+Sitemap: https://luarss.dev/pr-preview/pr-2/sitemap.xml
