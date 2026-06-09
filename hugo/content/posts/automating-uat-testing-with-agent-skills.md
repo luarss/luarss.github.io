@@ -2,15 +2,15 @@
 title: "Automating UAT Testing with Agent Skills: From Slack Noise to a Regression Suite"
 date: 2026-06-05
 draft: true
-description: "How we turned scattered Slack UAT feedback into a machine-parseable regression suite, verified by a browser-driving agent — and what we learned about 'fixed' vs 'verified'."
+description: "How we turned scattered Slack UAT feedback into a machine-parseable regression suite, verified by a browser-driving agent, and what we learned about 'fixed' vs 'verified'."
 keywords: ["UAT automation", "agent skills", "Claude Code", "regression testing", "browser automation", "MCP", "dashboard testing", "LLM agents"]
 tags: ["ai-engineering", "automation", "testing"]
 summary: "UAT feedback lives in chat, fixes are claimed in chat, and nobody re-checks. Here's a three-stage agent pipeline that closes the loop: summarise feedback, compile it into a regression suite, and verify it in a real browser."
 ---
 
 Every dashboard migration I've been near follows the same script. The vendor
-ships, testers pile feedback into a Slack channel — screenshots, bullet
-lists, "is this intended?" questions — the vendor posts a fix-log, and
+ships, testers pile feedback into a Slack channel: screenshots, bullet
+lists, "is this intended?" questions. The vendor posts a fix-log, and
 everyone moves on. Three weeks later someone notices the bug from week one
 is still there. Nobody re-checked. Nobody owns re-checking, because
 re-checking means scrolling months of chat and clicking through five
@@ -34,14 +34,14 @@ UAT feedback has three properties that make it rot:
    here is its current state*.
 
 The fix for all three is the same: convert feedback into a **regression
-suite** — a durable, append-only checklist — and make re-verification cheap
+suite**, a durable, append-only checklist, and make re-verification cheap
 enough that it actually happens.
 
 ## Stage 1: Summarise the feedback (agent reads the channel)
 
 The first skill reads the full history of the project channels through the
-Slack MCP connector — paginated channel reads plus the thread replies that
-top-level reads silently omit — and produces a per-person summary.
+Slack MCP connector (paginated channel reads plus the thread replies that
+top-level reads silently omit) and produces a per-person summary.
 
 Two design decisions did most of the work here:
 
@@ -56,7 +56,7 @@ Two design decisions did most of the work here:
   column?"), and a change request are different objects with different
   lifecycles. Collapsing them into one list is how action items get lost.
 
-The summary also reports who *hasn't* given feedback — testers who never
+The summary also reports who *hasn't* given feedback. Testers who never
 logged in are a finding, not an absence.
 
 ## Stage 2: Compile feedback into a regression suite
@@ -70,8 +70,8 @@ line of a markdown checklist:
       · src: <reporter>, <message-ts> · status: open
 ```
 
-The format is boring on purpose — one line per item, grouped under the
-dashboard URL it applies to — because the next stage parses it. The rules
+The format is boring on purpose (one line per item, grouped under the
+dashboard URL it applies to) because the next stage parses it. The rules
 that matter:
 
 - **Stable IDs, append-only.** `BVA-01` means the same check forever.
@@ -81,7 +81,7 @@ that matter:
   reported this?", the answer is one timestamp away.
 - **Fixed items don't leave the suite.** A vendor claim moves an item to
   `fixed-unverified`, not done. Only a verification run promotes it to
-  `verified-pass` — and it stays in the suite afterwards as a regression
+  `verified-pass`, and it stays in the suite afterwards as a regression
   guard. This single rule is the difference between a checklist and a
   regression suite.
 
@@ -101,7 +101,7 @@ A snapshot of a dashboard returns headings, table cells, filter buttons,
 and chart labels as structured text. "Does the variance card show
 -269.98%?" is a text match, not a vision problem. Screenshots are kept as
 *evidence* for humans; the *judgment* comes from the tree. A few checks are
-genuinely visual — truncated cells, bar-chart orientation — and for those
+genuinely visual (truncated cells, bar-chart orientation), and for those
 the agent reads the screenshot, but they're the minority.
 
 First live run, the suite caught:
@@ -110,8 +110,8 @@ First live run, the suite caught:
   fix-log claimed the surrounding area was standardised.
 - Two freshness indicators on the same dashboard disagreeing with each
   other ("data through February" next to "closed month: May").
-- As a side effect: the underlying data upload was three months stale —
-  not a dashboard bug at all, but a pipeline problem nobody had noticed
+- As a side effect: the underlying data upload was three months stale.
+  Not a dashboard bug at all, but a pipeline problem nobody had noticed
   because everyone was looking at chart formatting.
 
 That last one is worth dwelling on. Mechanical verification doesn't just
@@ -119,18 +119,18 @@ re-check known bugs; it looks at the boring parts humans skim past.
 
 ## What doesn't automate (yet)
 
-Honesty section. Two real limits:
+Two real limits:
 
 - **Remote scheduling breaks on the browser.** The summarisation stage can
-  run on a scheduled cloud agent — the Slack connector authenticates
+  run on a scheduled cloud agent, because the Slack connector authenticates
   server-side. The browser stage can't: it depends on a local Chrome with
   my SSO session, which a remote sandbox doesn't have. The path forward is
   an API variant (the dashboard tool has a REST API with scoped keys) for
   the data-level checks, leaving only the visual minority for local runs.
 - **Secrets management is primitive.** Scheduled agent runs have no secrets
   store today; an API key would be prompt-embedded in plaintext. The
-  mitigation is blast-radius control — a view-only key scoped to exactly
-  the dashboards under test — but it's a workaround, not a solution.
+  mitigation is blast-radius control: a view-only key scoped to exactly
+  the dashboards under test. But it's a workaround, not a solution.
 
 ## Takeaways
 
