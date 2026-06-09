@@ -3,6 +3,7 @@ locale = 'en-us'
 title = "Shui Song Luar"
 theme = "PaperMod"
 enableRobotsTXT = true
+copyright = "© 2020–2026 Shui Song Luar · Content licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)"
 # No tagged content yet — drop empty /tags/ and /categories/ pages so the
 # sitemap stops advertising URLs that robots.txt disallows.
 disableKinds = ["taxonomy", "term"]
