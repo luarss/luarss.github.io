@@ -2,13 +2,13 @@
 title: "Supply Chain Hygiene for Claude Code Plugins"
 date: 2026-06-06
 draft: true
-description: "How to pin Claude Code plugins, GitHub Actions, and zsh plugins to verified commit SHAs — and automate update checks before anything lands in your dev environment."
+description: "How to pin Claude Code plugins, GitHub Actions, and zsh plugins to verified commit SHAs, and automate update checks before anything lands in your dev environment."
 keywords: ["supply chain security", "Claude Code", "plugins", "dotfiles", "GitHub Actions", "SHA pinning"]
-summary: "Pinning every external dependency in your dev environment to an immutable SHA — and what that looks like in practice for Claude Code plugins."
+summary: "Pinning every external dependency in your dev environment to an immutable SHA, and what that looks like in practice for Claude Code plugins."
 tags: ["security", "devtools", "claude-code"]
 ---
 
-Most supply chain hardening guides focus on production: npm lockfiles, Docker image digests, Sigstore. Your local dev environment gets less attention, which is ironic — it's where your credentials, source code, and signing keys live.
+Most supply chain hardening guides focus on production: npm lockfiles, Docker image digests, Sigstore. Your local dev environment gets less attention, which is ironic: it's where your credentials, source code, and signing keys live.
 
 This post covers how I pin every external dependency in my dotfiles, with specific focus on Claude Code plugins, which have a less obvious trust story than npm packages or GitHub Actions.
 
@@ -27,10 +27,10 @@ The fix is the same in all cases: pin to a content-addressed reference (a commit
 This one is well-documented but still widely ignored. Every `uses:` step that references a tag is a live dependency:
 
 ```yaml
-# mutable — anyone who controls the repo can move this tag
+# mutable: anyone who controls the repo can move this tag
 - uses: actions/checkout@v4
 
-# immutable — this SHA cannot be repointed
+# immutable: this SHA cannot be repointed
 - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
 ```
 
@@ -38,7 +38,7 @@ To resolve a tag to its commit SHA:
 
 ```bash
 gh api repos/actions/checkout/git/ref/tags/v4.2.2 --jq .object.sha
-# For annotated tags, the above returns the tag object SHA — dereference one level:
+# For annotated tags, the above returns the tag object SHA; dereference one level:
 gh api repos/actions/checkout/git/tags/<tag-object-sha> --jq .object.sha
 ```
 
@@ -58,7 +58,7 @@ expected="e52ee8ca55bcc56a17c828767a3f98f22a68d4eb"
 [ "$actual" = "$expected" ] || { echo "SHA mismatch"; exit 1; }
 ```
 
-This two-step pattern — clone at a tag, then verify the SHA — guards against a compromised tag that points to a different commit than the one you audited.
+This two-step pattern (clone at a tag, then verify the SHA) guards against a compromised tag that points to a different commit than the one you audited.
 
 ## Claude Code plugins
 
@@ -84,7 +84,7 @@ Commit `installed_plugins.json` into your dotfiles repo and symlink it back:
 ln -sf "$DOTFILES/installed_plugins.json" "$HOME/.claude/plugins/installed_plugins.json"
 ```
 
-Now the locked SHAs travel with your dotfiles. When Claude Code upgrades a plugin, it updates the local file — which is your symlink — so the diff shows up in `git status`. You review it, commit it, and the new SHA is on record.
+Now the locked SHAs travel with your dotfiles. When Claude Code upgrades a plugin, it updates the local file (which is your symlink) so the diff shows up in `git status`. You review it, commit it, and the new SHA is on record.
 
 ### Automate update checks
 
@@ -138,13 +138,13 @@ Pair this with a GitHub Actions workflow on a weekly schedule that opens an issu
 
 ## What you can't pin
 
-**Homebrew** is the weak link. `brew bundle` has no lock file format — there's no equivalent of `yarn.lock` that records the resolved version of every formula. The best available mitigations are:
+**Homebrew** is the weak link. `brew bundle` has no lock file format: there's no equivalent of `yarn.lock` that records the resolved version of every formula. The best available mitigations are:
 
-- `brew bundle install --no-upgrade` — prevents silent upgrades on fresh installs
-- `brew pin <formula>` — holds a specific formula at its current version
+- `brew bundle install --no-upgrade` prevents silent upgrades on fresh installs
+- `brew pin <formula>` holds a specific formula at its current version
 - Audit third-party taps before adding them; prefer taps owned by the upstream vendor (e.g., `hashicorp/tap` for Terraform)
 
-For truly reproducible Homebrew installs, you'd need to vendor the formula files or run a private tap — which is overkill for most dotfiles setups.
+For truly reproducible Homebrew installs, you'd need to vendor the formula files or run a private tap, which is overkill for most dotfiles setups.
 
 ## The upgrade workflow
 
@@ -166,4 +166,4 @@ The overhead is low. The payoff is that every version change in your dev environ
 | Claude plugins | Committed `installed_plugins.json` | Weekly CI check |
 | Homebrew | `--no-upgrade` + `brew pin` | `brew outdated` |
 
-The full dotfiles implementation — install script, update checker, and workflow — is on [GitHub](https://github.com/luarss/dotfiles).
+The full dotfiles implementation (install script, update checker, and workflow) is on [GitHub](https://github.com/luarss/dotfiles).
