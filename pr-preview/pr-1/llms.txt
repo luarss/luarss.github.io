@@ -1,0 +1,37 @@
+# Shui Song Luar
+
+> Founding Engineer at SoraNova building AI knowledge platforms — production LLM systems, cloud infrastructure, and full-stack development. Based in Singapore.
+
+This file follows the [llms.txt](https://llmstxt.org/) convention to help large language models efficiently discover the most relevant information on this site.
+
+## About
+
+- [About](https://luarss.github.io/about/): Background, experience, education, and skills. Founding Engineer at SoraNova; previously AI Engineer at Espressif Systems and Graduate Research Assistant at NUS (IROS 2021 Best Paper Award).
+
+## Projects & Publications
+
+- [Projects index](https://luarss.github.io/projects/): Open source projects, publications, talks, and writing.
+- [nova-agent-runtime](https://github.com/SoraNovaAI/agent-runtime): AI agent framework with integrated tools, multi-agent workflows, evaluation loops, native MCP integration, and YAML-based declarative configuration.
+- [openroad-mcp](https://github.com/luarss/openroad-mcp): MCP server enabling real-time AI-driven debugging for chip designers in OpenROAD.
+- [ORAssistant](https://github.com/luarss/ORAssistant): Production-ready LLM chatbot assistant for the OpenROAD chip design tool.
+
+## Publications
+
+- [ORAssistant: A Custom RAG-based Conversational Assistant for OpenROAD](https://arxiv.org/pdf/2410.03845) (WOSET 2024): RAG-based conversational assistant for chip design automation.
+- [Extended Tactile Perception: Vibration Sensing through Tools and Grasped Objects](https://arxiv.org/pdf/2106.00489) (IROS 2021, Best Paper Award): ML classification on high-dimensional time-series tactile sensor data.
+
+## Writing
+
+- [OpenROAD MCP: Let AI Close Your Timing](https://dev.to/luarss/openroad-mcp-let-ai-close-your-timing-47h6) (Feb 2026): Server enabling AI assistants to drive OpenROAD for timing analysis and constraint adjustment.
+- [Building Robust AI Research Agents: A tale of five specialists](https://soranovaai.github.io/post/deep-research) (Nov 2025): Four architectural iterations of a deep research workflow for VCs.
+- [Multi-Agent Systems Are 23x Cheaper Than Deep Research Models with Higher Quality](https://soranovaai.github.io/post/multi-agent-hypothesis-generation-benchmark) (Nov 2025): Benchmarking 11 specialised agents against single-model and deep reasoning models across 5 scientific domains.
+
+## Contact
+
+- GitHub: https://github.com/luarss
+- LinkedIn: https://www.linkedin.com/in/song-luar/
+- Email: espsluar@gmail.com
+
+## Usage policy
+
+This site's [robots.txt](https://luarss.github.io/robots.txt) declares Content Signals: `search=yes, ai-train=no, ai-input=yes`. Content may be used for search indexing and as real-time AI input (e.g., grounding), but not for training generative AI models.
