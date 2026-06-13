@@ -1,11 +1,11 @@
 ---
 title: "When to Stop Letting the Agent Judge: Porting a UAT Regression Suite to Playwright"
-date: 2026-06-12
+date: 2026-06-13
 draft: true
-description: "The browser stage of my agentic UAT pipeline re-judged every check on every run. Here's why I moved detection into Playwright assertions, the before/after eval, and the auth wall that didn't move."
+description: "The browser stage of my agentic UAT pipeline re-judged every check on every run. Here's why I moved detection into Playwright assertions, the before/after eval, the live cut-over — and the selectors that didn't survive contact with the real DOM."
 keywords: ["UAT automation", "Playwright", "agent skills", "Claude Code", "regression testing", "browser automation", "MCP", "deterministic testing", "LLM agents"]
 tags: ["ai-engineering", "automation", "testing"]
-summary: "An agent eyeballing an accessibility tree is the right tool for figuring out what to check, and the wrong tool for checking the same thing the thirtieth time. I ported the verification stage to Playwright and measured the difference: 11/11 verdict parity, zero variance across runs, seconds instead of minutes."
+summary: "An agent eyeballing an accessibility tree is the right tool for figuring out what to check, and the wrong tool for checking the same thing the thirtieth time. I ported the verification stage to Playwright, validated it against a fixture, then ran it against live Metabase: full-suite parity, zero variance, and a handful of selectors that needed fixing once the real DOM showed up."
 ---
 
 In the [last post](/posts/automating-uat-testing-with-agent-skills/) I
@@ -76,33 +76,36 @@ The verdict map for the suite came out roughly:
 The division of labour is the point. Playwright does *detection*. The agent does
 *triage, narrative, and the part no browser can settle.*
 
-## The eval
+## The eval, in two gates
 
-A migration claim deserves numbers, so I ported a representative slice — eleven
-checks spanning every technique the suite needs (format scan, layout probe,
-computed-style, filter-popover read, structural text, header scan) — and built
-a fixture that reproduces the dashboard DOM in the exact states my prior runs
-had recorded by hand. Then I ran the Playwright suite against it, blind, and
-compared its verdicts to the ones a human had written down over the previous
-week.
+A migration claim deserves numbers, and the suite now has two gates that earn
+them.
+
+The first is a **fixture** — a set of HTML files that reproduce the dashboard
+DOM in the exact pass/fail states my prior runs recorded by hand. It runs
+headless, with no auth, in about twenty seconds, and it's the parity gate: every
+test must produce the verdict the human wrote down. The whole automated set —
+**31 checklist IDs, 53 tests across five dashboards** — runs against it.
 
 | Dimension | Before (agent judges each run) | After (Playwright asserts) |
 | --- | --- | --- |
-| Verdict parity with human record | — (it *is* the human judgment) | **11 / 11** |
-| Variance across 5 repeat runs | re-judged each time; can drift | **0** |
-| Wall-clock for the slice | minutes of model round-trips | **~7 s** |
+| Verdict parity with human record | — (it *is* the human judgment) | **full suite** |
+| Variance across repeat runs | re-judged each time; can drift | **0** |
+| Wall-clock | minutes of model round-trips | **~20 s** (fixture), ~3 min (live) |
 | Model tokens for detection | high (snapshots re-shipped each run) | **~0** until a failure needs triage |
 | Evidence | screenshots captured by hand | auto screenshot + trace + video + report |
 
-Eleven for eleven on parity, and — the number I actually cared about — **zero
-variance across five consecutive runs.** Five passes, six failures, the same
-six, every single time. That's the property the agentic version structurally
+The fixture gate lands at **39 pass / 14 fail**, and the fourteen failures are
+*exactly* the items the ledger records as broken — the suite reproduces the
+known-bad states by design, so a known-broken check fails on purpose. The number
+I actually cared about is the one that isn't in the table: **zero variance.**
+Same fourteen, every run. That's the property the agentic version structurally
 could not promise.
 
-None of this makes the agent obsolete. It makes the agent's contribution
-*durable*. The reconnaissance it did once is now frozen into eleven assertions
-that will re-run identically long after the conversation that produced them
-scrolled out of anyone's memory.
+But the fixture only proves the assertions encode the right verdicts. It does
+*not* prove the selectors survive the live DOM. So the second gate is the one
+the first version of this post was still waiting on: an actual run against live
+Metabase.
 
 ## The friction nobody blogs about
 
@@ -122,40 +125,82 @@ I'm listing these because "just use Playwright" hides a half-hour of
 environment archaeology, and the environment archaeology is most of what makes
 the difference between a demo and something that runs on a schedule.
 
-## The wall that didn't move
+## Crossing the auth wall
 
-The first post named two limits. The Playwright port clears one and runs
-straight into the other.
+The first version of this post ended here, on the auth wall: the dashboards sit
+behind SSO, the whole suite needs a logged-in session, and the Chrome the
+DevTools MCP drives holds an exclusive profile lock with no debugging port.
 
-It clears *brittleness*: detection is now deterministic and headless, so it
-*could* run unattended.
+The fix turned out to be a *separate* Chrome — launched with
+`--remote-debugging-port=9222` against its own `--user-data-dir`, signed into
+Metabase once. Playwright attaches over CDP and reuses that logged-in context.
+One sharp edge worth recording: recent Chrome **silently ignores the
+debug-port flag on your default profile** — a deliberate mitigation against
+malware attaching to your everyday browser and lifting its cookies. So the
+dedicated profile isn't a nicety, it's mandatory; point the flag at the default
+profile and the port never opens. I wrapped the launch in a `make chrome` target
+so it's one command, not a remembered incantation.
 
-It does **not** clear *auth*. The dashboards sit behind SSO, and the whole
-suite depends on a logged-in session. My first instinct was to attach Playwright
-to the same Chrome the DevTools MCP already drives — reuse the live session, no
-re-auth. Probing it killed the idea: that browser holds an exclusive profile
-lock and exposes no debugging port. The live cut-over needs its *own* Chrome,
-launched with a remote-debugging port against an already-authenticated profile —
-which is a thing a human starts, not a thing a scheduled cloud agent conjures.
+This is still a human-starts-it step, not something a scheduled cloud agent
+conjures — but it's a thirty-second human step, after which detection runs
+deterministically. That's a different posture from "an agent must babysit every
+run."
 
-So the honest status is: detection is solved and measured; the live,
-unattended, end-to-end run still waits on the same auth problem the first post
-ended on. The fixture proves the assertions encode the right verdicts. It does
-not prove the selectors survive contact with the live DOM. That's the next
-spike, and it needs a logged-in session I can attach to.
+## Contact with the live DOM
+
+The fixture proved the verdicts. The live run tested the *selectors* — and that's
+where the interesting part was, because the fixture had quietly lied about the
+shape of the DOM.
+
+Three things broke, and each one is a small lesson:
+
+- **The charts have no DOM.** Every chart renders to a `<canvas>` (ECharts) —
+  bar geometry, axis labels, orientation, none of it is in the tree. The fixture
+  modelled them as SVG `<rect>`s, which was convenient and wrong. The fix was to
+  stop reading the render and read the *data*: query Metabase's own card API
+  (same-origin, riding the session cookie) and assert on the rows the chart is
+  built from. A chart check that can't see the chart still verifies the thing
+  that matters.
+- **Pivot tables have no headers.** No `<table>`, no `<th>` — every cell, header
+  and body alike, is the same `[data-testid="pivot-table-cell"]`, structurally
+  indistinguishable. Checks like "is the `Sort` helper column hidden?" had to
+  scan cell *text* instead of querying header elements that don't exist.
+- **A missed selector passed silently.** This is the one that would have bitten
+  me later. A probe like "no badly-formatted currency cells" returns an empty
+  list two ways: everything's fine, or the selector matched *nothing*. Against
+  the live DOM, several selectors matched nothing — and reported a clean pass.
+  The fix is to make probes return `{ checked, bad }` and assert `checked > 0`:
+  if a currency check examined zero cells, that's a failure, not a pass. A
+  regression suite that can pass by seeing nothing isn't a regression suite.
+
+The live run came back **36 pass / 17 fail**, and — after fixing those three
+classes of drift — every one of the seventeen is a verdict I trust: a real
+broken dashboard behaviour, not a probe that lost its footing. The suite even
+caught movement in *both* directions. One check (an aging-bucket that used to be
+missing) now passes — the vendor quietly fixed it. Another (a chart that
+overflows a 100-series limit) is still broken, but the vendor *tightened the
+workaround* that hides it, so reproducing the bug now takes clearing two filters
+instead of one. That's the suite earning its keep: it noticed a fix and a
+goalpost-move on the same pass, without anyone re-eyeballing a dashboard.
 
 ## Takeaways
 
 1. **Let the agent decide *what* to assert; let code do the *asserting*.**
    Judgment is the agent's edge. Re-running a settled judgment is not — that's
    a job for a deterministic test, run for free, forever.
-2. **Determinism is a feature you can measure.** "Zero variance across five
-   runs" is a sentence the agentic version could never truthfully say. If your
+2. **Determinism is a feature you can measure.** "Zero variance across runs" is
+   a sentence the agentic version could never truthfully say. If your
    verification can't promise the same answer twice, it isn't a regression
    suite yet.
 3. **Keep the ledger; swap the detector.** The human-readable, stable-ID,
    source-traceable suite file didn't change. Only the thing that fills in the
    statuses did. The artifact was always the asset.
-4. **The hard part was never the happy path.** Caches, sandboxes, and SSO ate
-   the time. The auth wall is still standing. Worth knowing before you promise
-   anyone a nightly run.
+4. **A fixture validates verdicts; only the live DOM validates selectors.** The
+   fixture eval was necessary and not sufficient — it proved the assertions
+   encode the right logic, then the live run quietly broke a third of the
+   selectors (canvas charts, headerless pivots). Both gates earn their place;
+   don't mistake passing the first for passing the second.
+5. **The most dangerous test result is a silent empty pass.** A probe that
+   matches nothing and reports "all good" is worse than one that errors. Make
+   checks prove they examined something — assert `checked > 0` — or you'll ship
+   a suite that's green because it's blind.
