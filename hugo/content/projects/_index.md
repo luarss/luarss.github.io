@@ -33,13 +33,6 @@ ML classification models for high-dimensional time-series tactile sensor data en
 
 ---
 
-## Talks
-
-**Free Silicon Conference 2026** _(upcoming)_
-Talk on **openroad-mcp** - title TBC.
-
----
-
 ## Writing
 
 **[OpenROAD MCP: Let AI Close Your Timing](https://dev.to/luarss/openroad-mcp-let-ai-close-your-timing-47h6)** _(Feb 2026)_
