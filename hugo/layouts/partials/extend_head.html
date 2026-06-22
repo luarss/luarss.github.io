@@ -12,65 +12,90 @@
     gtag('config', 'G-08XGCXHEJ5');
 </script>
 
-{{- /* Person / ProfilePage JSON-LD — emitted on homepage and About page only.
-       Helps search and AI systems resolve this site to a single Person entity
-       with verified social profiles and a concise professional summary. */ -}}
-{{- if and (hugo.IsProduction | or (eq site.Params.env "production")) (or .IsHome (eq .RelPermalink "/about/")) }}
+{{- /* JSON-LD identity graph. WebSite (#website) and Person (#person) are
+       emitted on every page so single-page (LLM) crawlers always resolve the
+       author entity; the full ProfilePage is added on the homepage and About
+       page. Nodes are cross-linked by @id, including PaperMod's BlogPosting
+       author/publisher (see layouts/partials/templates/schema_json.html).
+       Production-gated to match the rest of our schema. */ -}}
+{{- if (hugo.IsProduction | or (eq site.Params.env "production")) }}
+{{- $isProfile := (or .IsHome (eq .RelPermalink "/about/")) }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "dateCreated": "2026-02-22T00:00:00+08:00",
-  "dateModified": "{{ now.Format "2006-01-02T15:04:05-07:00" }}",
-  "mainEntity": {
-    "@type": "Person",
-    "@id": "{{ site.BaseURL }}#person",
-    "name": "Shui Song Luar",
-    "alternateName": "luarss",
-    "url": "{{ site.BaseURL }}",
-    "jobTitle": "Founding Engineer",
-    "description": "Founding Engineer building production LLM systems, multi-agent AI workflows, RAG with hybrid retrieval, and cloud infrastructure.",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "SoraNova",
-      "url": "https://soranovaai.github.io"
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{ site.BaseURL }}#website",
+      "url": "{{ site.BaseURL }}",
+      "name": {{ site.Title | jsonify }},
+      "alternateName": "luarss",
+      "description": {{ site.Params.description | jsonify }},
+      "inLanguage": "{{ site.Language.Lang | default "en-us" }}",
+      "publisher": { "@id": "{{ site.BaseURL }}#person" }
     },
-    "alumniOf": [
-      {
-        "@type": "CollegeOrUniversity",
-        "name": "National University of Singapore",
-        "url": "https://www.nus.edu.sg/"
+    {
+      "@type": "Person",
+      "@id": "{{ site.BaseURL }}#person",
+      "name": "Shui Song Luar",
+      "alternateName": "luarss",
+      "givenName": "Shui Song",
+      "familyName": "Luar",
+      "url": "{{ site.BaseURL }}",
+      "jobTitle": "Founding Engineer",
+      "description": "Founding Engineer building production LLM systems, multi-agent AI workflows, RAG with hybrid retrieval, and cloud infrastructure.",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "SoraNova",
+        "url": "https://soranovaai.github.io"
       },
-      {
-        "@type": "CollegeOrUniversity",
-        "name": "Nanyang Technological University",
-        "url": "https://www.ntu.edu.sg/"
-      }
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Singapore",
-      "addressCountry": "SG"
-    },
-    "knowsAbout": [
-      "Large Language Models",
-      "Retrieval-Augmented Generation",
-      "Multi-Agent Systems",
-      "Model Context Protocol",
-      "Production AI Systems",
-      "Cloud Infrastructure",
-      "DevOps",
-      "Deep Reinforcement Learning",
-      "Chip Design Automation"
-    ],
-    "knowsLanguage": ["en"],
-    "sameAs": [
-      "https://github.com/luarss",
-      "https://www.linkedin.com/in/song-luar/",
-      "https://soranovaai.github.io",
-      "https://dev.to/luarss"
-    ]
-  }
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "National University of Singapore",
+          "url": "https://www.nus.edu.sg/"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Nanyang Technological University",
+          "url": "https://www.ntu.edu.sg/"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Singapore",
+        "addressCountry": "SG"
+      },
+      "knowsAbout": [
+        "Large Language Models",
+        "Retrieval-Augmented Generation",
+        "Multi-Agent Systems",
+        "Model Context Protocol",
+        "Production AI Systems",
+        "Cloud Infrastructure",
+        "DevOps",
+        "Deep Reinforcement Learning",
+        "Chip Design Automation"
+      ],
+      "knowsLanguage": ["en"],
+      "sameAs": [
+        "https://github.com/luarss",
+        "https://www.linkedin.com/in/song-luar/",
+        "https://soranovaai.github.io",
+        "https://dev.to/luarss"
+      ]
+    }{{ if $isProfile }},
+    {
+      "@type": "ProfilePage",
+      "@id": "{{ .Permalink }}#profilepage",
+      "url": "{{ .Permalink }}",
+      "name": {{ .Title | jsonify }},
+      "isPartOf": { "@id": "{{ site.BaseURL }}#website" },
+      "dateCreated": "2026-02-22T00:00:00+08:00",
+      "dateModified": "{{ now.Format "2006-01-02T15:04:05-07:00" }}",
+      "mainEntity": { "@id": "{{ site.BaseURL }}#person" }
+    }{{ end }}
+  ]
 }
 </script>
 {{- end }}
