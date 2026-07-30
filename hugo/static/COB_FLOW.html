@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Procure-to-Pay Flows (Request for Payment / Request for Approval)</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'JetBrains Mono', monospace; background: #020617; min-height: 100vh; padding: 2rem; color: #e2e8f0; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; }
+    .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .pulse-dot { width: 12px; height: 12px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
+    .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
+    .flow { background: rgba(15, 23, 42, 0.5); border-radius: 1rem; border: 1px solid #1e293b; padding: 1.5rem; margin-bottom: 2rem; overflow-x: auto; }
+    .flow h2 { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem; }
+    .flow .tag { color: #94a3b8; font-size: 0.8rem; margin-bottom: 1.25rem; }
+    .mermaid { display: flex; justify-content: center; }
+    .notes { background: rgba(15, 23, 42, 0.5); border-radius: 0.75rem; border: 1px solid #1e293b; padding: 1.25rem; }
+    .notes h3 { font-size: 0.95rem; color: #fbbf24; margin-bottom: 0.75rem; }
+    .notes ul { list-style: none; }
+    .notes li { font-size: 0.85rem; color: #cbd5e1; padding: 0.35rem 0 0.35rem 1.25rem; position: relative; line-height: 1.5; }
+    .notes li::before { content: '▸'; position: absolute; left: 0; color: #22d3ee; }
+    .notes b { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-row">
+        <div class="pulse-dot"></div>
+        <h1>Procure-to-Pay Flows</h1>
+      </div>
+      <div class="subtitle">Request for Payment &nbsp;·&nbsp; Request for Approval</div>
+    </div>
+
+    <div class="flow">
+      <h2>1 — Request for Payment</h2>
+      <div class="tag">Raise → Approver → Finance Ops → (optional) vendor docs → stage cleared</div>
+      <pre class="mermaid">
+flowchart TD
+    A([Requester raises request]) --> B[Attach quotation]
+    B --> C{Approver approves?}
+    C -->|No| X([Rejected / returned])
+    C -->|Yes| D[Route to Finance Ops]
+    D --> E[Finance Ops does manual processing]
+    E --> F{Existing vendor bank account on file?<br/>marked by requester}
+    F -->|Yes| H([Documents stage cleared])
+    F -->|No| G[Route back to requester for documents]
+    G --> G1[1 · Vendor creation form]
+    G --> G2[2 · Bank account proof]
+    G1 --> I[Requester submits documents]
+    G2 --> I
+    I --> J[Route back to Finance Ops to clear stage]
+    J --> H
+    H --> K([Proceed to Request for Approval])
+      </pre>
+    </div>
+
+    <div class="flow">
+      <h2>2 — Request for Approval</h2>
+      <div class="tag">Prereqs met → Finance Office → vendor invoice → OCR amount check → payment platform</div>
+      <pre class="mermaid">
+flowchart TD
+    A([Prerequisites met · all documents in place]) --> B[Finance Ops routes to Finance Office manually]
+    B --> C{Finance Office confirmation received?}
+    C -->|No| C
+    C -->|Yes| D[Prompt vendor to submit invoice]
+    D --> E[Vendor submits invoice]
+    E --> F["OCR extracts invoice amount<br/>suggested amount shown to Finance Ops only"]
+    F --> G{Invoice amount &lt;= quoted / approved amount?<br/>manual check at first}
+    G -->|No| H([Reject / query vendor])
+    H --> D
+    G -->|Yes| I[Route to payment platform]
+    I --> J([Automation to be built here])
+      </pre>
+    </div>
+
+    <div class="notes">
+      <h3>Assumptions &amp; open points</h3>
+      <ul>
+        <li><b>Optional docs branch:</b> "Existing bank account on file = Yes" skips document collection; "No" routes back to the requester for the vendor-creation form + bank-account proof, then returns to Finance Ops to clear the stage.</li>
+        <li><b>OCR step:</b> initially a manual gate — OCR only <i>suggests</i> the amount, visible to Finance Ops on the frontend; not yet an automated pass/fail.</li>
+        <li><b>Rejection loops:</b> approver-reject and OCR-mismatch return points are inferred, not fully specified.</li>
+        <li><b>Payment platform:</b> handoff to the payment board is where the downstream automation will be built.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        fontFamily: "'JetBrains Mono', monospace",
+        primaryColor: '#0f172a',
+        primaryBorderColor: '#22d3ee',
+        primaryTextColor: '#e2e8f0',
+        lineColor: '#475569',
+        secondaryColor: '#1e293b',
+        tertiaryColor: '#0f172a',
+      },
+      flowchart: { curve: 'basis', useMaxWidth: true },
+    });
+  </script>
+</body>
+</html>
