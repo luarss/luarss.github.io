@@ -36,58 +36,44 @@
         <div class="pulse-dot"></div>
         <h1>Procure-to-Pay Flows</h1>
       </div>
-      <div class="subtitle">Request for Payment &nbsp;·&nbsp; Request for Approval</div>
+      <div class="subtitle">Request for Payment — raise → approve → account check → invoice / value → RFP → payment</div>
     </div>
 
     <div class="flow">
-      <h2>1 — Request for Payment</h2>
-      <div class="tag">Raise → Approver → Finance Ops → (optional) vendor docs → stage cleared</div>
+      <h2>Request for Payment — end to end</h2>
+      <div class="tag">Raise → Approver approves → payment account check → invoice / value → Finance Ops RFP → Finance Office → Approver approves payment → processed</div>
       <pre class="mermaid">
 flowchart TD
     A([Requester raises request]) --> B[Attach quotation]
     B --> C{Approver approves?}
     C -->|No| X([Rejected / returned])
-    C -->|Yes| D[Route to Finance Ops]
-    D --> E[Finance Ops does manual processing]
-    E --> F{Existing vendor bank account on file?<br/>marked by requester}
-    F -->|Yes| H([Documents stage cleared])
-    F -->|No| G[Route back to requester for documents]
+    C -->|Yes| D{Payment account on file?<br/>marked by requester}
+    D -->|No| G[Doc request · route back to requester]
     G --> G1[1 · Vendor creation form]
     G --> G2[2 · Bank account proof]
-    G1 --> I[Requester submits documents]
-    G2 --> I
-    I --> J[Route back to Finance Ops to clear stage]
-    J --> H
-    H --> K([Proceed to Request for Approval])
-      </pre>
-    </div>
-
-    <div class="flow">
-      <h2>2 — Request for Approval</h2>
-      <div class="tag">Prereqs met → Finance Office → vendor invoice → OCR amount check → payment platform</div>
-      <pre class="mermaid">
-flowchart TD
-    A([Prerequisites met · all documents in place]) --> B[Finance Ops routes to Finance Office manually]
-    B --> C{Finance Office confirmation received?}
-    C -->|No| C
-    C -->|Yes| D[Prompt vendor to submit invoice]
-    D --> E[Vendor submits invoice]
-    E --> F["OCR extracts invoice amount<br/>suggested amount shown to Finance Ops only"]
-    F --> G{Invoice amount &lt;= quoted / approved amount?<br/>manual check at first}
-    G -->|No| H([Reject / query vendor])
-    H --> D
-    G -->|Yes| I[Route to payment platform]
-    I --> J([Automation to be built here])
+    G1 --> F
+    G2 --> F
+    D -->|Yes| F[Route back to requester to<br/>submit invoice / key in value]
+    F --> H{Value matches or below<br/>quoted / approved amount?}
+    H -->|No| R([Reject / query · resubmit])
+    R --> F
+    H -->|Yes| I[Route to Finance Ops to submit<br/>Request for Payment RFP]
+    I --> J[Finance Office routes to Approver<br/>to approve payment]
+    J --> K{Approver approves payment?}
+    K -->|No| R
+    K -->|Yes| L([Payment processed])
+    L --> M([Future · link to payment platform automation])
       </pre>
     </div>
 
     <div class="notes">
       <h3>Assumptions &amp; open points</h3>
       <ul>
-        <li><b>Optional docs branch:</b> "Existing bank account on file = Yes" skips document collection; "No" routes back to the requester for the vendor-creation form + bank-account proof, then returns to Finance Ops to clear the stage.</li>
-        <li><b>OCR step:</b> initially a manual gate — OCR only <i>suggests</i> the amount, visible to Finance Ops on the frontend; not yet an automated pass/fail.</li>
-        <li><b>Rejection loops:</b> approver-reject and OCR-mismatch return points are inferred, not fully specified.</li>
-        <li><b>Payment platform:</b> handoff to the payment board is where the downstream automation will be built.</li>
+        <li><b>Finance Ops moved downstream:</b> Finance Ops no longer does manual processing right after approval — they enter only to submit the Request for Payment (RFP) once the invoice value has cleared the check.</li>
+        <li><b>Payment account branch:</b> "Payment account on file = Yes" skips document collection; "No" issues a doc request back to the requester for the vendor-creation form + bank-account proof before continuing to the invoice step.</li>
+        <li><b>Value check:</b> the requester submits the invoice / keys in the value; if it matches or is below the quoted / approved amount it proceeds, otherwise it is queried and resubmitted. Initially a manual gate.</li>
+        <li><b>Payment approval:</b> after Finance Ops submits the RFP, the Finance Office routes it to the Approver for payment approval; on approval the payment is processed.</li>
+        <li><b>Payment platform:</b> future work — the processed payment hands off to the payment platform for automation.</li>
       </ul>
     </div>
   </div>
