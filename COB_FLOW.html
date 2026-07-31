@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Procure-to-Pay Flows (Request for Payment / Request for Approval)</title>
+  <title>Purser — Core Operating Budget Flows (Request for Payment / Request for Approval)</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
   <style>
@@ -34,46 +34,64 @@
     <div class="header">
       <div class="header-row">
         <div class="pulse-dot"></div>
-        <h1>Procure-to-Pay Flows</h1>
+        <h1>Purser — Core Operating Budget Flows</h1>
       </div>
-      <div class="subtitle">Request for Payment — raise → approve → account check → invoice / value → RFP → payment</div>
+      <div class="subtitle">Request for Payment — raise → Owner approves → NUS bank account → vendor creation (Coordinator) → invoice → BMC Helix RFP → Owner releases funds</div>
     </div>
 
     <div class="flow">
       <h2>Request for Payment — end to end</h2>
-      <div class="tag">Raise → Approver approves → payment account check → invoice / value → Finance Ops RFP → Finance Office → Approver approves payment → processed</div>
+      <div class="tag">Raise → Owner approves → NUS bank account check → Coordinator registers vendor under OFN → invoice / value → BMC Helix RFP (OFN callback) → Owner releases funds → processed</div>
       <pre class="mermaid">
 flowchart TD
     A([Requester raises request]) --> B[Attach quotation]
-    B --> C{Approver approves?}
-    C -->|No| X([Rejected / returned])
-    C -->|Yes| D{Payment account on file?<br/>marked by requester}
-    D -->|No| G[Doc request · route back to requester]
-    G --> G1[1 · Vendor creation form]
-    G --> G2[2 · Bank account proof]
-    G1 --> F
-    G2 --> F
-    D -->|Yes| F[Route back to requester to<br/>submit invoice / key in value]
-    F --> H{Value matches or below<br/>quoted / approved amount?}
-    H -->|No| R([Reject / query · resubmit])
+    B --> C{Owner approves?}
+    C -->|No| X([Rejected])
+    C -->|Yes| D{Registered bank account<br/>with NUS before?}
+
+    subgraph vendor [Vendor onboarding]
+        direction TB
+        G[Doc request back to requester]
+        G --> G1[Vendor creation form]
+        G --> G2[Bank account proof]
+        G1 --> V[Coordinator registers<br/>vendor under OFN]
+        G2 --> V
+    end
+
+    D -->|No| G
+    V --> F
+    D -->|Yes| F[Requester submits invoice<br/>and keys in value]
+
+    F --> H{Value at or below<br/>approved amount?}
+    H -->|No| R([Reject · Resubmit])
     R --> F
-    H -->|Yes| I[Route to Finance Ops to submit<br/>Request for Payment RFP]
-    I --> J[Finance Office routes to Approver<br/>to approve payment]
-    J --> K{Approver approves payment?}
-    K -->|No| R
+    H -->|Yes| I[BMC Helix RFP<br/>callback once approved by OFN]
+
+    I --> K{Owner releases funds?}
     K -->|Yes| L([Payment processed])
-    L --> M([Future · link to payment platform automation])
+    L --> M([Future · BMC Helix<br/>payment automation])
+    K -->|No| N{Outcome?}
+    N -->|Resubmit with different<br/>invoice / amount| F
+    N -->|Re-request approval| A
+    N -->|Rejected| Z([Rejected · terminal])
+
+    classDef terminal fill:#3f1d2e,stroke:#f87171,color:#fecaca;
+    classDef success fill:#0f2e24,stroke:#34d399,color:#bbf7d0;
+    class X,R,Z terminal;
+    class L,M success;
       </pre>
     </div>
 
     <div class="notes">
       <h3>Assumptions &amp; open points</h3>
       <ul>
-        <li><b>Finance Ops moved downstream:</b> Finance Ops no longer does manual processing right after approval — they enter only to submit the Request for Payment (RFP) once the invoice value has cleared the check.</li>
-        <li><b>Payment account branch:</b> "Payment account on file = Yes" skips document collection; "No" issues a doc request back to the requester for the vendor-creation form + bank-account proof before continuing to the invoice step.</li>
+        <li><b>Approvals are Owner-owned:</b> both the first approval (after the quotation is attached) and the final fund release come from the <b>Owner</b> (Gary), not an Approver. The scoped Approver role no longer gates this flow.</li>
+        <li><b>NUS bank account branch:</b> "Have you registered your bank account with NUS before? = Yes" skips document collection; "No" issues a doc request back to the requester for the vendor-creation form + bank-account proof.</li>
+        <li><b>Vendor creation (Coordinator):</b> once all docs are submitted and in order, <b>Coordinator</b> — admin staff, not an Approver role — manually registers the vendor under OFN before the flow continues to the invoice step.</li>
         <li><b>Value check:</b> the requester submits the invoice / keys in the value; if it matches or is below the quoted / approved amount it proceeds, otherwise it is queried and resubmitted. Initially a manual gate.</li>
-        <li><b>Payment approval:</b> after Finance Ops submits the RFP, the Finance Office routes it to the Approver for payment approval; on approval the payment is processed.</li>
-        <li><b>Payment platform:</b> future work — the processed payment hands off to the payment platform for automation.</li>
+        <li><b>BMC Helix RFP:</b> the separate Finance Ops RFP + OFN payment-approval steps are replaced by a single <b>BMC Helix RFP block</b>. It sends a callback once approved by OFN, after which the Owner (Gary) gives one final approval to release the funds.</li>
+        <li><b>Final release outcomes:</b> if the Owner does not release the funds, there are three paths — <b>resubmit</b> with a different invoice / approved claim amount (back to the value step), <b>rejected</b> (terminal state), or <b>re-request for approval</b> (starts over from the top).</li>
+        <li><b>BMC Helix automation:</b> future work — the processed payment hands off to BMC Helix for payment automation.</li>
       </ul>
     </div>
   </div>
