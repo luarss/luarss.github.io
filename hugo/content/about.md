@@ -36,6 +36,19 @@ Previously I was an AI Engineer at [Espressif Systems](https://www.espressif.com
 
 ---
 
+## Open Source
+
+**Open Source Contributor - OpenROAD** _(May 2023 – Present)_
+
+OpenROAD is the leading open-source, foundational application for semiconductor digital design ([github.com/The-OpenROAD-Project/OpenROAD](https://github.com/The-OpenROAD-Project/OpenROAD))
+
+- Automated the generation of ~3000 Linux manpages by parsing regexes from existing documentation, and ensured style consistency by creating CI and regression tests in Tcl and Python
+- Led LLM chatbot assistant project (ORAssistant) with 2 students by building highly modular components - data pipeline, fine-tuning, retrieval, evaluation and inference. This project is published at WOSET 2024
+- Led efforts in implementing the productionization of the OpenROAD AutoTuner, by setting up a test framework, distributed autoscaling via Ray Cluster. The AutoTuner is a wrapper of Ray Tune for automatic hyperparameter tuning in the OpenROAD-flow
+- Mentoring a student contributor on openroad-mcp, an MCP server enabling real-time AI-driven debugging for chip designers in OpenROAD, as part of Google Summer of Code (GSoC) 2026
+
+---
+
 ## Education
 
 **M.Sc. Computer Science - National University of Singapore** _(Aug 2020 – Oct 2022)_
