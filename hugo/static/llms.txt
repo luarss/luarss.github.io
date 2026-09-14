@@ -30,7 +30,7 @@ This file follows the [llms.txt](https://llmstxt.org/) convention to help large 
 
 - GitHub: https://github.com/luarss
 - LinkedIn: https://www.linkedin.com/in/song-luar/
-- Email: espsluar@gmail.com
+- Email: me@luarss.dev
 
 ## Usage policy
 
