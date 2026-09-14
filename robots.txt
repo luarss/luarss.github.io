@@ -1,20 +1,85 @@
-# Default policy
+# Default: public content is searchable and usable for inference,
+# but not for AI training.
 User-agent: *
 Content-Signal: search=yes, ai-train=no, ai-input=yes
 Allow: /
 Disallow: /tags/
 Disallow: /categories/
 
-# AI training crawlers — opt out of training
+
+# ============================================================
+# OPENAI
+# ============================================================
+
+# Training — BLOCK
 User-agent: GPTBot
 Content-Signal: ai-train=no
 Disallow: /
 
-User-agent: Google-Extended
+# ChatGPT Search — ALLOW
+User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+
+# User-initiated ChatGPT fetches — ALLOW
+User-agent: ChatGPT-User
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+
+# ============================================================
+# ANTHROPIC / CLAUDE
+# ============================================================
+
+# Training — BLOCK
+User-agent: anthropic-ai
 Content-Signal: ai-train=no
 Disallow: /
 
-User-agent: anthropic-ai
+# General Claude crawler — ALLOW for discovery
+User-agent: ClaudeBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+
+# Claude search — ALLOW
+User-agent: Claude-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+
+# User-triggered Claude fetches — ALLOW
+User-agent: Claude-User
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+
+# ============================================================
+# PERPLEXITY
+# ============================================================
+
+# Perplexity search/indexing — ALLOW
+User-agent: PerplexityBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+
+# User-triggered Perplexity fetches — ALLOW
+User-agent: Perplexity-User
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+
+# ============================================================
+# OTHER AI TRAINING CRAWLERS — BLOCK
+# ============================================================
+
+User-agent: Google-Extended
 Content-Signal: ai-train=no
 Disallow: /
 
@@ -34,17 +99,5 @@ User-agent: Amazonbot
 Content-Signal: ai-train=no
 Disallow: /
 
-# AI search and grounding crawlers — allow (drives traffic)
-User-agent: OAI-SearchBot
-Content-Signal: search=yes, ai-input=yes, ai-train=no
-Allow: /
-Disallow: /tags/
-Disallow: /categories/
-
-User-agent: Claude-Web
-Content-Signal: search=yes, ai-input=yes, ai-train=no
-Allow: /
-Disallow: /tags/
-Disallow: /categories/
 
 Sitemap: https://luarss.dev/sitemap.xml
