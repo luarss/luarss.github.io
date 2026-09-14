@@ -1,0 +1,17 @@
+{
+  "_comment": "Fixed target queries for AEO/SEO presence tracking. Do NOT reword existing entries once data accumulates — stable wording keeps runs comparable over time. Add new ones freely.",
+  "site": "https://luarss.dev/",
+  "brand_terms": [
+    "shui song luar",
+    "luarss"
+  ],
+  "topic_queries": [
+    "openroad llm assistant",
+    "orassistant openroad rag chatbot",
+    "openroad mcp server",
+    "multi-agent research system for vc",
+    "production rag hybrid retrieval engineer singapore",
+    "iros 2021 best paper tactile sensing"
+  ],
+  "competitors": []
+}
