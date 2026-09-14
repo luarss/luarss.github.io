@@ -12,3 +12,6 @@ hugo/resources/_gen/
 .env.swp
 *.swp
 .staticrypt.json
+
+# python
+__pycache__/

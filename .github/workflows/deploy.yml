@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - topic/hugo-dev
+    paths-ignore:
+      - 'aeo/**'  # tracking snapshots don't affect the built site
 
 permissions:
   contents: write
