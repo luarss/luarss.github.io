@@ -48,8 +48,14 @@ jobs:
           --directory hugo/public \
           --config false \
           --short \
-          --template-title "Protected" \
-          --template-instructions "This page is password protected."
+          --template-title "Purser — Core Operating Budget" \
+          --template-instructions 'Internal document. Request access at <a href="mailto:me@luarss.dev">me@luarss.dev</a>.' \
+          --template-button "Unlock" \
+          --template-placeholder "Access password" \
+          --template-error "Wrong password — try again" \
+          --template-remember false \
+          --template-color-primary "#1f6feb" \
+          --template-color-secondary "#0d1117"
         # Sanity check: the encrypted output must carry the staticrypt bootstrap,
         # otherwise the plaintext would ship. Bail if it doesn't.
         grep -q "staticryptEncryptedMsgUniqueVariableName\|staticrypt" hugo/public/COB_FLOW.html \
