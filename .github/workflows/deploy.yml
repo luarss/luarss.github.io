@@ -24,8 +24,36 @@ jobs:
         hugo-version: '0.161.1'
         extended: true
 
+    - name: Setup Node
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      with:
+        node-version: '22'
+
     - name: Build site
       run: hugo --minify -s hugo
+
+    # Client-side encrypt the private COB page. The password lives only in the
+    # STATICRYPT_PASSWORD secret; the encrypted output is safe to publish since
+    # the plaintext is never in the deployed artifact. Fail hard if the secret
+    # is missing so we never ship the page in the clear.
+    - name: Encrypt private page
+      env:
+        STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
+      run: |
+        if [ -z "$STATICRYPT_PASSWORD" ]; then
+          echo "::error::STATICRYPT_PASSWORD secret is not set — refusing to deploy COB_FLOW.html unencrypted"
+          exit 1
+        fi
+        npx --yes staticrypt@3.5.4 hugo/public/COB_FLOW.html \
+          --directory hugo/public \
+          --config false \
+          --short \
+          --template-title "Protected" \
+          --template-instructions "This page is password protected."
+        # Sanity check: the encrypted output must carry the staticrypt bootstrap,
+        # otherwise the plaintext would ship. Bail if it doesn't.
+        grep -q "staticryptEncryptedMsgUniqueVariableName\|staticrypt" hugo/public/COB_FLOW.html \
+          || { echo "::error::encryption did not produce expected output"; exit 1; }
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3
