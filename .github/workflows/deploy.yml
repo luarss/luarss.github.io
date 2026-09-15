@@ -53,7 +53,7 @@ jobs:
           --template-button "Unlock" \
           --template-placeholder "Access password" \
           --template-error "Wrong password — try again" \
-          --template-remember false \
+          --remember false \
           --template-color-primary "#1f6feb" \
           --template-color-secondary "#0d1117"
         # Sanity check: the encrypted output must carry the staticrypt bootstrap,
