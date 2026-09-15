@@ -9,3 +9,6 @@ hugo/resources/_gen/
 .DS_Store
 .env
 .env.local
+.env.swp
+*.swp
+.staticrypt.json

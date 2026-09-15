@@ -32,16 +32,17 @@ jobs:
     - name: Build site
       run: hugo --minify -s hugo
 
-    # The COB page is committed already-encrypted (staticrypt) in the repo, so
-    # CI does NOT encrypt — it only guards against ever shipping plaintext. If
-    # the built page lost its staticrypt bootstrap (e.g. someone committed the
+    # Private pages are committed already-encrypted (staticrypt) in the repo, so
+    # CI does NOT encrypt — it only guards against ever shipping plaintext. If a
+    # built page lost its staticrypt bootstrap (e.g. someone committed the
     # cleartext by mistake), fail hard rather than publish the document.
-    - name: Verify private page is encrypted
+    - name: Verify private pages are encrypted
       run: |
-        page=hugo/public/COB_FLOW.html
-        [ -f "$page" ] || { echo "::error::$page missing from build"; exit 1; }
-        grep -q "staticrypt" "$page" \
-          || { echo "::error::COB_FLOW.html is not encrypted — refusing to deploy"; exit 1; }
+        for page in hugo/public/COB_FLOW.html hugo/public/TTI_CONTRACT_DEMO.html; do
+          [ -f "$page" ] || { echo "::error::$page missing from build"; exit 1; }
+          grep -q "staticrypt" "$page" \
+            || { echo "::error::$page is not encrypted — refusing to deploy"; exit 1; }
+        done
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3
