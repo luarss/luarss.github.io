@@ -38,7 +38,7 @@ jobs:
     # cleartext by mistake), fail hard rather than publish the document.
     - name: Verify private pages are encrypted
       run: |
-        for page in hugo/public/COB_FLOW.html hugo/public/TTI_CONTRACT_DEMO.html; do
+        for page in hugo/public/COB_FLOW.html hugo/public/TTI_CONTRACT_DEMO.html hugo/public/NUSX_LABS_ROADMAP_KEYNOTE_20261005.html; do
           [ -f "$page" ] || { echo "::error::$page missing from build"; exit 1; }
           grep -q "staticrypt" "$page" \
             || { echo "::error::$page is not encrypted — refusing to deploy"; exit 1; }
