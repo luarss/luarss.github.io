@@ -1,0 +1,26 @@
+name: Submit to Wayback Machine
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # weekly, Monday 09:00 UTC (~1-2am US Pacific, lower-traffic window)
+  workflow_dispatch:
+
+jobs:
+  submit-wayback:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        url:
+          - https://luarss.dev/
+          - https://luarss.dev/about/
+          - https://luarss.dev/now/
+          - https://luarss.dev/posts/
+          - https://luarss.dev/projects/
+    steps:
+      # Best-effort archival — transient Internet Archive (SPN2) failures
+      # shouldn't fail the workflow.
+      - uses: JamieMagee/wayback@e561c5018fb0e62988fddd732fb88345a3faa608 # v2.2.0
+        continue-on-error: true
+        with:
+          url: ${{ matrix.url }}
