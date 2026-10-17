@@ -12,6 +12,9 @@ I actively contribute to open source projects in AI agents and AI-assisted tools
 **[ai-deals](https://luarss.github.io/ai-deals)** - _Web_
 Intelligence per dollar tracker. Compares AI models across cost and capability so you can find the best value for your use case.
 
+**[Wedding Deposit Router](/wedding-deposit-router.html)** - _Web_
+Splits a wedding deposit-plus-instalment payment across a Singapore miles-card roster to maximize rewards earned, filling each bonus-cap tier before falling back to a flat uncapped card. Provably optimal allocation (fractional knapsack, verified against an independent LP solve).
+
 **[nova-agent-runtime](https://github.com/SoraNovaAI/agent-runtime)** - _Python_
 AI agent framework with integrated tools, multi-agent workflows, and evaluation loops. Features native MCP integration, automatic context management, and YAML-based declarative configuration.
 
