@@ -1,25 +1,21 @@
-# LinkedIn post — companion to hugo/content/posts/supply-chain-hygiene-claude-plugins.md
+# LinkedIn post, companion to hugo/content/posts/supply-chain-hygiene-claude-plugins.md
 
-> Not built by Hugo (lives outside hugo/content/). Humanize before posting.
+> Not built by Hugo (lives outside hugo/content/).
 
 ---
 
-Supply chain attacks don't just target prod.
+Supply chain attacks don't only target prod.
 
-Your local dev environment is where your credentials, SSH keys, and signing keys live, and most developers pin nothing in it.
+Your laptop is where your SSH keys, cloud credentials, and signing keys live, and most of us pin nothing there. I went through my dotfiles and fixed that for four things.
 
-Over the past week I hardened my dotfiles across four surfaces:
+GitHub Actions: every `uses:` step is now a 40-character commit SHA with the tag in a comment. A tag like `@v4` can be moved by whoever controls the repo.
 
-1️⃣ **GitHub Actions** → every `uses:` step pinned to a 40-char commit SHA. A tag like `@v4` can be silently repointed by anyone who controls the upstream repo.
+Zsh plugins: `git clone --depth=1` grabs whatever HEAD is that day. I clone at a tag, then compare the resulting commit to a SHA I recorded. Mismatch aborts the install.
 
-2️⃣ **Zsh plugins** → `git clone --depth=1` pulls whatever HEAD is at install time. Now I clone at a specific tag and assert the SHA immediately after. If they don't match, the install aborts.
+Claude Code plugins: Claude writes the installed SHAs to `~/.claude/plugins/installed_plugins.json`, but that file never leaves the machine. I committed it to my dotfiles and symlinked it back, so plugin upgrades show up as a git diff. A weekly Actions job compares the locked SHAs to upstream and opens an issue when something drifts.
 
-3️⃣ **Claude Code plugins** → Claude tracks installed plugin SHAs in `~/.claude/plugins/installed_plugins.json`, but this file is local and ephemeral. I committed it to my dotfiles and symlinked it back, so every plugin version change shows up in `git diff`. A weekly GitHub Actions job then compares locked SHAs against source repos and opens an issue when anything drifts.
+Homebrew: no lock file exists for `brew bundle`. `--no-upgrade` and `brew pin` are as good as it gets.
 
-4️⃣ **Homebrew** → the honest answer here is that `brew bundle` has no lock file. `--no-upgrade` is the best available guardrail.
+Install script, update checker, and workflow are in my dotfiles repo. Write-up with the code: https://luarss.dev/posts/supply-chain-hygiene-claude-plugins/
 
-The full implementation (install script, update checker, and workflow) is open source in my dotfiles. Full write-up: https://luarss.dev/posts/supply-chain-hygiene-claude-plugins/
-
-What does your dev environment supply chain look like? 👇
-
-#DevSecurity #SupplyChain #DotFiles #ClaudeCode #DevTools
+#SupplyChainSecurity #ClaudeCode #DevTools

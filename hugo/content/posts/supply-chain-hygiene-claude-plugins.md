@@ -10,7 +10,7 @@ tags: ["security", "devtools", "claude-code"]
 
 Most supply chain hardening guides focus on production: npm lockfiles, Docker image digests, Sigstore. Your local dev environment gets less attention, which is ironic: it's where your credentials, source code, and signing keys live.
 
-This post covers how I pin every external dependency in my dotfiles, with specific focus on Claude Code plugins, which have a less obvious trust story than npm packages or GitHub Actions.
+This post covers how I pin every external dependency in my dotfiles. Most of it is about Claude Code plugins, because their trust story is less obvious than npm packages or GitHub Actions.
 
 ## The threat model
 
@@ -155,7 +155,7 @@ Pinning creates a small ritual for updates:
 3. Commit with the old and new SHA in the message body
 4. The update check workflow goes quiet for another week
 
-The overhead is low. The payoff is that every version change in your dev environment goes through version control, with a timestamp and a diff, instead of silently appearing on the next `git clone`.
+It is a few minutes a week. In return, every version change in my dev environment has a commit, a timestamp, and a diff, instead of silently appearing on the next `git clone`.
 
 ## Summary
 
