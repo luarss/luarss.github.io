@@ -15,8 +15,8 @@ Intelligence per dollar tracker. Compares AI models across cost and capability s
 **[nova-agent-runtime](https://github.com/SoraNovaAI/agent-runtime)** - _Python_
 AI agent framework with integrated tools, multi-agent workflows, and evaluation loops. Features native MCP integration, automatic context management, and YAML-based declarative configuration.
 
-**[openroad-mcp](https://github.com/luarss/openroad-mcp)** - _Python, Tcl_
-MCP server for real-time AI-driven debugging for chip designers in OpenROAD.
+**[OpenROAD-MCP](https://github.com/The-OpenROAD-Project/OpenROAD-MCP)** - _TypeScript_
+MCP server that connects Claude, Cursor, and other MCP clients to OpenROAD for real-time AI-driven debugging of physical design runs. I started the project, and it is now hosted under the OpenROAD Project organisation. I mentored one mentee on it as part of Google Summer of Code 2026.
 
 **[ORAssistant](https://github.com/luarss/ORAssistant)** - _Python, Tcl_
 Production-ready LLM chatbot assistant for the OpenROAD chip design tool. Conceptualised and open-sourced as part of OpenROAD Project contributions.

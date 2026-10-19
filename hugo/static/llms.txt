@@ -12,7 +12,7 @@ This file follows the [llms.txt](https://llmstxt.org/) convention to help large 
 
 - [Projects index](https://luarss.github.io/projects/): Open source projects, publications, talks, and writing.
 - [nova-agent-runtime](https://github.com/SoraNovaAI/agent-runtime): AI agent framework with integrated tools, multi-agent workflows, evaluation loops, native MCP integration, and YAML-based declarative configuration.
-- [openroad-mcp](https://github.com/luarss/openroad-mcp): MCP server enabling real-time AI-driven debugging for chip designers in OpenROAD.
+- [OpenROAD-MCP](https://github.com/The-OpenROAD-Project/OpenROAD-MCP): MCP server enabling real-time AI-driven debugging for chip designers in OpenROAD. Started by Shui Song Luar; mentored one Google Summer of Code 2026 mentee on it.
 - [ORAssistant](https://github.com/luarss/ORAssistant): Production-ready LLM chatbot assistant for the OpenROAD chip design tool.
 
 ## Publications
