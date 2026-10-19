@@ -7,7 +7,7 @@ keywords: ["Shui Song Luar", "AI engineer", "LLM systems", "LLM evals", "RAG", "
 summary: "I'm an AI & Systems Engineer at NUS Enterprise working on production LLM systems, agents, evals, and cloud infrastructure."
 ---
 
-I'm an AI & Systems Engineer at NUS Enterprise. I build LLM systems and agents, plus the cloud infrastructure they run on, and I usually take an internal platform from an empty repo to daily use. Recent ones include a claims approval system, our data pipelines, an LLM evaluation harness, and zero-trust access to everything.
+I'm an AI & Systems Engineer at NUS Enterprise. I build LLM systems and agents, and the cloud infrastructure they run on. I usually own an internal platform end to end, from design through to production and daily use. Recent work includes a claims approval system, our data pipelines, an LLM evaluation harness, and zero-trust access across our services.
 
 Previously I was a Founding Engineer at [SoraNova](https://soranovaai.github.io), an AI Engineer at [Espressif Systems](https://www.espressif.com/), and a Graduate Research Assistant at NUS where I published a Best Paper Award-winning paper at IROS 2021.
 
