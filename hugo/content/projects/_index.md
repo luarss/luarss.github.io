@@ -16,7 +16,7 @@ Intelligence per dollar tracker. Compares AI models across cost and capability s
 AI agent framework with integrated tools, multi-agent workflows, and evaluation loops. Features native MCP integration, automatic context management, and YAML-based declarative configuration.
 
 **[OpenROAD-MCP](https://github.com/The-OpenROAD-Project/OpenROAD-MCP)** - _TypeScript_
-MCP server that connects Claude, Cursor, and other MCP clients to OpenROAD for real-time AI-driven debugging of physical design runs. I started the project, and it is now hosted under the OpenROAD Project organisation. I mentored one mentee on it as part of Google Summer of Code 2026.
+MCP server that lets AI assistants such as Claude and Cursor work with OpenROAD sessions to help debug physical design runs. It began as a side project of mine and now lives under the OpenROAD Project. In 2026 I had the chance to mentor a Google Summer of Code student working on it.
 
 **[ORAssistant](https://github.com/luarss/ORAssistant)** - _Python, Tcl_
 Production-ready LLM chatbot assistant for the OpenROAD chip design tool. Conceptualised and open-sourced as part of OpenROAD Project contributions.
