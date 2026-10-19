@@ -30,7 +30,7 @@ Previously I was a Founding Engineer at [SoraNova](https://soranovaai.github.io)
 
 **Founding Engineer - SoraNova** _(Jun 2024 – Apr 2026, Singapore)_
 
-- Owned the full build of an AI knowledge platform - FastAPI backend, multi-agent AI workflows, and React frontend - from empty repo to production
+- Owned the full build of an AI knowledge platform - FastAPI backend, multi-agent AI workflows, and React frontend - from design to production
 - Engineered a production RAG system with hybrid retrieval (PostgreSQL pgvector + keyword), improving answer relevance 25% through semantic search and query caching
 - Designed a multi-agent research system orchestrating 5 specialised LLM agents (factual, technical, market, team, risk) for comprehensive VC investment research reports
 - Implemented ML evaluation framework with DeepEval - 15+ metrics across completeness, accuracy, relevance, and quality
