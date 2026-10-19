@@ -18,7 +18,7 @@ Over the past week I hardened my dotfiles across four surfaces:
 
 4️⃣ **Homebrew** → the honest answer here is that `brew bundle` has no lock file. `--no-upgrade` is the best available guardrail.
 
-The full implementation (install script, update checker, and workflow) is open source in my dotfiles. Full write-up: [LINK]
+The full implementation (install script, update checker, and workflow) is open source in my dotfiles. Full write-up: https://luarss.dev/posts/supply-chain-hygiene-claude-plugins/
 
 What does your dev environment supply chain look like? 👇
 

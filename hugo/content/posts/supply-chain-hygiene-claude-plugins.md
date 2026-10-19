@@ -1,7 +1,7 @@
 ---
 title: "Supply Chain Hygiene for Claude Code Plugins"
-date: 2026-06-06
-draft: true
+date: 2026-10-19
+draft: false
 description: "How to pin Claude Code plugins, GitHub Actions, and zsh plugins to verified commit SHAs, and automate update checks before anything lands in your dev environment."
 keywords: ["supply chain security", "Claude Code", "plugins", "dotfiles", "GitHub Actions", "SHA pinning"]
 summary: "Pinning every external dependency in your dev environment to an immutable SHA, and what that looks like in practice for Claude Code plugins."
