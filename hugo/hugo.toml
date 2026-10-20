@@ -8,6 +8,9 @@ copyright = "© 2020–2026 Shui Song Luar · Content licensed under [CC BY-NC 4
 # sitemap stops advertising URLs that robots.txt disallows.
 disableKinds = ["taxonomy", "term"]
 
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [pagination]
   pagerSize = 10
 
@@ -22,6 +25,11 @@ disableKinds = ["taxonomy", "term"]
   ShowCodeCopyButtons = true
   ShowShareButtons = false
   ShowToc = true
+
+  [params.fuseOpts]
+    keys = ["title", "permalink", "summary", "content"]
+    threshold = 0.3
+    ignoreLocation = true
 
   [params.schema]
     publisherType = "Person"
@@ -81,3 +89,7 @@ disableKinds = ["taxonomy", "term"]
     name = "Projects"
     url = "projects/"
     weight = 4
+  [[menu.main]]
+    name = "Search"
+    url = "search/"
+    weight = 5
