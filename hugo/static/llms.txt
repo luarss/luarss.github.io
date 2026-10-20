@@ -1,12 +1,12 @@
 # Shui Song Luar
 
-> AI & Systems Engineer at NUS Enterprise building production LLM systems and agents, LLM evals, data platforms, and cloud infrastructure. Previously Founding Engineer at SoraNova. Based in Singapore.
+> AI & Systems Engineer at NUSX Labs building production LLM systems and agents, LLM evals, data platforms, and cloud infrastructure. Previously Founding Engineer at SoraNova. Based in Singapore.
 
 This file follows the [llms.txt](https://llmstxt.org/) convention to help large language models efficiently discover the most relevant information on this site.
 
 ## About
 
-- [About](https://luarss.dev/about/): Background, experience, education, and skills. AI & Systems Engineer at NUS Enterprise; previously Founding Engineer at SoraNova, AI Engineer at Espressif Systems, and Graduate Research Assistant at NUS (IROS 2021 Best Paper Award).
+- [About](https://luarss.dev/about/): Background, experience, education, and skills. AI & Systems Engineer at NUSX Labs; previously Founding Engineer at SoraNova, AI Engineer at Espressif Systems, and Graduate Research Assistant at NUS (IROS 2021 Best Paper Award).
 
 ## Projects & Publications
 

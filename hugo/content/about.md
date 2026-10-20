@@ -2,12 +2,12 @@
 title: "About"
 layout: "about"
 url: "/about/"
-description: "I'm an AI & Systems Engineer at NUS Enterprise building production LLM systems, agents, evals, data platforms, and GCP infrastructure. Previously Founding Engineer at SoraNova, AI Engineer at Espressif Systems, and Graduate Research Assistant at NUS (IROS 2021 Best Paper Award)."
-keywords: ["Shui Song Luar", "AI engineer", "LLM systems", "LLM evals", "RAG", "agentic systems", "MCP", "GCP", "Terraform", "NUS Enterprise", "SoraNova", "Espressif", "IROS 2021"]
-summary: "I'm an AI & Systems Engineer at NUS Enterprise working on production LLM systems, agents, evals, and cloud infrastructure."
+description: "I'm an AI & Systems Engineer at NUSX Labs building production LLM systems, agents, evals, data platforms, and GCP infrastructure. Previously Founding Engineer at SoraNova, AI Engineer at Espressif Systems, and Graduate Research Assistant at NUS (IROS 2021 Best Paper Award)."
+keywords: ["Shui Song Luar", "AI engineer", "LLM systems", "LLM evals", "RAG", "agentic systems", "MCP", "GCP", "Terraform", "NUSX Labs", "SoraNova", "Espressif", "IROS 2021"]
+summary: "I'm an AI & Systems Engineer at NUSX Labs working on production LLM systems, agents, evals, and cloud infrastructure."
 ---
 
-I'm an AI & Systems Engineer at NUS Enterprise. I build LLM systems and agents, and the cloud infrastructure they run on. I usually own an internal platform end to end, from design through to production and daily use. Recent work includes a claims approval system, our data pipelines, an LLM evaluation harness, and zero-trust access across our services.
+I'm an AI & Systems Engineer at [NUSX Labs](https://github.com/nus-etp), part of [NUSX](https://nusx.edu.sg/). I build LLM systems and agents, and the cloud infrastructure they run on. I usually own an internal platform end to end, from design through to production and daily use. Recent work includes a claims approval system, our data pipelines, an LLM evaluation harness, and zero-trust access across our services.
 
 Previously I was a Founding Engineer at [SoraNova](https://soranovaai.github.io), an AI Engineer at [Espressif Systems](https://www.espressif.com/), and a Graduate Research Assistant at NUS where I published a Best Paper Award-winning paper at IROS 2021.
 
@@ -15,7 +15,7 @@ Previously I was a Founding Engineer at [SoraNova](https://soranovaai.github.io)
 
 ## Experience
 
-**AI & Systems Engineer - NUS Enterprise** _(Apr 2026 – Present, Singapore)_
+**AI & Systems Engineer - [NUSX Labs](https://github.com/nus-etp)** _(Apr 2026 – Present, Singapore)_
 
 - Built Arbiter, Gemini agents that screen startup applications (forms, pitch decks, videos) against programme rubrics. They have screened about 950 applications across Deep SAGE, BLOCK71 and AI Accelerate; a full BLOCK71 intake cost under $4 in model calls
 - Built the eval harness behind it: golden datasets from 1,000+ real panel decisions across 4 cohorts, scored on held-out folds against how often human reviewers agree with each other. On the Deep SAGE first round, the AI's shortlist matched the panel at F1 0.82, above the 0.76 two human reviewers reach
