@@ -35,11 +35,11 @@ ML classification models for high-dimensional time-series tactile sensor data en
 
 ## Writing
 
-**[OpenROAD MCP: Let AI Close Your Timing](https://dev.to/luarss/openroad-mcp-let-ai-close-your-timing-47h6)** _(Feb 2026)_
+**[OpenROAD MCP: Let AI Close Your Timing](/posts/openroad-mcp-let-ai-close-your-timing/)** _(Feb 2026)_
 Introducing OpenROAD MCP - a server that enables AI assistants like Claude Code to interact directly with OpenROAD processes for timing analysis and constraint adjustment.
 
-**[Building Robust AI Research Agents: A tale of five specialists](https://soranovaai.github.io/post/deep-research)** _(Nov 2025)_
+**[Building Robust AI Research Agents: A tale of five specialists](/posts/building-robust-ai-research-agents/)** _(Nov 2025)_
 Four architectural iterations of a deep research workflow for VCs - from a single agent to five specialised agents with hierarchical citations, MCP integration, and iterative refinement.
 
-**[Multi-Agent Systems Are 23x Cheaper Than Deep Research Models with Higher Quality](https://soranovaai.github.io/post/multi-agent-hypothesis-generation-benchmark)** _(Nov 2025)_
+**[Multi-Agent Systems Are 23x Cheaper Than Deep Research Models with Higher Quality](/posts/multi-agent-systems-23x-cheaper/)** _(Nov 2025)_
 Benchmarked multi-agent systems (11 specialised agents) against single-model and deep reasoning models across 5 scientific domains. Multi-agent won or tied in all 5 at 23× lower cost.
