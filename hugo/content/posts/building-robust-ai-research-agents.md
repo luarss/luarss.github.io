@@ -6,6 +6,7 @@ description: "Four architectural iterations of building a deep research workflow
 keywords: ["AI agents", "deep research", "multi-agent systems", "MCP", "citations", "venture capital"]
 summary: "What it took to build a deep research workflow for VCs, from a single search wrapper to five specialized agents with hierarchical citations."
 tags: ["ai-agents", "research", "mcp"]
+images: ["img/building-robust-ai-research-agents/cover.jpg"]
 canonicalURL: "https://soranovaai.github.io/post/deep-research"
 ---
 

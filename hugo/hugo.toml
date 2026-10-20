@@ -18,6 +18,7 @@ disableKinds = ["taxonomy", "term"]
   author = "Shui Song Luar"
   description = "Personal site of Shui Song Luar. AI & Systems Engineer at NUSX Labs working on production LLM systems and agents, LLM evals, data platforms, and cloud infrastructure. Based in Singapore."
   keywords = ["Shui Song Luar", "luarss", "AI engineer", "NUSX Labs", "LLM systems", "LLM evals", "agentic systems", "RAG", "MCP", "Singapore", "OpenROAD"]
+  images = ["img/og-default.jpg"]
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
