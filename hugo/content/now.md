@@ -11,8 +11,6 @@ I'm now about six months into my role as an AI & Systems Engineer at NUS Enterpr
 
 Right now I'm focused on Arbiter, the agentic system that screens startup applications, and the eval harness behind it that we use to choose models and prompts for each round. Arbiter has screened about 950 applications so far, and the evals are how we decide whether a change is actually better. I'm also working on Purser, our claims and approval platform, and on NUSX's GCP infrastructure and data platform, which I own, including the Terraform, the scheduled pipelines, and the zero-trust access.
 
-Outside work, I'm mentoring a Google Summer of Code 2026 student on openroad-mcp, the MCP server that lets chip designers debug OpenROAD runs with an AI assistant. I also mentored for GSoC in 2024.
-
 I also wrote recently about [supply-chain hygiene for Claude Code plugins](/posts/supply-chain-hygiene-claude-plugins/).
 
 ---
