@@ -13,8 +13,8 @@ disableKinds = ["taxonomy", "term"]
 
 [params]
   author = "Shui Song Luar"
-  description = "Personal site of Shui Song Luar — Founding Engineer at SoraNova working on production LLM systems, multi-agent AI workflows, cloud infrastructure, and full-stack development. Based in Singapore."
-  keywords = ["Shui Song Luar", "luarss", "AI engineer", "LLM systems", "RAG", "multi-agent systems", "MCP", "founding engineer", "Singapore", "OpenROAD", "SoraNova"]
+  description = "Personal site of Shui Song Luar. AI & Systems Engineer at NUS Enterprise working on production LLM systems and agents, LLM evals, data platforms, and cloud infrastructure. Based in Singapore."
+  keywords = ["Shui Song Luar", "luarss", "AI engineer", "NUS Enterprise", "LLM systems", "LLM evals", "agentic systems", "RAG", "MCP", "Singapore", "OpenROAD"]
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -34,7 +34,7 @@ disableKinds = ["taxonomy", "term"]
   [params.profileMode]
     enabled = true
     title = "Shui Song Luar"
-    subtitle = "Founding Engineer · AI/ML Systems · Singapore"
+    subtitle = "AI & Systems Engineer · NUS Enterprise · Singapore"
     imageUrl = ""
     [[params.profileMode.buttons]]
       name = "Posts"
