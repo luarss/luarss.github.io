@@ -4,10 +4,8 @@ url: "/now/"
 date: 2026-10-20
 description: "What I am focused on right now: agentic screening systems, LLM evals, and cloud infrastructure at NUS Enterprise."
 keywords: ["now page", "NUS Enterprise", "agentic systems", "LLM evals", "GCP", "Singapore"]
-summary: "Six months into my role at NUS Enterprise: agents and evals, a claims platform, and GCP infrastructure."
+summary: "What I am building and writing right now."
 ---
-
-Six months into my role as an AI & Systems Engineer at NUS Enterprise.
 
 ## Building
 
