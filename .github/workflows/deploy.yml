@@ -36,12 +36,20 @@ jobs:
     # CI does NOT encrypt — it only guards against ever shipping plaintext. If a
     # built page lost its staticrypt bootstrap (e.g. someone committed the
     # cleartext by mistake), fail hard rather than publish the document.
+    # Every top-level HTML file in hugo/static is treated as private, except
+    # Google site-verification files, so adding or removing a page needs no
+    # workflow edit.
     - name: Verify private pages are encrypted
       run: |
-        for page in hugo/public/COB_FLOW.html hugo/public/TTI_CONTRACT_DEMO.html hugo/public/NUSX_LABS_ROADMAP_KEYNOTE_V2_20261005.html hugo/public/TIG_CHATBOT_POC.html; do
+        shopt -s nullglob
+        for source in hugo/static/*.html; do
+          name="$(basename "$source")"
+          case "$name" in google*.html) continue ;; esac
+          page="hugo/public/$name"
           [ -f "$page" ] || { echo "::error::$page missing from build"; exit 1; }
           grep -q "staticrypt" "$page" \
             || { echo "::error::$page is not encrypted — refusing to deploy"; exit 1; }
+          echo "ok: $page"
         done
 
     - name: Deploy to GitHub Pages
