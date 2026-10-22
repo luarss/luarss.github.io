@@ -372,3 +372,8 @@
 
   window.TigChat = { mount: mount };
 })();
+
+TigChat.mount({
+  apiBase: "https://tig.luarss.dev",
+  accessKey: "+xXO5x3XMR50otuuSGRIM2PoWlGrBVNn"
+});
