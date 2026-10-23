@@ -34,7 +34,11 @@
     ".form{display:flex;gap:8px;padding:10px;border-top:1px solid #e3e6ea}",
     ".form input{flex:1;padding:9px 10px;border:1px solid #c5cad0;border-radius:8px;font-size:14px}",
     ".form button{padding:9px 14px;border:0;border-radius:8px;background:#0b5cad;color:#fff;font-size:14px;cursor:pointer}",
-    ".form button:disabled{opacity:.5;cursor:default}"
+    ".form button:disabled{opacity:.5;cursor:default}",
+    ".credit{padding:0 12px 8px;font-size:11px;color:#6b7280;text-align:center}",
+    ".credit a{color:#0b5cad;text-decoration:none}",
+    ".credit a:hover{text-decoration:underline}",
+    ".heart{color:#e11d48}"
   ].join("");
 
   var MAX_HISTORY = 12;
@@ -42,6 +46,7 @@
   var MAX_RETRIES = 2;
   var MAX_RETRY_DELAY_MS = 10000;
   var UNAVAILABLE_MESSAGE = "The assistant is temporarily unavailable. Please try again in a few minutes.";
+  var BUSY_MESSAGE = "The assistant is busy right now. Please try again shortly.";
   var OFFLINE_MESSAGE = "You appear to be offline. Please check your connection and try again.";
   var DEFAULT_SUGGESTIONS = [
     "Who offers OT/ICS security testing?",
@@ -132,6 +137,15 @@
     return retryableError(UNAVAILABLE_MESSAGE);
   }
 
+  function serviceUnavailableError(response) {
+    return response.json().then(function (body) {
+      if (body && body.error === "busy") return retryableError(BUSY_MESSAGE);
+      return unavailableError();
+    }, function () {
+      return unavailableError();
+    });
+  }
+
   function fetchWithTimeout(url, options) {
     var controller = typeof AbortController === "function" ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT_MS) : null;
@@ -218,10 +232,21 @@
     send.type = "submit";
     form.appendChild(input);
     form.appendChild(send);
+    var credit = element("div", "credit", "Made with ");
+    var heart = element("span", "heart", "♥");
+    heart.setAttribute("aria-label", "love");
+    credit.appendChild(heart);
+    credit.appendChild(document.createTextNode(" by "));
+    var creditLink = element("a", "", "NUSX Labs");
+    creditLink.href = "https://github.com/nus-etp";
+    creditLink.target = "_blank";
+    creditLink.rel = "noopener noreferrer";
+    credit.appendChild(creditLink);
     panel.appendChild(header);
     panel.appendChild(log);
     panel.appendChild(disclaimer);
     panel.appendChild(form);
+    panel.appendChild(credit);
     root.appendChild(style);
     root.appendChild(launcher);
     root.appendChild(panel);
@@ -309,8 +334,8 @@
           return delay(retryDelayMs(response, attempt)).then(function () { return requestAnswer(attempt + 1); });
         }
         if (response.status === 429) throw new Error("Rate limit reached. Please try again later.");
-        if (response.status === 503) throw new Error("The assistant is busy right now. Please try again shortly.");
-        if (isTransient(response)) throw unavailableError();
+        if (response.status === 503) return serviceUnavailableError(response).then(function (error) { throw error; });
+        if (response.status >= 500) throw unavailableError();
         if (!response.ok) throw new Error("Something went wrong (" + response.status + ")");
         return response.json().then(validateBody);
       }, function (error) {
