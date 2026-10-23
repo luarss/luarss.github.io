@@ -17,6 +17,7 @@
     ".rich li{margin:0 0 4px}",
     ".rich>:last-child{margin-bottom:0}",
     ".error{align-self:flex-start;background:#fdecea;color:#8a1c14}",
+    ".retry{display:block;margin-top:8px;padding:5px 10px;border:1px solid #8a1c14;border-radius:8px;background:#fff;color:#8a1c14;font-size:13px;cursor:pointer}",
     ".sources{margin-top:6px;font-size:12px;color:#555;white-space:normal}",
     ".sources a{color:#0b5cad;margin-right:8px}",
     ".all-matches{margin-top:8px;font-size:13px}",
@@ -40,6 +41,8 @@
   var REQUEST_TIMEOUT_MS = 45000;
   var MAX_RETRIES = 2;
   var MAX_RETRY_DELAY_MS = 10000;
+  var UNAVAILABLE_MESSAGE = "The assistant is temporarily unavailable. Please try again in a few minutes.";
+  var OFFLINE_MESSAGE = "You appear to be offline. Please check your connection and try again.";
   var DEFAULT_SUGGESTIONS = [
     "Who offers OT/ICS security testing?",
     "Which companies help with MAS TRM compliance?",
@@ -118,6 +121,17 @@
     return Math.min(chosen, MAX_RETRY_DELAY_MS);
   }
 
+  function retryableError(message) {
+    var error = new Error(message);
+    error.retryable = true;
+    return error;
+  }
+
+  function unavailableError() {
+    if (navigator.onLine === false) return retryableError(OFFLINE_MESSAGE);
+    return retryableError(UNAVAILABLE_MESSAGE);
+  }
+
   function fetchWithTimeout(url, options) {
     var controller = typeof AbortController === "function" ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT_MS) : null;
@@ -127,8 +141,8 @@
       return response;
     }, function (error) {
       if (timer) clearTimeout(timer);
-      if (error && error.name === "AbortError") throw new Error("The request timed out. Please try again.");
-      throw new Error("Network error. Please check your connection and try again.");
+      if (error && error.name === "AbortError") throw retryableError("The request timed out. Please try again.");
+      throw unavailableError();
     });
   }
 
@@ -144,7 +158,8 @@
   }
 
   function isTransient(response) {
-    return response.status === 502 || response.status === 503 || response.status === 504;
+    return response.status === 502 || response.status === 503 || response.status === 504 ||
+      (response.status >= 520 && response.status <= 530);
   }
 
   function validateBody(body) {
@@ -265,6 +280,7 @@
         body: JSON.stringify({ key: config.accessKey })
       }).then(function (response) {
         if (response.status === 429) throw new Error("Too many attempts. Please wait a moment and try again.");
+        if (response.status >= 500) throw unavailableError();
         if (!response.ok) throw new Error("Access denied (" + response.status + ")");
         return response.json();
       }).then(function (body) {
@@ -294,10 +310,11 @@
         }
         if (response.status === 429) throw new Error("Rate limit reached. Please try again later.");
         if (response.status === 503) throw new Error("The assistant is busy right now. Please try again shortly.");
+        if (isTransient(response)) throw unavailableError();
         if (!response.ok) throw new Error("Something went wrong (" + response.status + ")");
         return response.json().then(validateBody);
       }, function (error) {
-        if (attempt < MAX_RETRIES && /Network error|timed out/.test(error.message)) {
+        if (attempt < MAX_RETRIES && error.retryable) {
           return delay(retryDelayMs(null, attempt)).then(function () { return requestAnswer(attempt + 1); });
         }
         throw error;
@@ -338,8 +355,25 @@
       input.value = "";
       removeSuggestions();
       addMessage("user", text);
+      answer(text, addMessage("bot", "Thinking…"));
+    }
+
+    function addRetryButton(pending, text) {
+      var retry = element("button", "retry", "Try again");
+      retry.type = "button";
+      retry.addEventListener("click", function () {
+        if (busy) return;
+        busy = true;
+        send.disabled = true;
+        pending.className = "msg bot";
+        pending.textContent = "Thinking…";
+        answer(text, pending);
+      });
+      pending.appendChild(retry);
+    }
+
+    function answer(text, pending) {
       history.push({ role: "user", content: text });
-      var pending = addMessage("bot", "Thinking…");
       requestAnswer().then(function (body) {
         pending.textContent = "";
         pending.classList.add("rich");
@@ -350,7 +384,8 @@
       }).catch(function (error) {
         history.pop();
         pending.className = "msg error";
-        pending.textContent = error.message || "Network error";
+        pending.textContent = error.message || UNAVAILABLE_MESSAGE;
+        if (error.retryable) addRetryButton(pending, text);
       }).then(function () {
         busy = false;
         send.disabled = false;
