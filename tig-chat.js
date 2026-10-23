@@ -18,6 +18,7 @@
     ".rich>:last-child{margin-bottom:0}",
     ".error{align-self:flex-start;background:#fdecea;color:#8a1c14}",
     ".retry{display:block;margin-top:8px;padding:5px 10px;border:1px solid #8a1c14;border-radius:8px;background:#fff;color:#8a1c14;font-size:13px;cursor:pointer}",
+    ".support{margin-top:6px;font-size:12px;color:#8a1c14}",
     ".sources{margin-top:6px;font-size:12px;color:#555;white-space:normal}",
     ".sources a{color:#0b5cad;margin-right:8px}",
     ".all-matches{margin-top:8px;font-size:13px}",
@@ -48,6 +49,7 @@
   var UNAVAILABLE_MESSAGE = "The assistant is temporarily unavailable. Please try again in a few minutes.";
   var BUSY_MESSAGE = "The assistant is busy right now. Please try again shortly.";
   var OFFLINE_MESSAGE = "You appear to be offline. Please check your connection and try again.";
+  var SUPPORT_EMAIL = "louiswong@nusx.edu.sg";
   var DEFAULT_SUGGESTIONS = [
     "Who offers OT/ICS security testing?",
     "Which companies help with MAS TRM compliance?",
@@ -395,6 +397,7 @@
         answer(text, pending);
       });
       pending.appendChild(retry);
+      pending.appendChild(element("div", "support", "If this keeps happening, email " + SUPPORT_EMAIL + "."));
     }
 
     function answer(text, pending) {
