@@ -1,6 +1,7 @@
 ---
 title: "About"
 layout: "about"
+hideDescription: true
 url: "/about/"
 description: "I'm an AI & Systems Engineer at NUSX Labs building production LLM systems, agents, evals, data platforms, and GCP infrastructure. Previously Founding Engineer at SoraNova, AI Engineer at Espressif Systems, and Graduate Research Assistant at NUS (IROS 2021 Best Paper Award)."
 keywords: ["Shui Song Luar", "AI engineer", "LLM systems", "LLM evals", "RAG", "agentic systems", "MCP", "GCP", "Terraform", "NUSX Labs", "SoraNova", "Espressif", "IROS 2021"]
