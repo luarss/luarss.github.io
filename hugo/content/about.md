@@ -16,63 +16,79 @@ Previously I was a Founding Engineer at [SoraNova](https://soranovaai.github.io)
 
 ## Experience
 
-**AI & Systems Engineer - [NUSX Labs](https://github.com/nus-etp)** _(Apr 2026 – Present, Singapore)_
+### AI & Systems Engineer · [NUSX Labs](https://github.com/nus-etp) {.role}
+_Apr 2026 – Present · Singapore_
 
-- Built Arbiter, Gemini agents that screen startup applications (forms, pitch decks, videos) against programme rubrics. They have screened about 950 applications across Deep SAGE, BLOCK71 and AI Accelerate; a full BLOCK71 intake cost under $4 in model calls
-- Built the eval harness behind it: golden datasets from 1,000+ real panel decisions across 4 cohorts, scored on held-out folds against how often human reviewers agree with each other. On the Deep SAGE first round, the AI's shortlist matched the panel at F1 0.82, above the 0.76 two human reviewers reach
-- Used those evals to choose models and prompts per round: Flash over Pro for first-round screening (higher AUC at a quarter of the cost), Pro for later rounds, and a sceptical prompt for reading decks that removed a consistent bias in team scores
-- Ran a three-arm study for CRM company matching on a 143-row gold set with planted traps. Monday's built-in AI let 31 bad matches per 100 through; a fuzzy-match pipeline with Slack approval let 1 through, so we shipped the pipeline
-- Audited 466 page citations from an existing AI judge by hand: 86% pointed at the wrong page and 3% were made up. Replaced it with our own document processor
-- Built Purser, a full-stack claims and approval platform (Next.js, tRPC, Postgres) with role-based access and encrypted payee data. Claims go from senior approval straight into the university payment system, so nobody re-keys them
-- Wrote a deterministic browser agent, with a human approval step, that fills the payment form in about 90s. A general-purpose LLM agent took over 20 min for the same form
-- Own NUSX's GCP infrastructure: Terraform across 6 projects, 21 Ansible roles, keyless CI/CD, and zero-trust access. Also ran the production launches and decommissioned the legacy estate
-- Run NUSX's data platform: scheduled Cloud Run jobs and n8n workflows pull from about 20 sources (Salesforce, Monday, ACRA, PitchBook, finance systems) into a GCS data lake that feeds Power BI, Slack approval flows and our agents. Also run a self-hosted status page that alerts Slack for 10 internal and 5 external components
-- Built a BI request tracker on Cloud Run (dashboard, JSON API, MCP server) and moved 117 legacy requests into it, so agents can search one register. Mean turnaround dropped from 3.8 days to 0.2
+#### Agents & evals {.role-group}
 
-**Founding Engineer - SoraNova** _(Jun 2024 – Apr 2026, Singapore)_
+- Built Arbiter, Gemini agents that screen startup applications (forms, pitch decks, videos) against programme rubrics: about 950 so far across Deep SAGE, BLOCK71 and AI Accelerate. A full BLOCK71 intake cost **under $4** in model calls
+- Built its eval harness: golden datasets from 1,000+ real panel decisions across 4 cohorts, scored on held-out folds against how often human reviewers agree. On the Deep SAGE first round the AI's shortlist matched the panel at **F1 0.82** vs 0.76 between two human reviewers
+- Used the evals to pick models and prompts per round: Flash for first rounds (higher AUC than Pro at a quarter of the cost), Pro for later ones, and a sceptical deck prompt that removed a consistent bias in team scores
+- Ran a three-arm study for CRM company matching on a 143-row gold set with planted traps. Monday's built-in AI let 31 bad matches per 100 through; a fuzzy-match pipeline with Slack approval let **1** through, so we shipped it
+- Hand-audited 466 page citations from an existing AI judge: **86% pointed at the wrong page** and 3% were made up. Replaced it with our own document processor
 
-- Owned the full build of an AI knowledge platform - FastAPI backend, multi-agent AI workflows, and React frontend - from design to production
-- Engineered a production RAG system with hybrid retrieval (PostgreSQL pgvector + keyword), improving answer relevance 25% through semantic search and query caching
-- Designed a multi-agent research system orchestrating 5 specialised LLM agents (factual, technical, market, team, risk) for comprehensive VC investment research reports
-- Implemented ML evaluation framework with DeepEval - 15+ metrics across completeness, accuracy, relevance, and quality
-- Owned complete DevOps pipeline: GitHub Actions CI/CD, Docker multi-stage builds, Packer GPU AMI workflows (T4/L4/A100), Ansible, and Harbor container registry
+#### Internal platforms {.role-group}
 
-**AI Engineer - Espressif Systems** _(Sep 2022 – May 2024, Singapore)_
+- Built Purser, a full-stack claims and approval platform (Next.js, tRPC, Postgres) with role-based access and encrypted payee data. Claims go from senior approval straight into the university payment system, so **nobody re-keys them**
+- Wrote a deterministic browser agent, with a human approval step, that fills the payment form in **~90s vs 20+ min** for a general-purpose LLM agent
+- Built a BI request tracker on Cloud Run (dashboard, JSON API, MCP server) and moved 117 legacy requests into it, so agents can search one register. Mean turnaround dropped from **3.8 → 0.2 days**
 
-- Implemented ML algorithms (Graph Neural Networks, RL, Bayesian Optimisation, Simulated Annealing) for chip design, saving 20% time vs. manual baseline
-- Developed AI evaluation framework across 175+ Verilog benchmarks using Pass@K, BLEU, and Levenshtein metrics
-- Managed distributed RL training infrastructure with 8× NVIDIA GPUs
+#### Infrastructure & data {.role-group}
 
-**Graduate Research Assistant - NUS** _(Aug 2020 – Aug 2022, Singapore)_
+- Own NUSX's GCP infrastructure: Terraform across **6 projects**, 21 Ansible roles, keyless CI/CD and zero-trust access. Also ran the production launches and decommissioned the legacy estate
+- Run NUSX's data platform: scheduled Cloud Run jobs and n8n workflows pull from **about 20 sources** (Salesforce, Monday, ACRA, PitchBook, finance systems) into a GCS data lake that feeds Power BI, Slack approval flows and our agents
+- Run a self-hosted status page that alerts Slack for **10 internal and 5 external components**
+
+### Founding Engineer · SoraNova {.role}
+_Jun 2024 – Apr 2026 · Singapore_
+
+- Owned the full build of an AI knowledge platform (FastAPI backend, multi-agent AI workflows, React frontend) from design to production
+- Engineered a production RAG system with hybrid retrieval (PostgreSQL pgvector + keyword), improving answer relevance **25%** through semantic search and query caching
+- Designed a multi-agent research system orchestrating **5 specialised LLM agents** (factual, technical, market, team, risk) for VC investment research reports
+- Implemented an ML evaluation framework with DeepEval: **15+ metrics** across completeness, accuracy, relevance and quality
+- Owned the DevOps pipeline: GitHub Actions CI/CD, Docker multi-stage builds, Packer GPU AMI workflows (T4/L4/A100), Ansible and Harbor container registry
+
+### AI Engineer · Espressif Systems {.role}
+_Sep 2022 – May 2024 · Singapore_
+
+- Implemented ML algorithms (Graph Neural Networks, RL, Bayesian Optimisation, Simulated Annealing) for chip design, **saving 20% time** vs. manual baseline
+- Developed an AI evaluation framework across **175+ Verilog benchmarks** using Pass@K, BLEU and Levenshtein metrics
+- Managed distributed RL training infrastructure with **8× NVIDIA GPUs**
+
+### Graduate Research Assistant · NUS {.role}
+_Aug 2020 – Aug 2022 · Singapore_
 
 - Applied deep RL to real-world robotic applications, outperforming classical control baselines
-- Published paper at IROS 2021 - **Best Paper Award**
+- Published paper at IROS 2021: **Best Paper Award**
 
 ---
 
 ## Open Source
 
-**Open Source Contributor - OpenROAD** _(May 2023 – Present)_
+### Open Source Contributor · OpenROAD {.role}
+_May 2023 – Present_
 
 OpenROAD is the leading open-source, foundational application for semiconductor digital design ([github.com/The-OpenROAD-Project/OpenROAD](https://github.com/The-OpenROAD-Project/OpenROAD))
 
-- Automated the generation of ~3000 Linux manpages by parsing regexes from existing documentation, and ensured style consistency by creating CI and regression tests in Tcl and Python
-- Led LLM chatbot assistant project (ORAssistant) with 2 students by building highly modular components - data pipeline, fine-tuning, retrieval, evaluation and inference. This project is published at WOSET 2024
-- Led efforts in implementing the productionization of the OpenROAD AutoTuner, by setting up a test framework, distributed autoscaling via Ray Cluster. The AutoTuner is a wrapper of Ray Tune for automatic hyperparameter tuning in the OpenROAD-flow
-- Google Summer of Code mentor in 2024 and 2026. This year I'm mentoring a student on openroad-mcp, an MCP server that lets chip designers debug OpenROAD runs with an AI assistant in real time
+- Automated generation of **~3000 Linux manpages** by parsing regexes from existing documentation, with CI and regression tests in Tcl and Python to keep the style consistent
+- Led the LLM chatbot assistant project (ORAssistant) with 2 students, building modular components for data pipeline, fine-tuning, retrieval, evaluation and inference. Published at **WOSET 2024**
+- Led productionisation of the OpenROAD AutoTuner, a Ray Tune wrapper for automatic hyperparameter tuning in the OpenROAD-flow: set up a test framework and **distributed autoscaling via Ray Cluster**
+- Google Summer of Code mentor in **2024 and 2026**. This year I'm mentoring a student on openroad-mcp, an MCP server that lets chip designers debug OpenROAD runs with an AI assistant in real time
 
 ---
 
 ## Education
 
-**M.Sc. Computer Science - National University of Singapore** _(Aug 2020 – Oct 2022)_
+### M.Sc. Computer Science · National University of Singapore {.role}
+_Aug 2020 – Oct 2022_
 
 - Focus: Machine Learning, Deep Learning, Artificial Intelligence
-- IROS 2021 Best Paper Award
+- **IROS 2021 Best Paper Award**
 
-**B.Eng. Electrical & Electronic Engineering - Nanyang Technological University** _(Aug 2016 – Aug 2020)_
+### B.Eng. Electrical & Electronic Engineering · Nanyang Technological University {.role}
+_Aug 2016 – Aug 2020_
 
-- cGPA: 4.78 / 5.00
+- cGPA: **4.78 / 5.00**
 
 ---
 

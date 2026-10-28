@@ -130,3 +130,61 @@ h1, h2, h3 {
     border-bottom: 2px solid var(--primary);
     padding-bottom: 2px;
 }
+
+/* ----------------------------------------------------------
+   About — experience entries
+   ---------------------------------------------------------- */
+.post-content h3.role {
+    font-size: 1.18rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 2em 0 0.2em;
+}
+
+.post-content h2 + h3.role {
+    margin-top: 0.75em;
+}
+
+.post-content h3.role a:not(.anchor) {
+    color: inherit;
+}
+
+.post-content h3.role + p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--secondary);
+    margin: 0 0 0.75em;
+}
+
+.post-content h3.role + p em {
+    font-style: normal;
+}
+
+.post-content h4.role-group {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--secondary);
+    margin: 1.25em 0 0.25em;
+}
+
+.post-content h3.role + p + h4.role-group {
+    margin-top: 0.75em;
+}
+
+.post-content h4.role-group + ul li:first-child {
+    margin-top: 0;
+}
+
+/* ----------------------------------------------------------
+   Lists — breathing room between bullets
+   ---------------------------------------------------------- */
+.post-content ul li + li {
+    margin-top: 0.45em;
+}
+
+.post-content li strong {
+    color: var(--primary);
+    font-weight: 600;
+}
