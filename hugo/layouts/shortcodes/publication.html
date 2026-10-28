@@ -1,0 +1,15 @@
+{{- $title := .Get "title" -}}
+{{- $url := .Get "url" -}}
+{{- $venue := .Get "venue" -}}
+{{- $year := .Get "year" -}}
+{{- $award := .Get "award" -}}
+<article class="publication-card">
+  <h3 class="publication-card-title"><a href="{{ $url }}">{{ $title }}</a></h3>
+  <p class="publication-card-meta">
+    <span class="publication-card-venue">{{ $venue }}{{ with $year }} {{ . }}{{ end }}</span>
+    {{- with $award }}
+    <span class="award-badge">{{ . }}</span>
+    {{- end }}
+  </p>
+  <p class="publication-card-description">{{ .Inner | strings.TrimSpace | markdownify }}</p>
+</article>

@@ -1,0 +1,14 @@
+{{- $title := .Get "title" -}}
+{{- $url := .Get "url" -}}
+{{- $languages := .Get "lang" -}}
+<article class="project-card">
+  <h3 class="project-card-title"><a href="{{ $url }}">{{ $title }}</a></h3>
+  <p class="project-card-description">{{ .Inner | strings.TrimSpace | markdownify }}</p>
+  {{- with $languages }}
+  <ul class="project-card-tags" aria-label="Languages">
+    {{- range split . "," }}
+    <li class="chip">{{ strings.TrimSpace . }}</li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</article>
