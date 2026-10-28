@@ -78,13 +78,15 @@ OpenROAD is the leading open-source, foundational application for semiconductor 
 
 ## Skills
 
-**Production AI & LLM Systems** - RAG (hybrid retrieval, embeddings, re-ranking, pgvector, FAISS) · agentic systems and tool calling (LangGraph, MCP) · LLM evals (golden datasets, DeepEval) · guardrails and human-in-the-loop design · LLM fine-tuning · PyTorch · Python · PostgreSQL · Docker
+**AI & LLM** - RAG (pgvector, hybrid retrieval) · agents (LangGraph, MCP) · LLM evals · human-in-the-loop · Gemini / Vertex AI · Python
 
-**Cloud Infrastructure & DevOps** - GCP (Vertex AI, Gemini Enterprise, BigQuery, Cloud Run) · AWS · Terraform · Ansible · Twingate · Kubernetes · Nomad · GitHub Actions
+**Data** - n8n · BigQuery · GCS · Power BI · Cloud Run jobs
 
-**Full Stack** - React · Next.js · tRPC · TypeScript · FastAPI · PostgreSQL · Redis
+**Cloud & DevOps** - GCP · AWS · Terraform · Ansible · Docker · Kubernetes · zero-trust access · GitHub Actions
 
-**Robotics & Deep RL** - PyTorch · TensorFlow · OpenCV · ROS
+**Full Stack** - TypeScript · Next.js · React · tRPC · FastAPI · PostgreSQL
+
+**ML Research** - PyTorch · deep RL · GNNs · Ray Tune · OpenROAD · Tcl
 
 ---
 
