@@ -63,3 +63,19 @@ jobs:
         cname: luarss.dev
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Notify IndexNow
+      continue-on-error: true
+      env:
+        INDEXNOW_KEY: 8f7896e6ce0fb1c0b503bbc6c21050db
+      run: |
+        payload="$(grep -o '<loc>[^<]*</loc>' hugo/public/sitemap.xml \
+          | sed 's/<[^>]*>//g' \
+          | jq -R . \
+          | jq -s --arg key "$INDEXNOW_KEY" \
+              '{host: "luarss.dev", key: $key, keyLocation: ("https://luarss.dev/" + $key + ".txt"), urlList: .}')"
+        echo "$payload" | jq '.urlList | length' | xargs echo "urls:"
+        curl --fail --silent --show-error \
+          --header 'Content-Type: application/json; charset=utf-8' \
+          --data "$payload" \
+          https://api.indexnow.org/indexnow
