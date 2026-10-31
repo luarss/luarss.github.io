@@ -24,7 +24,12 @@ Add new ones freely.
 
 ## Setup (one-time, all free)
 
-### Google Search Console
+Only Bing is wired into the weekly workflow. Google Search Console is optional
+and deferred; to enable it, `pip install google-api-python-client==2.149.0
+google-auth==2.35.0`, add the `gsc_pull.py` step back to `aeo.yml`, and follow the
+steps below.
+
+### Google Search Console (deferred)
 1. Google Cloud console → create a service account + JSON key.
 2. Enable the **Google Search Console API** for that project.
 3. Search Console → Settings → Users and permissions → add the service-account
@@ -50,11 +55,6 @@ Local:
 
 ```bash
 pip install -r aeo/requirements.txt
-
-# Google (either env form works)
-export GSC_CREDENTIALS_FILE=/path/to/key.json   # or GSC_CREDENTIALS_JSON='{...}'
-export GSC_PROPERTY='sc-domain:luarss.dev'
-python aeo/gsc_pull.py
 
 # Bing
 export BING_API_KEY='...'
