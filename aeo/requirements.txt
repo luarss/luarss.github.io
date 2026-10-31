@@ -1,0 +1,2 @@
+# Pinned for reproducible CI runs.
+requests==2.32.3
