@@ -221,7 +221,7 @@
     panel.hidden = !config.open;
     teaser.hidden = !panel.hidden;
     var header = element("div", "header");
-    header.appendChild(element("span", "", config.title || "Cyber Catalogue Assistant"));
+    header.appendChild(element("span", "", config.title || "CyberSG Atlas Assistant"));
     var close = element("button", "close", "×");
     close.setAttribute("aria-label", "Close");
     header.appendChild(close);
@@ -438,7 +438,7 @@
     close.addEventListener("click", function () { toggle(false); });
     teaser.addEventListener("click", function () { toggle(true); });
     form.addEventListener("submit", submit);
-    addMessage("bot", "Hi! Ask me about cybersecurity companies in the CyberSG catalogue, or try one of these:");
+    addMessage("bot", "Hi! Ask me about cybersecurity companies in the CyberSG catalogue directory, or try one of these:");
     addSuggestions();
   }
 
