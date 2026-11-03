@@ -3,6 +3,9 @@
     ":host{all:initial;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}",
     "*{box-sizing:border-box}",
     ".launcher{position:fixed;right:20px;bottom:20px;width:56px;height:56px;border-radius:50%;border:0;background:#0b5cad;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:2147483000}",
+    ".teaser{position:fixed;right:20px;bottom:90px;max-width:calc(100vw - 40px);padding:12px 18px;border:1px solid #d5d9de;border-radius:14px;background:#fff;color:#1a1a1a;font:500 15px/1.3 system-ui,-apple-system,'Segoe UI',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.12);z-index:2147483000}",
+    ".teaser::after{content:'';position:absolute;right:21px;bottom:-8px;width:14px;height:14px;background:#fff;border-right:1px solid #d5d9de;border-bottom:1px solid #d5d9de;transform:rotate(45deg)}",
+    ".teaser[hidden]{display:none}",
     ".panel{position:fixed;right:20px;bottom:88px;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 120px));display:flex;flex-direction:column;background:#fff;color:#1a1a1a;border:1px solid #d5d9de;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);overflow:hidden;z-index:2147483000}",
     ".panel[hidden]{display:none}",
     ".header{padding:12px 14px;background:#0b5cad;color:#fff;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}",
@@ -212,8 +215,11 @@
 
     var launcher = element("button", "launcher", "💬");
     launcher.setAttribute("aria-label", "Open catalogue chat");
+    var teaser = element("button", "teaser", config.teaser || "Have a question? Chat with us");
+    teaser.type = "button";
     var panel = element("div", "panel");
     panel.hidden = !config.open;
+    teaser.hidden = !panel.hidden;
     var header = element("div", "header");
     header.appendChild(element("span", "", config.title || "Cyber Catalogue Assistant"));
     var close = element("button", "close", "×");
@@ -250,6 +256,7 @@
     panel.appendChild(form);
     panel.appendChild(credit);
     root.appendChild(style);
+    root.appendChild(teaser);
     root.appendChild(launcher);
     root.appendChild(panel);
     document.body.appendChild(host);
@@ -423,11 +430,13 @@
 
     function toggle(show) {
       panel.hidden = !show;
+      teaser.hidden = show;
       if (show) input.focus();
     }
 
     launcher.addEventListener("click", function () { toggle(panel.hidden); });
     close.addEventListener("click", function () { toggle(false); });
+    teaser.addEventListener("click", function () { toggle(true); });
     form.addEventListener("submit", submit);
     addMessage("bot", "Hi! Ask me about cybersecurity companies in the CyberSG catalogue, or try one of these:");
     addSuggestions();
