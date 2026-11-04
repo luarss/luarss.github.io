@@ -29,6 +29,7 @@
     ".all-matches ol{margin:6px 0 0;padding-left:24px;max-height:240px;overflow-y:auto}",
     ".all-matches li{margin:0 0 2px}",
     ".all-matches a{color:#0b5cad}",
+    ".rich a{color:#0b5cad}",
     ".suggestions{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start;max-width:100%}",
     ".suggestion{padding:6px 10px;border:1px solid #b7cde6;border-radius:14px;background:#fff;color:#0b5cad;font-size:13px;line-height:1.3;text-align:left;cursor:pointer}",
     ".suggestion:hover{background:#e6f0fa}",
@@ -71,17 +72,53 @@
   var BULLET_LINE = /^\s*[*\-\u2022]\s+(.*)$/;
   var NUMBERED_LINE = /^\s*\d+[.)]\s+(.*)$/;
   var INLINE_EMPHASIS = /\*\*([^*]+)\*\*|\*([^*\s][^*]*)\*/g;
+  var INLINE_URL = /(?:https?:\/\/|www\.)[^\s<>"'()\[\]]+/gi;
+  var TRAILING_PUNCTUATION = /[.,;:!?]+$/;
+  var LINKED_DOMAINS = ["scamshield.gov.sg", "csa.gov.sg"];
+
+  function linkTarget(text) {
+    var href = /^www\./i.test(text) ? "https://" + text : text;
+    try {
+      var url = new URL(href);
+      var host = url.hostname.toLowerCase();
+      var linked = url.protocol === "https:" && LINKED_DOMAINS.some(function (domain) {
+        return host === domain || host.slice(-domain.length - 1) === "." + domain;
+      });
+      return linked ? url.href : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function appendLinkedText(parent, text) {
+    var lastIndex = 0;
+    var match;
+    INLINE_URL.lastIndex = 0;
+    while ((match = INLINE_URL.exec(text)) !== null) {
+      var urlText = match[0].replace(TRAILING_PUNCTUATION, "");
+      var href = linkTarget(urlText);
+      if (!href) continue;
+      if (match.index > lastIndex) parent.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+      var link = element("a", "", urlText);
+      link.href = href;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      parent.appendChild(link);
+      lastIndex = match.index + urlText.length;
+    }
+    if (lastIndex < text.length) parent.appendChild(document.createTextNode(text.slice(lastIndex)));
+  }
 
   function appendInline(parent, text) {
     var lastIndex = 0;
     var match;
     INLINE_EMPHASIS.lastIndex = 0;
     while ((match = INLINE_EMPHASIS.exec(text)) !== null) {
-      if (match.index > lastIndex) parent.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+      if (match.index > lastIndex) appendLinkedText(parent, text.slice(lastIndex, match.index));
       parent.appendChild(match[1] !== undefined ? element("strong", "", match[1]) : element("em", "", match[2]));
       lastIndex = INLINE_EMPHASIS.lastIndex;
     }
-    if (lastIndex < text.length) parent.appendChild(document.createTextNode(text.slice(lastIndex)));
+    if (lastIndex < text.length) appendLinkedText(parent, text.slice(lastIndex));
   }
 
   function renderMarkdown(container, text) {
