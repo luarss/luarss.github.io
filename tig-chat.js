@@ -157,6 +157,15 @@
     return /^https:\/\//i.test(value || "") || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(value || "");
   }
 
+  function newConversationId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
+    return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 12);
+  }
+
+  function userTurnCount(messages) {
+    return messages.filter(function (message) { return message.role === "user"; }).length;
+  }
+
   function delay(ms) {
     return new Promise(function (resolve) { setTimeout(resolve, ms); });
   }
@@ -241,6 +250,7 @@
     var apiBase = config.apiBase.replace(/\/$/, "");
     var token = null;
     var history = [];
+    var conversationId = newConversationId();
     var busy = false;
     var suggestions = Array.isArray(config.suggestions) ? config.suggestions : DEFAULT_SUGGESTIONS;
     var suggestionList = null;
@@ -364,7 +374,12 @@
       return fetchWithTimeout(apiBase + "/chat", {
         method: "POST",
         headers: { "content-type": "application/json", authorization: "Bearer " + token },
-        body: JSON.stringify({ messages: history.slice(-MAX_HISTORY) })
+        body: JSON.stringify({
+          messages: history.slice(-MAX_HISTORY),
+          conversation_id: conversationId,
+          turn_index: userTurnCount(history),
+          channel: "widget"
+        })
       });
     }
 
