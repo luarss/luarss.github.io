@@ -438,7 +438,7 @@
     close.addEventListener("click", function () { toggle(false); });
     teaser.addEventListener("click", function () { toggle(true); });
     form.addEventListener("submit", submit);
-    addMessage("bot", "Hi! Ask me about cybersecurity companies in the CyberSG catalogue directory, or try one of these:");
+    addMessage("bot", "Hi! Ask me about cybersecurity companies in the directory, or try one of these:");
     addSuggestions();
   }
 
