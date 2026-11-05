@@ -59,7 +59,10 @@
     "Which companies help with MAS TRM compliance?",
     "I need a penetration test for a mobile app",
     "Who provides incident response and recovery?",
-    "Any providers of cybersecurity training for staff?"
+    "Any providers of cybersecurity training for staff?",
+    "What are the solutions that can improve my cyber posture?",
+    "How can I improve my organisation's cybersecurity posture?",
+    "How to respond against cyber threats? What solutions of measures can I undertake?"
   ];
 
   function element(tag, className, text) {
@@ -72,6 +75,7 @@
   var BULLET_LINE = /^\s*[*\-\u2022]\s+(.*)$/;
   var NUMBERED_LINE = /^\s*\d+[.)]\s+(.*)$/;
   var INLINE_EMPHASIS = /\*\*([^*]+)\*\*|\*([^*\s][^*]*)\*/g;
+  var MARKDOWN_LINK = /\[([^\]]+)\]\((https:\/\/[^\s()<>"']+)\)/g;
   var INLINE_URL = /(?:https?:\/\/|www\.)[^\s<>"'()\[\]]+/gi;
   var TRAILING_PUNCTUATION = /[.,;:!?]+$/;
   var LINKED_DOMAINS = ["scamshield.gov.sg", "csa.gov.sg"];
@@ -90,6 +94,28 @@
     }
   }
 
+  function appendLink(parent, label, href) {
+    var link = element("a", "", label);
+    link.href = href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    parent.appendChild(link);
+  }
+
+  function appendLabelledLinks(parent, text) {
+    var lastIndex = 0;
+    var match;
+    MARKDOWN_LINK.lastIndex = 0;
+    while ((match = MARKDOWN_LINK.exec(text)) !== null) {
+      var href = linkTarget(match[2]);
+      if (match.index > lastIndex) appendLinkedText(parent, text.slice(lastIndex, match.index));
+      if (href) appendLink(parent, match[1], href);
+      else parent.appendChild(document.createTextNode(match[1]));
+      lastIndex = MARKDOWN_LINK.lastIndex;
+    }
+    if (lastIndex < text.length) appendLinkedText(parent, text.slice(lastIndex));
+  }
+
   function appendLinkedText(parent, text) {
     var lastIndex = 0;
     var match;
@@ -99,11 +125,7 @@
       var href = linkTarget(urlText);
       if (!href) continue;
       if (match.index > lastIndex) parent.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
-      var link = element("a", "", urlText);
-      link.href = href;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      parent.appendChild(link);
+      appendLink(parent, urlText, href);
       lastIndex = match.index + urlText.length;
     }
     if (lastIndex < text.length) parent.appendChild(document.createTextNode(text.slice(lastIndex)));
@@ -114,11 +136,11 @@
     var match;
     INLINE_EMPHASIS.lastIndex = 0;
     while ((match = INLINE_EMPHASIS.exec(text)) !== null) {
-      if (match.index > lastIndex) appendLinkedText(parent, text.slice(lastIndex, match.index));
+      if (match.index > lastIndex) appendLabelledLinks(parent, text.slice(lastIndex, match.index));
       parent.appendChild(match[1] !== undefined ? element("strong", "", match[1]) : element("em", "", match[2]));
       lastIndex = INLINE_EMPHASIS.lastIndex;
     }
-    if (lastIndex < text.length) appendLinkedText(parent, text.slice(lastIndex));
+    if (lastIndex < text.length) appendLabelledLinks(parent, text.slice(lastIndex));
   }
 
   function renderMarkdown(container, text) {
