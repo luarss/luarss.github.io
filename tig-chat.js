@@ -9,8 +9,10 @@
     ".teaser[hidden]{display:none}",
     ".panel{position:fixed;right:20px;bottom:108px;width:min(max(480px,50vw),calc(100vw - 32px));height:calc(100vh - 140px);display:flex;flex-direction:column;background:#fff;color:#1a1a1a;border:1px solid #d5d9de;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);overflow:hidden;z-index:2147483000}",
     ".panel[hidden]{display:none}",
+    ".panel.compact{width:min(380px,calc(100vw - 32px));height:min(640px,calc(100vh - 140px))}",
     ".header{padding:12px 14px;background:#0b5cad;color:#fff;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}",
-    ".close{background:none;border:0;color:#fff;font-size:18px;cursor:pointer}",
+    ".controls{display:flex;align-items:center;gap:4px}",
+    ".close,.resize{background:none;border:0;color:#fff;font-size:18px;line-height:1;cursor:pointer}",
     ".log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.45}",
     ".msg{max-width:90%;padding:8px 10px;border-radius:10px;white-space:pre-wrap;word-wrap:break-word}",
     ".user{align-self:flex-end;background:#e6f0fa}",
@@ -292,9 +294,14 @@
     teaser.hidden = !panel.hidden;
     var header = element("div", "header");
     header.appendChild(element("span", "", config.title || "CyberSG Atlas Assistant"));
+    var controls = element("div", "controls");
+    var resize = element("button", "resize");
+    resize.type = "button";
     var close = element("button", "close", "×");
     close.setAttribute("aria-label", "Close");
-    header.appendChild(close);
+    controls.appendChild(resize);
+    controls.appendChild(close);
+    header.appendChild(controls);
     var log = element("div", "log");
     var disclaimer = element(
       "div",
@@ -503,6 +510,13 @@
       });
     }
 
+    function setCompact(compact) {
+      panel.classList.toggle("compact", compact);
+      resize.textContent = compact ? "\u2922" : "\u2013";
+      resize.setAttribute("aria-label", compact ? "Maximise" : "Minimise");
+      resize.title = compact ? "Maximise" : "Minimise";
+    }
+
     function toggle(show) {
       panel.hidden = !show;
       teaser.hidden = show;
@@ -511,6 +525,8 @@
 
     launcher.addEventListener("click", function () { toggle(panel.hidden); });
     close.addEventListener("click", function () { toggle(false); });
+    resize.addEventListener("click", function () { setCompact(!panel.classList.contains("compact")); });
+    setCompact(Boolean(config.compact));
     teaser.addEventListener("click", function () { toggle(true); });
     form.addEventListener("submit", submit);
     addMessage("bot", "Hi! Ask me about cybersecurity companies in the directory, or try one of these:");
