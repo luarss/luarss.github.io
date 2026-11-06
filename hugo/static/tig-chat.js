@@ -7,7 +7,7 @@
     ".teaser{position:fixed;right:20px;bottom:112px;max-width:calc(100vw - 40px);padding:16px 24px;border:1px solid #d5d9de;border-radius:18px;background:#fff;color:#1a1a1a;font:500 20px/1.3 system-ui,-apple-system,'Segoe UI',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.12);z-index:2147483000}",
     ".teaser::after{content:'';position:absolute;right:30px;bottom:-9px;width:16px;height:16px;background:#fff;border-right:1px solid #d5d9de;border-bottom:1px solid #d5d9de;transform:rotate(45deg)}",
     ".teaser[hidden]{display:none}",
-    ".panel{position:fixed;right:20px;bottom:108px;width:min(380px,calc(100vw - 32px));height:min(640px,calc(100vh - 140px));display:flex;flex-direction:column;background:#fff;color:#1a1a1a;border:1px solid #d5d9de;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);overflow:hidden;z-index:2147483000}",
+    ".panel{position:fixed;right:20px;bottom:108px;width:min(max(480px,50vw),calc(100vw - 32px));height:calc(100vh - 140px);display:flex;flex-direction:column;background:#fff;color:#1a1a1a;border:1px solid #d5d9de;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);overflow:hidden;z-index:2147483000}",
     ".panel[hidden]{display:none}",
     ".header{padding:12px 14px;background:#0b5cad;color:#fff;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}",
     ".close{background:none;border:0;color:#fff;font-size:18px;cursor:pointer}",
