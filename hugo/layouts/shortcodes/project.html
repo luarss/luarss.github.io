@@ -1,7 +1,11 @@
 {{- $title := .Get "title" -}}
 {{- $url := .Get "url" -}}
 {{- $languages := .Get "lang" -}}
+{{- $year := .Get "year" -}}
 <article class="project-card">
+  {{- with $year }}
+  <p class="project-card-meta">{{ . }}</p>
+  {{- end }}
   <h3 class="project-card-title"><a href="{{ $url }}">{{ $title }}</a></h3>
   <p class="project-card-description">{{ .Inner | strings.TrimSpace | markdownify }}</p>
   {{- with $languages }}

@@ -1,7 +1,7 @@
 ---
 title: "Projects & Publications"
 description: "Open source projects and research publications."
-keywords: ["Shui Song Luar", "open source", "AI agents", "MCP", "OpenROAD", "OpenROAD-MCP", "ORAssistant", "chip design", "EDA", "RAG", "WOSET 2024", "IROS 2021", "tactile sensing"]
+keywords: ["Shui Song Luar", "open source", "AI agents", "MCP", "OpenROAD", "OpenROAD-MCP", "ORAssistant", "chip design", "EDA", "RAG", "WOSET 2024", "IROS 2021", "tactile sensing", "HardwareZone", "price tracking"]
 ---
 
 Focused on AI agents and AI-assisted tools for chip design, from production agent runtimes to MCP servers for developer tooling.
@@ -9,16 +9,19 @@ Focused on AI agents and AI-assisted tools for chip design, from production agen
 ## Open Source Projects
 
 {{< project-grid >}}
-{{< project title="ai-deals" url="https://luarss.github.io/ai-deals" lang="Web" >}}
+{{< project title="ai-deals" year="2026" url="https://luarss.github.io/ai-deals" lang="Web" >}}
 Intelligence per dollar tracker. Compares AI models across cost and capability so you can find the best value for your use case.
 {{< /project >}}
-{{< project title="nova-agent-runtime" url="https://github.com/SoraNovaAI/agent-runtime" lang="Python" >}}
+{{< project title="nova-agent-runtime" year="2025" url="https://github.com/SoraNovaAI/agent-runtime" lang="Python" >}}
 AI agent framework with integrated tools, multi-agent workflows, and evaluation loops. Features native MCP integration, automatic context management, and YAML-based declarative configuration.
 {{< /project >}}
-{{< project title="OpenROAD-MCP" url="https://github.com/The-OpenROAD-Project/OpenROAD-MCP" lang="TypeScript" >}}
+{{< project title="OpenROAD-MCP" year="2025" url="https://github.com/The-OpenROAD-Project/OpenROAD-MCP" lang="TypeScript" >}}
 MCP server that lets AI assistants such as Claude and Cursor work with OpenROAD sessions to help debug physical design runs. It began as a side project of mine and now lives under the OpenROAD Project. In 2026 I had the chance to mentor a Google Summer of Code student working on it.
 {{< /project >}}
-{{< project title="ORAssistant" url="https://github.com/luarss/ORAssistant" lang="Python, Tcl" >}}
+{{< project title="hwz-data" year="2024" url="https://luarss.github.io/hwz-data" lang="Python, JavaScript" >}}
+One of my earliest projects: a nightly scraper for HardwareZone's PC price lists. It has since grown into an LLM-assisted PDF extraction pipeline and a dashboard that tracks price trends by shop, component and brand.
+{{< /project >}}
+{{< project title="ORAssistant" year="2024" url="https://github.com/luarss/ORAssistant" lang="Python, Tcl" >}}
 Production-ready LLM chatbot assistant for the OpenROAD chip design tool. Conceptualised and open-sourced as part of OpenROAD Project contributions.
 {{< /project >}}
 {{< /project-grid >}}

@@ -301,7 +301,8 @@ h1, h2, h3 {
     border-radius: 999px;
 }
 
-.post-content .publication-card-meta {
+.post-content .publication-card-meta,
+.post-content .project-card-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
