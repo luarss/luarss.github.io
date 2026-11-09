@@ -1,0 +1,50 @@
+{
+  "source": "bing",
+  "collected_at": "2026-11-09T16:32:36.506792+00:00",
+  "site": "https://luarss.dev",
+  "totals": {
+    "distinct_queries": 0,
+    "impressions": 0,
+    "clicks": 0,
+    "tracked_targets_surfacing": 0
+  },
+  "tracked_targets": [],
+  "rank_and_traffic": [
+    {
+      "__type": "RankAndTrafficStats:#Microsoft.Bing.Webmaster.Api",
+      "Clicks": 0,
+      "Date": "/Date(1793491200000)/",
+      "Impressions": 0
+    },
+    {
+      "__type": "RankAndTrafficStats:#Microsoft.Bing.Webmaster.Api",
+      "Clicks": 0,
+      "Date": "/Date(1793577600000)/",
+      "Impressions": 0
+    },
+    {
+      "__type": "RankAndTrafficStats:#Microsoft.Bing.Webmaster.Api",
+      "Clicks": 0,
+      "Date": "/Date(1793664000000)/",
+      "Impressions": 0
+    },
+    {
+      "__type": "RankAndTrafficStats:#Microsoft.Bing.Webmaster.Api",
+      "Clicks": 0,
+      "Date": "/Date(1793750400000)/",
+      "Impressions": 0
+    },
+    {
+      "__type": "RankAndTrafficStats:#Microsoft.Bing.Webmaster.Api",
+      "Clicks": 0,
+      "Date": "/Date(1793836800000)/",
+      "Impressions": 0
+    },
+    {
+      "__type": "RankAndTrafficStats:#Microsoft.Bing.Webmaster.Api",
+      "Clicks": 0,
+      "Date": "/Date(1793923200000)/",
+      "Impressions": 0
+    }
+  ]
+}
