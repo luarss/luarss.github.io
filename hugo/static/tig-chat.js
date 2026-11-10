@@ -45,8 +45,7 @@
     ".form button:disabled{opacity:.5;cursor:default}",
     ".credit{padding:0 12px 8px;font-size:11px;color:#6b7280;text-align:center}",
     ".credit a{color:#0b5cad;text-decoration:none}",
-    ".credit a:hover{text-decoration:underline}",
-    ".heart{color:#e11d48}"
+    ".credit a:hover{text-decoration:underline}"
   ].join("");
 
   var MAX_HISTORY = 12;
@@ -306,7 +305,7 @@
     var disclaimer = element(
       "div",
       "disclaimer",
-      "AI-generated from directory entries. Not an endorsement \u2014 verify details with the company."
+      "This response is AI-generated based on directory entries. The inclusion or mention of any company does not constitute an endorsement or recommendation by CyberSG TIG Centre."
     );
     var form = element("form", "form");
     var input = element("input");
@@ -317,16 +316,13 @@
     send.type = "submit";
     form.appendChild(input);
     form.appendChild(send);
-    var credit = element("div", "credit", "Made with ");
-    var heart = element("span", "heart", "♥");
-    heart.setAttribute("aria-label", "love");
-    credit.appendChild(heart);
-    credit.appendChild(document.createTextNode(" by "));
+    var credit = element("div", "credit", "Developed by ");
     var creditLink = element("a", "", "NUSX Labs");
     creditLink.href = "https://github.com/nus-etp";
     creditLink.target = "_blank";
     creditLink.rel = "noopener noreferrer";
     credit.appendChild(creditLink);
+    credit.appendChild(document.createTextNode("."));
     panel.appendChild(header);
     panel.appendChild(log);
     panel.appendChild(disclaimer);
