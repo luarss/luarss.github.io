@@ -38,7 +38,6 @@
     ".suggestion:hover{background:#e6f0fa}",
     ".suggestion:disabled{opacity:.5;cursor:default}",
     ".disclaimer{padding:6px 12px 8px;font-size:11px;line-height:1.35;color:#6b7280;text-align:center}",
-    ".version{font-family:ui-monospace,Menlo,monospace;white-space:nowrap}",
     ".form{display:flex;gap:8px;padding:10px;border-top:1px solid #e3e6ea}",
     ".form input{flex:1;padding:9px 10px;border:1px solid #c5cad0;border-radius:8px;font-size:14px}",
     ".form button{padding:9px 14px;border:0;border-radius:8px;background:#0b5cad;color:#fff;font-size:14px;cursor:pointer}",
@@ -235,17 +234,6 @@
     });
   }
 
-  var VERSION_PATTERN = /^[0-9a-f]{7,40}(-dirty)?$/;
-
-  function showVersion(apiBase, disclaimer) {
-    fetchWithTimeout(apiBase + "/healthz", { method: "GET" }).then(function (response) {
-      return response.ok ? response.json() : null;
-    }).then(function (body) {
-      if (!body || typeof body.version !== "string" || !VERSION_PATTERN.test(body.version)) return;
-      disclaimer.appendChild(element("span", "version", " \u00b7 build " + body.version));
-    }, function () {});
-  }
-
   function isTransient(response) {
     return response.status === 502 || response.status === 503 || response.status === 504 ||
       (response.status >= 520 && response.status <= 530);
@@ -333,7 +321,6 @@
     root.appendChild(launcher);
     root.appendChild(panel);
     document.body.appendChild(host);
-    showVersion(apiBase, disclaimer);
 
     function addMessage(className, text) {
       var node = element("div", "msg " + className, text);
