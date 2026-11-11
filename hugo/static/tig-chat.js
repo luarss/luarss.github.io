@@ -266,6 +266,7 @@
     var busy = false;
     var suggestions = Array.isArray(config.suggestions) ? config.suggestions : DEFAULT_SUGGESTIONS;
     var suggestionList = null;
+    var retryButton = null;
 
     var host = element("div");
     var root = host.attachShadow({ mode: "open" });
@@ -441,6 +442,12 @@
       suggestionList = null;
     }
 
+    function removeRetryButton() {
+      if (!retryButton) return;
+      retryButton.remove();
+      retryButton = null;
+    }
+
     function submit(event) {
       event.preventDefault();
       ask(input.value);
@@ -453,6 +460,7 @@
       send.disabled = true;
       input.value = "";
       removeSuggestions();
+      removeRetryButton();
       addMessage("user", text);
       answer(text, addMessage("bot", "Thinking…"));
     }
@@ -461,13 +469,16 @@
       var retry = element("button", "retry", "Try again");
       retry.type = "button";
       retry.addEventListener("click", function () {
-        if (busy) return;
+        if (busy || retry !== retryButton) return;
+        removeRetryButton();
         busy = true;
         send.disabled = true;
         pending.className = "msg bot";
         pending.textContent = "Thinking…";
         answer(text, pending);
       });
+      removeRetryButton();
+      retryButton = retry;
       pending.appendChild(retry);
       pending.appendChild(element("div", "support", "If this keeps happening, email " + SUPPORT_EMAIL + "."));
     }
