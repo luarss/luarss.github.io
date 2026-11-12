@@ -1,0 +1,54 @@
+name: Prune stale PR previews
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      max_age_days:
+        description: 'Remove previews of open PRs not updated in this many days'
+        default: '30'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: gh-pages
+
+      - name: Remove previews for closed or stale PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAX_AGE_DAYS: ${{ inputs.max_age_days || '30' }}
+        run: |
+          shopt -s nullglob
+          cutoff="$(date -u -d "-${MAX_AGE_DAYS} days" +%s)"
+          for preview_dir in pr-preview/pr-*/; do
+            pr_number="${preview_dir#pr-preview/pr-}"
+            pr_number="${pr_number%/}"
+            pr_info="$(gh pr view "$pr_number" --repo "$GITHUB_REPOSITORY" --json state,updatedAt --jq '"\(.state) \(.updatedAt)"' || echo "MISSING 1970-01-01T00:00:00Z")"
+            read -r pr_state pr_updated_at <<< "$pr_info"
+            if [ "$pr_state" != "OPEN" ] || [ "$(date -u -d "$pr_updated_at" +%s)" -lt "$cutoff" ]; then
+              echo "pruning $preview_dir ($pr_state, last updated $pr_updated_at)"
+              git rm -rq "$preview_dir"
+            else
+              echo "keeping $preview_dir"
+            fi
+          done
+
+      - name: Commit and push
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          if git diff --cached --quiet; then
+            echo "nothing to prune"
+          else
+            git commit -m "chore(preview): prune stale PR previews"
+            git push
+          fi
