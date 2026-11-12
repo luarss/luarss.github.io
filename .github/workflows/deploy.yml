@@ -63,6 +63,7 @@ jobs:
         cname: luarss.dev
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
+        keep_files: true
 
     - name: Notify IndexNow
       continue-on-error: true
