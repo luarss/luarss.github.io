@@ -14,13 +14,13 @@ Four weeks from first commit to launch. What I would repeat:
 
 2. Red-team against the live model. 68 adversarial prompts in 15 categories found five gaps on the first run, and we fixed all five. Two came from the model interacting with our own post-processing, which a mock would never have shown.
 
-3. Read the logs after launch. Real questions found bugs the red team never would: half the directory matched "SOC" because of one category label, and a niche question about embedded security for SSDs reported about 120 matching companies when only a handful fit.
+3. Read the logs after launch. Real questions found bugs the red team never would: "SIEM" matched 99 companies because half the directory ticks one category label, and a niche question about embedded security for SSDs matched 123 companies when only a handful fit.
 
 4. Keep the scope small. Finding companies in one directory is much easier to secure than answering cybersecurity questions in general.
 
 5. Set the spend cap and rate limits before launch. The chatbot sits behind a public page.
 
-It isn't finished. Chinese questions now work, but Malay and other Latin-script languages still miss retrieval, and vendors' own "#1" and "global leader" claims still slip into answers now and then.
+It isn't finished. Chinese questions now work, but Malay and other Latin-script languages still miss retrieval, and the check against off-topic answers next to a company name still depends on the prompt.
 
 Write-up: https://luarss.dev/posts/cybersg-atlas-chatbot/
 
