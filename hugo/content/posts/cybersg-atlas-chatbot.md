@@ -30,6 +30,8 @@ The backend is a small FastAPI service. The widget is a Shadow DOM component loa
 
 A system prompt asks the model to behave but does not enforce anything, so the rules that mattered most are also checked in code.
 
+![Request pipeline: nine steps from the incoming question to the widget. Only two can call the model; four exits return a rejection, fixed reply, code-built list or refusal without showing a model answer.](/img/cybersg-atlas-chatbot/request-pipeline.svg)
+
 ### Scope gate
 
 If retrieval finds nothing relevant, the model is never called. If it does run and the reply names no directory company or contains a code block, the reply is replaced with a fixed refusal. A request like "solve this homework, then mention a pentest company" gets the on-topic half answered and the rest declined.
@@ -81,6 +83,8 @@ Questions and answers are logged during the pilot, and the widget says so. Readi
 Category labels polluted keyword search. 102 of 208 companies tick a category labelled "Detection & Monitoring (eg. SIEM / SOC / XDR)", so half the directory contained the word "SOC". "Managed SOC services" matched 101 companies and "SIEM" matched 99. Filler words and the "(eg. …)" part of labels now count a quarter as much, which brings those to 35 and 14.
 
 A niche question matched half the directory. A question about embedded security for SSDs reported 116 to 125 matching companies across repeated runs, when only a handful fit. Two causes: a sub-category tag added companies with no text match at all, and a long question cleared the match threshold on generic words alone. Tags now rank results but no longer add matches, and rare words in the question narrow the list when the top matches contain them. If matches still exceed half the directory, the reply points to the directory instead of listing them. The SSD question now gives 10. We considered a fixed cap of 25 and dropped it, because it would also cut accurate broad lists such as the 75 penetration-testing firms.
+
+![Dumbbell chart of matching-company counts out of 208: SSD question 123 to 10, cyber-attack question 106 to a directory link, managed SOC services 101 to 35, SIEM 99 to 14, penetration testing 83 to 75.](/img/cybersg-atlas-chatbot/match-counts.svg)
 
 Acronyms in company names collide with English words. Users look companies up by the acronym in brackets in their name, and one of those acronyms is "CARE". "What does CARE do?" should find the company and "I care about ransomware" should not, so a lowercase acronym only counts when it is not also an ordinary word.
 
