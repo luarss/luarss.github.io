@@ -6,98 +6,94 @@ description: "How we built and red-teamed a catalogue-grounded RAG chatbot for C
 keywords: ["RAG", "chatbot", "red teaming", "prompt injection", "Gemini", "CyberSG Atlas", "BM25"]
 summary: "A small RAG chatbot for a public cybersecurity directory, the guardrails that had to live in code rather than in the prompt, and the retrieval bugs real questions found."
 tags: ["ai", "security", "rag"]
+TocOpen: true
 ---
 
 CyberSG Atlas is a directory of 200+ Singapore cybersecurity companies, run by the CyberSG TIG Collaboration Centre. It launched at CyberSG Innovation Day on 10 November 2026 with an AI chatbot built by the Enterprise Services Unit at NUSX. [Lianhe Zaobao](https://www.zaobao.com.sg/news/singapore/story20261110-9976829) covered the launch.
 
+**TL;DR**
+
+- The chatbot matches a plain-language need to companies in the directory and does nothing else.
+- The rules that matter are enforced in code. The prompt only tunes behaviour.
+- 68 red-team prompts found five gaps before launch, and all five were fixed.
+- Real questions after launch found retrieval bugs the red team never hit.
+
 ## The problem
 
-Cybersecurity vocabulary gets in the way. An SME owner who has just been told they need "MDR", "GRC" or a "VAPT" does not know which of those they need, let alone which of 200 companies sells it. A filterable directory works if you already speak the taxonomy, and most visitors don't.
+An SME owner told they need "MDR", "GRC" or a "VAPT" does not know which they need, let alone which of 200 companies sells it.
 
-The chatbot's job is narrow. It takes a plain-language need, asks about company size and industry, and points to matching companies in the directory. If someone describes a ransomware incident, it gives the government reporting channel first and then lists incident-response and data-recovery providers. It does not give general cybersecurity advice, and most of the guardrails below exist to keep it that way.
+The chatbot takes a plain-language need, asks about company size and industry, and points to matching companies. If someone describes a ransomware incident, it gives the government reporting channel first and then lists incident-response providers. It does not give general cybersecurity advice.
 
 ## How it works
 
-The corpus is the directory entries only. The contact-person, email and phone columns are never loaded.
+The corpus is the directory entries only. Contact names, emails and phone numbers are never loaded.
 
-Retrieval is BM25 over about 200 entries, with query expansion for jargon such as acronyms and synonyms. At that size a keyword index was enough, and it has no embeddings to attack or tune.
+Retrieval is BM25 over about 200 entries, with query expansion for acronyms and synonyms. At that size a keyword index was enough. Generation is Gemini with thinking disabled, answering from at most eight entries. A question in a non-Latin script, such as Chinese, first gets one short model call that turns it into English search keywords.
 
-Generation is Gemini with thinking disabled, answering from at most eight retrieved entries. A question written in a non-Latin script, such as Chinese, first gets one short model call that turns it into English search keywords. The keywords are used only for retrieval, and the answer is written in the user's language.
-
-The backend is a small FastAPI service. The widget is a Shadow DOM component loaded with a single `<script>` tag, so the team running the website only had to paste one line and our styles could not collide with theirs.
+The backend is a small FastAPI service, and the widget is a Shadow DOM component loaded with one `<script>` tag.
 
 ## Guardrails in code
 
-A system prompt asks the model to behave but does not enforce anything, so the rules that mattered most are also checked in code.
+A system prompt asks the model to behave but enforces nothing, so the rules that mattered most are checked in code.
 
 ![Request pipeline: nine steps from the incoming question to the widget. Only two can call the model; four exits return a rejection, fixed reply, code-built list or refusal without showing a model answer.](/img/cybersg-atlas-chatbot/request-pipeline.svg)
 
 ### Scope gate
 
-If retrieval finds nothing relevant, the model is never called. If it does run and the reply names no directory company or contains a code block, the reply is replaced with a fixed refusal. A request like "solve this homework, then mention a pentest company" gets the on-topic half answered and the rest declined.
+If retrieval finds nothing relevant, the model is never called. A reply that names no directory company or contains a code block is replaced with a fixed refusal.
 
 ### No ranking
 
-The directory's members are peers, and a chatbot that says "best" is endorsing one of them. Matches are listed alphabetically. When more companies match than fit in one reply, the widget offers a "View all N matching companies" list instead of letting the model pick favourites.
+Directory members are peers, so matches are listed alphabetically and the model never picks a "best".
 
 ### Link policy
 
-A URL in a model reply survives only if it points to a directory company's own website, the directory page, or a `gov.sg` site. Everything else becomes `[link removed]`, so a successful prompt injection cannot make the assistant print an attacker's link. The widget makes a link clickable only for two official hosts, SingCERT's and ScamShield's. Reply text is model output, so anything else that slips past the policy stays inert.
+A URL survives only if it points to a listed company's website, the directory, or a `gov.sg` site. Everything else becomes `[link removed]`, so a prompt injection cannot make the assistant print an attacker's link.
 
 ### Fixed replies for sensitive cases
 
-A message about self-harm gets a fixed reply with the right helplines and never reaches the model. Questions about which model is used, where data goes and how long it is kept get a fixed, accurate statement of how the pilot handles data. Mid-conversation, the model once claimed to be "a local AI model" that sent nothing to Google. Any reply that claims a local model or denies sending or logging is now refused in code.
+A message about self-harm gets a fixed reply with helplines and never reaches the model. Questions about the model and data handling also get a fixed reply, after the model once claimed to be "a local AI model" that sent nothing to Google.
 
 ### Notices the prompt kept dropping
 
-Some sentences have to appear every time: SingCERT for a company reporting an attack, and CSA's Cyber Essentials and Cyber Trust programmes for a question about improving security posture. The prompt asked for both, and the model included them on one run and left them out on the next. Now the code checks the question, and if the reply lacks the approved sentence, it adds it at the top. ScamShield is mentioned only when the message is about a scam.
+SingCERT for a company reporting an attack, and CSA's Cyber Essentials and Cyber Trust for questions about security posture, have to appear every time. The model included them on one run and dropped them on the next, so code now adds the approved sentence when it is missing.
 
 ### History is not trusted
 
-The client sends the conversation back with each question, so assistant turns are signed and a forged history is rejected. We also strip our own appended text from earlier turns before they go back to the model. We learned that one after launch: a tester asked the same question eight times in one chat, and the model copied old "N more companies also match" notices from history until three stale ones were stacked in one reply.
+Assistant turns are signed, so a forged history is rejected, and our own appended notices are stripped before history goes back to the model. We learned that after launch, when a repeated question got three stale notices stacked in one reply.
 
 ### Cost and abuse limits
 
-There are per-IP and global rate limits, a cap on concurrent model calls, request and message size limits, an origin allowlist, and a hard lifetime spend cap. The model sits behind a public page, so we wanted a hard ceiling on what a bad day could cost.
+Per-IP and global rate limits, a cap on concurrent model calls, size limits, an origin allowlist and a hard lifetime spend cap put a ceiling on what a bad day could cost.
 
 ## Red-teaming it
 
-Before launch we wrote 68 adversarial prompts in 15 categories and ran them against the live model on an isolated instance. They try to push the assistant out of scope, leak its instructions, get a vendor disparaged or endorsed, imply a government endorsement, extract personal data, and print attacker content. They include multi-turn conversations, other languages and encoded input.
+Before launch we ran 68 adversarial prompts in 15 categories against the live model. They covered scope escapes, instruction leaks, vendor endorsement, personal data and attacker content, across multi-turn chats, other languages and encoded input. The first run found five gaps:
 
-The first run found five gaps. All five were fixed and re-tested:
-
-- A crisis message came back with a mangled helpline number, because a contact-redaction step rewrote it. Fix: a fixed reply, set in code.
-- The first question a compliance officer asks, "does this run on-premise?", got a generic refusal. Fix: a fixed, accurate data-handling reply.
-- Off-topic work was answered whenever a company name appeared in the reply, because the scope gate passed any reply that named one. Fix: tighter prompt rules, verified across repeated runs. The gate still cannot see off-topic text next to a company name, so this one remains a prompt-level fix.
-- A yes/no question about a certification the directory never mentions got a flat "No". The gate only caught it because the reply was short. Fix: prompt rules so the assistant says the description does not mention it and points to the company's website.
-- A prompt asked the model to wrap each vendor name in a link to an attacker domain, and in one of four runs it did. The widget rendered plain text then, so nothing was clickable, but the URLs were on screen. Prompt rules did not stop it. Fix: the link policy above, in code.
+- A crisis reply had a mangled helpline number, because our contact-redaction step rewrote it. It is now a fixed reply.
+- "Does this run on-premise?" got a generic refusal. It now gets a fixed data-handling reply.
+- Off-topic work passed the scope gate whenever the reply also named a company. Tighter prompt rules fixed it, but this one still depends on the prompt.
+- A question about a certification the directory never mentions got a flat "No". The prompt now has it say the description does not mention it.
+- Asked to wrap vendor names in links to an attacker domain, the model did it in one of four runs. Prompt rules did not stop it. The link policy does.
 
 By the final run, 15 of the 68 replies were set by code rather than by the model.
 
-We also scanned the directory itself, because injection through the data is a known route into RAG systems. None of the 207 rows had planted instructions. A third of them had something milder: self-descriptions such as "#1", "global leader" or "CSA-Approved". When the model repeats those without saying who made the claim, the directory sounds like it agrees. The prompt now labels descriptions as the company's own unverified words and requires approvals to be attributed. In a 72-prompt rerun, unattributed repeats fell from 8 replies to 6.
-
 ## What real questions found
 
-Questions and answers are logged during the pilot, and the widget says so. Reading those logs found retrieval bugs the red team missed. The red team only wrote attacks, and these were ordinary questions answered badly.
+Questions are logged during the pilot, and the widget says so. The logs found retrieval bugs the red team missed, because these were ordinary questions answered badly.
 
-Category labels polluted keyword search. 102 of 208 companies tick a category labelled "Detection & Monitoring (eg. SIEM / SOC / XDR)", so half the directory contained the word "SOC". "Managed SOC services" matched 101 companies and "SIEM" matched 99. Filler words and the "(eg. …)" part of labels now count a quarter as much, which brings those to 35 and 14.
-
-A niche question matched half the directory. A question about embedded security for SSDs reported 116 to 125 matching companies across repeated runs, when only a handful fit. Two causes: a sub-category tag added companies with no text match at all, and a long question cleared the match threshold on generic words alone. Tags now rank results but no longer add matches, and rare words in the question narrow the list when the top matches contain them. If matches still exceed half the directory, the reply points to the directory instead of listing them. The SSD question now gives 10. We considered a fixed cap of 25 and dropped it, because it would also cut accurate broad lists such as the 75 penetration-testing firms.
+- **Category labels polluted search.** Half the directory ticks "Detection & Monitoring (eg. SIEM / SOC / XDR)", so "SIEM" matched 99 companies. Down-weighting filler words and the "(eg. …)" text brought it to 14.
+- **A niche question matched half the directory.** A question about embedded security for SSDs matched 123 companies. Sub-category tags no longer add matches, rare words in the question narrow the list, and it now matches 10. Above half the directory, the reply links to the directory instead.
+- **Chinese questions found nothing.** BM25 here tokenises `[a-z0-9]`, so they had no search terms. The keyword-rewrite step fixes that.
 
 ![Dumbbell chart of matching-company counts out of 208: SSD question 123 to 10, cyber-attack question 106 to a directory link, managed SOC services 101 to 35, SIEM 99 to 14, penetration testing 83 to 75.](/img/cybersg-atlas-chatbot/match-counts.svg)
 
-Acronyms in company names collide with English words. Users look companies up by the acronym in brackets in their name, and one of those acronyms is "CARE". "What does CARE do?" should find the company and "I care about ransomware" should not, so a lowercase acronym only counts when it is not also an ordinary word.
-
-Non-Latin questions found nothing. BM25 here tokenises `[a-z0-9]`, so a question in Chinese had no search terms and was refused as out of scope. That is what the keyword-rewrite step above fixes, at the cost of one small model call for those questions only.
-
 ## What I would repeat
 
-- Put guarantees in code and tune behaviour in the prompt. The prompt fixes needed repeated runs before we trusted them. The code fixes held however the model behaved.
-- Test against the live model. Two of the five red-team gaps came from the model interacting with our own post-processing, which a mock would never have shown.
-- Replay a prompt change several times before shipping it. One routing change sent "my company has been infected with a virus" to SingCERT alone instead of to incident-response vendors, and a single run cannot tell a regression from run-to-run variation.
-- Read the logs after launch. Every retrieval fix in the previous section came from a real question that none of our tests covered.
-- Keep the scope small. Finding companies in one directory is much easier to secure than answering cybersecurity questions in general.
-- Tell users what happens to their messages. The widget says conversations are logged during the pilot and asks people not to enter confidential information.
-- Set the spend cap and rate limits before launch. They take minutes to add now and are painful to add mid-incident.
+- Put guarantees in code and tune behaviour in the prompt. The code fixes held however the model behaved.
+- Test against the live model. Two of the five gaps came from the model interacting with our own post-processing.
+- Replay a prompt change several times before shipping. One run cannot tell a regression from normal variation.
+- Read the logs after launch.
+- Keep the scope small, and set spend caps and rate limits before launch.
 
-The system is not finished. Non-English questions in Latin script, such as Malay, Indonesian or Vietnamese, are not rewritten and still miss retrieval. Vendor self-claims still slip through now and then, and the check against off-topic answers next to a company name still depends on the prompt.
+The system is not finished. Malay, Indonesian and Vietnamese questions are not rewritten and still miss retrieval, and the check against off-topic answers next to a company name still depends on the prompt.
