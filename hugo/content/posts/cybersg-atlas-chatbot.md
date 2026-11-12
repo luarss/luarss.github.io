@@ -10,13 +10,11 @@ tags: ["ai", "security", "rag"]
 
 CyberSG Atlas is a directory of 200+ Singapore cybersecurity companies, run by the CyberSG TIG Collaboration Centre. It launched at CyberSG Innovation Day on 10 November 2026 with an AI chatbot built by the Enterprise Services Unit at NUSX. [Lianhe Zaobao](https://www.zaobao.com.sg/news/singapore/story20261110-9976829) covered the launch.
 
-This post covers why the chatbot exists, how it works, what a red-team pass taught us about where guardrails belong, and what real questions found that the red team didn't.
-
 ## The problem
 
 Cybersecurity vocabulary gets in the way. An SME owner who has just been told they need "MDR", "GRC" or a "VAPT" does not know which of those they need, let alone which of 200 companies sells it. A filterable directory works if you already speak the taxonomy, and most visitors don't.
 
-The chatbot's job is narrow. It takes a plain-language need, asks about company size and industry, and points to matching companies in the directory. If someone describes a ransomware incident, it gives the government reporting channel first and then lists incident-response and data-recovery providers. It is not a general cybersecurity advisor, and the design follows from that.
+The chatbot's job is narrow. It takes a plain-language need, asks about company size and industry, and points to matching companies in the directory. If someone describes a ransomware incident, it gives the government reporting channel first and then lists incident-response and data-recovery providers. It does not give general cybersecurity advice, and most of the guardrails below exist to keep it that way.
 
 ## How it works
 
@@ -74,25 +72,28 @@ The first run found five gaps. All five were fixed and re-tested:
 
 By the final run, 15 of the 68 replies were set by code rather than by the model.
 
-We also scanned the directory itself, because injection through the data is a known route into RAG systems. None of the 207 rows had planted instructions. A third of them had something milder: self-descriptions such as "#1", "global leader" or "CSA-Approved". A model that repeats those unattributed turns a vendor's marketing into the directory's voice. The prompt now labels descriptions as the company's own unverified words and requires approvals to be attributed. In a 72-prompt rerun that cut unattributed repeats from 8 replies to 6, which is better but not solved.
+We also scanned the directory itself, because injection through the data is a known route into RAG systems. None of the 207 rows had planted instructions. A third of them had something milder: self-descriptions such as "#1", "global leader" or "CSA-Approved". When the model repeats those without saying who made the claim, the directory sounds like it agrees. The prompt now labels descriptions as the company's own unverified words and requires approvals to be attributed. In a 72-prompt rerun, unattributed repeats fell from 8 replies to 6.
 
 ## What real questions found
 
-Questions and answers are logged during the pilot, and the widget says so. Reading those logs found retrieval bugs the red team never would, because the red team was looking for attacks, not ordinary questions answered badly.
+Questions and answers are logged during the pilot, and the widget says so. Reading those logs found retrieval bugs the red team missed. The red team only wrote attacks, and these were ordinary questions answered badly.
 
-- **Category labels polluted keyword search.** 102 of 208 companies tick a category labelled "Detection & Monitoring (eg. SIEM / SOC / XDR)", so half the directory contained the word "SOC". "Managed SOC services" matched 101 companies and "SIEM" matched 99. Filler words and the "(eg. …)" part of labels now count a quarter as much, which brings those to 35 and 14.
-- **A niche question matched half the directory.** A question about embedded security for SSDs reported 116 to 125 matching companies across repeated runs, when only a handful fit. Two causes: a sub-category tag added companies with no text match at all, and a long question cleared the match threshold on generic words alone. Tags now rank results but no longer add matches, and rare words in the question narrow the list when the top matches contain them. If matches still exceed half the directory, the reply points to the directory instead of listing them. The SSD question now gives 10. A fixed cap of 25 was the obvious fix, and we rejected it because it would also cut accurate broad lists, such as the 75 penetration-testing firms.
-- **Acronyms in company names collide with English.** Users look companies up by the acronym in brackets in their name, and one of those acronyms is "CARE". "What does CARE do?" should find the company and "I care about ransomware" should not, so a lowercase acronym only counts when it is not also an ordinary word.
-- **Non-Latin questions found nothing.** BM25 here tokenises `[a-z0-9]`, so a question in Chinese had no search terms and was refused as out of scope. That is what the keyword-rewrite step above fixes, at the cost of one small model call for those questions only.
+Category labels polluted keyword search. 102 of 208 companies tick a category labelled "Detection & Monitoring (eg. SIEM / SOC / XDR)", so half the directory contained the word "SOC". "Managed SOC services" matched 101 companies and "SIEM" matched 99. Filler words and the "(eg. …)" part of labels now count a quarter as much, which brings those to 35 and 14.
+
+A niche question matched half the directory. A question about embedded security for SSDs reported 116 to 125 matching companies across repeated runs, when only a handful fit. Two causes: a sub-category tag added companies with no text match at all, and a long question cleared the match threshold on generic words alone. Tags now rank results but no longer add matches, and rare words in the question narrow the list when the top matches contain them. If matches still exceed half the directory, the reply points to the directory instead of listing them. The SSD question now gives 10. We considered a fixed cap of 25 and dropped it, because it would also cut accurate broad lists such as the 75 penetration-testing firms.
+
+Acronyms in company names collide with English words. Users look companies up by the acronym in brackets in their name, and one of those acronyms is "CARE". "What does CARE do?" should find the company and "I care about ransomware" should not, so a lowercase acronym only counts when it is not also an ordinary word.
+
+Non-Latin questions found nothing. BM25 here tokenises `[a-z0-9]`, so a question in Chinese had no search terms and was refused as out of scope. That is what the keyword-rewrite step above fixes, at the cost of one small model call for those questions only.
 
 ## What I would repeat
 
 - Put guarantees in code and tune behaviour in the prompt. The prompt fixes needed repeated runs before we trusted them. The code fixes held however the model behaved.
 - Test against the live model. Two of the five red-team gaps came from the model interacting with our own post-processing, which a mock would never have shown.
 - Replay a prompt change several times before shipping it. One routing change sent "my company has been infected with a virus" to SingCERT alone instead of to incident-response vendors, and a single run cannot tell a regression from run-to-run variation.
-- Read the logs after launch. Every retrieval fix in the section above came from a real question, not from a test we thought to write.
+- Read the logs after launch. Every retrieval fix in the previous section came from a real question that none of our tests covered.
 - Keep the scope small. Finding companies in one directory is much easier to secure than answering cybersecurity questions in general.
 - Tell users what happens to their messages. The widget says conversations are logged during the pilot and asks people not to enter confidential information.
 - Set the spend cap and rate limits before launch. They take minutes to add now and are painful to add mid-incident.
 
-The system is not finished. Non-English questions in Latin script, such as Malay, Indonesian or Vietnamese, are not rewritten and still miss retrieval. Vendor self-claims still slip through now and then. Prompt rules reduce unwanted behaviour without removing it, which is why the checks that matter run in code.
+The system is not finished. Non-English questions in Latin script, such as Malay, Indonesian or Vietnamese, are not rewritten and still miss retrieval. Vendor self-claims still slip through now and then, and the check against off-topic answers next to a company name still depends on the prompt.
