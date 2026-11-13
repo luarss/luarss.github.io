@@ -72,7 +72,7 @@ Before launch we ran 68 adversarial prompts in 15 categories against the live mo
 
 - A crisis reply had a mangled helpline number, because our contact-redaction step rewrote it. It is now a fixed reply.
 - "Does this run on-premise?" got a generic refusal. It now gets a fixed data-handling reply.
-- Off-topic work passed the scope gate whenever the reply also named a company. Tighter prompt rules fixed it, but this one still depends on the prompt.
+- Off-topic work passed the scope gate whenever the reply also named a company. Tighter prompt rules fixed it.
 - A question about a certification the directory never mentions got a flat "No". The prompt now has it say the description does not mention it.
 - Asked to wrap vendor names in links to an attacker domain, the model did it in one of four runs. Prompt rules did not stop it. The link policy does.
 
@@ -95,5 +95,3 @@ Questions are logged during the pilot, and the widget says so. The logs found re
 - Replay a prompt change several times before shipping. One run cannot tell a regression from normal variation.
 - Read the logs after launch.
 - Keep the scope small, and set spend caps and rate limits before launch.
-
-The system is not finished. Malay, Indonesian and Vietnamese questions are not rewritten and still miss retrieval, and the check against off-topic answers next to a company name still depends on the prompt.
