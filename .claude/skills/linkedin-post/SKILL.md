@@ -42,7 +42,7 @@ A file path, a pasted write-up, or a topic. If the source is a blog post, read i
 - Prefer a specific number or named thing over an adjective.
 - Lead with the person and the problem, not the project name or the tech.
 - Keep a list only if each item shows a visible outcome. Maximum six items.
-- No links in the post body. Put the link in the first comment.
+- Put the link in the first comment, unless the link is the goal of the post (a job, sign-up or application), in which case put it in the body. The hiring post had its apply link in the body and got 12 clicks and 1,270 members reached.
 - End with one specific call to action, or one open question tied to the post. Not both.
 - At most three hashtags, all topic-specific. None if the voice file says so.
 - No emoji bullets, no headers, no bold labels.
