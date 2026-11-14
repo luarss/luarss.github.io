@@ -13,7 +13,11 @@ metadata:
 
 # LinkedIn Post
 
-Read `references/voice.md` first. Every draft must match it.
+Read `references/voice.md` first. Every draft must match it. Then read `references/results.md` and prefer hook formulas and topics that did well for this writer over the generic claims in `hooks.json`.
+
+Treat each hook's `best_for` text as a hint, not a fact. It cites no source. Read each hook's `trap` field before using it, and the `rules` list in `hooks.json`.
+
+To log a new result, run `scripts/parse_export.py` on a LinkedIn single-post `.xlsx` export and add the row it prints to `references/results.md`. The script reads the file locally and makes no network calls.
 
 ## Input
 
