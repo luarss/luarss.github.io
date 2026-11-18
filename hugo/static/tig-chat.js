@@ -531,6 +531,6 @@
 })();
 
 TigChat.mount({
-  apiBase: "https://tig.luarss.dev",
+  apiBase: "https://tig-chat.nusx.edu.sg",
   accessKey: "+xXO5x3XMR50otuuSGRIM2PoWlGrBVNn"
 });
