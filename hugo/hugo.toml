@@ -8,6 +8,10 @@ copyright = "© 2020–2026 Shui Song Luar · Content licensed under [CC BY-NC 4
 # sitemap stops advertising URLs that robots.txt disallows.
 disableKinds = ["taxonomy", "term"]
 
+[markup.highlight]
+  noClasses = false
+  style = "monokai"
+
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
@@ -45,18 +49,6 @@ disableKinds = ["taxonomy", "term"]
     title = "Shui Song Luar"
     subtitle = "AI & Systems Engineer · NUSX Labs · Singapore"
     imageUrl = ""
-    [[params.profileMode.buttons]]
-      name = "Posts"
-      url = "posts/"
-    [[params.profileMode.buttons]]
-      name = "About"
-      url = "about/"
-    [[params.profileMode.buttons]]
-      name = "Now"
-      url = "now/"
-    [[params.profileMode.buttons]]
-      name = "Projects"
-      url = "projects/"
 
   [[params.socialIcons]]
     name = "github"

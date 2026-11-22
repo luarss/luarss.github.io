@@ -1,0 +1,83 @@
+.post-entry {
+    margin: 0;
+    padding: 22px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    transition: none;
+}
+
+.post-entry:active {
+    transform: none;
+}
+
+.post-entry:first-of-type {
+    border-top: 1px solid var(--border);
+}
+
+.post-entry .entry-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--primary);
+    text-wrap: balance;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.15s;
+}
+
+.post-entry .entry-content {
+    margin: 6px 0 10px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--secondary);
+}
+
+.post-entry .entry-content p {
+    margin: 0;
+}
+
+.post-entry .entry-footer {
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+    color: var(--secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.post-entry:hover .entry-header h2 {
+    text-decoration-color: currentColor;
+}
+
+.post-entry .entry-link:focus {
+    outline: none;
+}
+
+.post-entry .entry-link:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+.post-entry:has(.entry-link:focus-visible) .entry-header h2 {
+    text-decoration-color: currentColor;
+}
+
+@media (max-width: 600px) {
+    .post-entry {
+        padding: 18px 0;
+    }
+
+    .post-entry .entry-header h2 {
+        font-size: 1.125rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-entry .entry-header h2 {
+        transition: none;
+    }
+}

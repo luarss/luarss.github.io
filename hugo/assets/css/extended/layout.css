@@ -31,18 +31,6 @@ html {
 }
 
 /* ----------------------------------------------------------
-   Post list cards — tighter spacing
-   ---------------------------------------------------------- */
-.post-entry {
-    padding: 18px 20px;
-    margin-bottom: 16px;
-}
-
-.post-entry .entry-header h2 {
-    font-size: 22px;
-}
-
-/* ----------------------------------------------------------
    Header — compact two-row layout on small screens
    ---------------------------------------------------------- */
 @media (max-width: 600px) {
@@ -78,19 +66,5 @@ html {
     .main .profile {
         align-items: flex-start;
         padding-top: 8vh;
-    }
-}
-
-@media (max-width: 600px) {
-    .profile .buttons {
-        gap: 8px;
-    }
-
-    .profile .button {
-        margin: 0;
-    }
-
-    .profile .button-inner {
-        padding: 2px 8px;
     }
 }

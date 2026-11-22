@@ -1,5 +1,5 @@
 {{- if and (.Param "ShowBreadCrumbs") .Parent (not .Parent.IsHome) -}}
-<div class="breadcrumbs">
+<nav class="breadcrumbs" aria-label="Breadcrumb">
     {{- $url := replace .Parent.Permalink (printf "%s" site.Home.Permalink) "" }}
     {{- $lang_url := strings.TrimPrefix (printf "%s/" .Lang) $url -}}
 
@@ -11,9 +11,9 @@
     {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
 
     {{- if (and ($bc_pg) (gt (len . ) 0))}}
-    {{- print "&nbsp;»&nbsp;" | safeHTML -}}<a href="{{ $bc_pg.Permalink }}">{{ $bc_pg.Name }}</a>
+    <span class="breadcrumbs-separator" aria-hidden="true">/</span><a href="{{ $bc_pg.Permalink }}">{{ $bc_pg.Name }}</a>
     {{- end }}
 
     {{- end -}}
-</div>
+</nav>
 {{- end -}}

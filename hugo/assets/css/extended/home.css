@@ -1,0 +1,113 @@
+.home-recent {
+    width: 100%;
+    max-width: 520px;
+    margin-top: 28px;
+    text-align: start;
+}
+
+.home-recent-heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.home-recent-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+}
+
+.home-recent-item {
+    border-bottom: 1px solid var(--border);
+}
+
+.home-recent-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 2px;
+    color: var(--primary);
+    box-shadow: none;
+}
+
+.profile .profile_inner .home-recent span {
+    font-size: inherit;
+    color: inherit;
+    letter-spacing: normal;
+    white-space: normal;
+}
+
+.profile .profile_inner .home-recent .home-recent-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.45;
+    text-wrap: pretty;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.15s;
+}
+
+.profile .profile_inner .home-recent-link:hover .home-recent-title {
+    text-decoration-color: var(--border);
+}
+
+.home-recent-date {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--secondary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.home-recent-all {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 2px;
+    font-size: 14px;
+    color: var(--secondary);
+    box-shadow: none;
+    transition: color 0.15s;
+}
+
+.home-recent-all:hover {
+    color: var(--primary);
+}
+
+.home-recent-link:focus-visible,
+.home-recent-all:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+@media (max-width: 480px) {
+    .home-recent {
+        margin-top: 20px;
+    }
+
+    .home-recent-link {
+        flex-direction: column;
+        gap: 2px;
+        padding: 12px 0;
+    }
+
+    .home-recent-all {
+        padding: 2px 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-recent-title,
+    .home-recent-all {
+        transition: none;
+    }
+}

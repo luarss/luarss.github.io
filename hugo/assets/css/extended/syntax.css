@@ -1,15 +1,159 @@
-.highlight pre [style*="color:#75715e"] {
-    color: #8b8670 !important;
+:root {
+    --chroma-text: #f8f8f2;
+    --chroma-keyword: #66d9ef;
+    --chroma-accent: #f93179;
+    --chroma-name: #a6e22e;
+    --chroma-number: #ae81ff;
+    --chroma-string: #e6db74;
+    --chroma-comment: #8b8670;
+    --chroma-line-number: #868686;
+    --chroma-line-highlight: rgba(0, 0, 0, 0.25);
+    --chroma-error: #ed007e;
+    --chroma-error-bg: #1e0010;
 }
 
-.highlight pre [style*="color:#f92672"] {
-    color: #f93179 !important;
+:root[data-theme="dark"] {
+    --chroma-accent: #fb5f97;
+    --chroma-comment: #9b9783;
+    --chroma-line-number: #979797;
 }
 
-:root[data-theme="dark"] .highlight pre [style*="color:#75715e"] {
-    color: #9c9884 !important;
+.chroma {
+    color: var(--chroma-text);
 }
 
-:root[data-theme="dark"] .highlight pre [style*="color:#f92672"] {
-    color: #fb5f97 !important;
+.post-content .highlight pre.chroma code {
+    padding: 14px 6px;
+}
+
+.chroma .hl {
+    background-color: var(--chroma-line-highlight);
+}
+
+.chroma .lnt,
+.chroma .ln {
+    color: var(--chroma-line-number);
+}
+
+.chroma .err {
+    color: var(--chroma-error);
+    background-color: var(--chroma-error-bg);
+}
+
+.chroma .k,
+.chroma .kc,
+.chroma .kd,
+.chroma .kp,
+.chroma .kr,
+.chroma .kt,
+.chroma .no {
+    color: var(--chroma-keyword);
+}
+
+.chroma .kn,
+.chroma .nt,
+.chroma .o,
+.chroma .ow,
+.chroma .gd {
+    color: var(--chroma-accent);
+}
+
+.chroma .na,
+.chroma .nc,
+.chroma .nd,
+.chroma .ne,
+.chroma .nx,
+.chroma .nf,
+.chroma .fm,
+.chroma .gi {
+    color: var(--chroma-name);
+}
+
+.chroma .l,
+.chroma .se,
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo {
+    color: var(--chroma-number);
+}
+
+.chroma .ld,
+.chroma .s,
+.chroma .sa,
+.chroma .sb,
+.chroma .sc,
+.chroma .dl,
+.chroma .sd,
+.chroma .s2,
+.chroma .sh,
+.chroma .si,
+.chroma .sx,
+.chroma .sr,
+.chroma .s1,
+.chroma .ss {
+    color: var(--chroma-string);
+}
+
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf,
+.chroma .gu {
+    color: var(--chroma-comment);
+}
+
+.chroma .nb,
+.chroma .bp,
+.chroma .ni,
+.chroma .nl,
+.chroma .nn,
+.chroma .py,
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi,
+.chroma .vm,
+.chroma .gr,
+.chroma .gh,
+.chroma .gt {
+    color: inherit;
+}
+
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+    font-style: normal;
+}
+
+.chroma .nd,
+.chroma .o,
+.chroma .ow,
+.chroma .cpf,
+.chroma .gh,
+.chroma .gu {
+    font-weight: inherit;
+}
+
+.chroma .gd,
+.chroma .gi {
+    background-color: transparent;
+}
+
+.chroma .ge {
+    font-style: italic;
+}
+
+.chroma .gs {
+    font-weight: bold;
 }
