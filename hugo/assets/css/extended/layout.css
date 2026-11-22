@@ -1,3 +1,22 @@
+html {
+    scrollbar-gutter: stable;
+}
+
+.list {
+    background: var(--theme);
+}
+
+.post-tags a,
+.share-buttons,
+.paginav {
+    background: var(--theme);
+}
+
+.post-tags a:hover,
+.paginav a:hover {
+    background: var(--entry);
+}
+
 /* ----------------------------------------------------------
    Breadcrumbs — small and muted
    ---------------------------------------------------------- */

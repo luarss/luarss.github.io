@@ -7,7 +7,7 @@
    Font
    ---------------------------------------------------------- */
 body {
-    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -44,7 +44,98 @@ h1, h2, h3 {
 .page-header h1 {
     font-size: 32px;
     font-weight: 600;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
+}
+
+.post-title {
+    font-size: clamp(28px, 4vw + 14px, 40px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.post-description {
+    margin-top: 12px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--secondary);
+}
+
+.post-content h2 {
+    font-size: 26px;
+    margin: 1.8em 0 0.6em;
+}
+
+.post-content h3 {
+    font-size: 20px;
+    margin: 1.6em 0 0.5em;
+}
+
+.post-content h2,
+.post-content h3 {
+    line-height: 1.3;
+    text-wrap: balance;
+}
+
+.toc,
+:root[data-theme="dark"] .toc {
+    background: transparent;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+}
+
+.toc details summary {
+    margin-inline-start: 0;
+    color: var(--secondary);
+}
+
+.toc .details {
+    font-weight: 500;
+}
+
+.toc .inner {
+    margin: 8px 0 0;
+    padding: 0 0 0 4px;
+    opacity: 1;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    line-height: 1.5;
+    margin: 0.3em 0;
+}
+
+.toc li ul {
+    margin-inline-start: 14px;
+    padding-inline-start: 12px;
+    border-inline-start: 1px solid var(--border);
+}
+
+.toc a {
+    color: var(--secondary);
+    transition: color 0.15s;
+}
+
+.toc a:hover {
+    color: var(--primary);
+    box-shadow: none;
+}
+
+.toc summary:focus-visible,
+.button:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+::selection {
+    background: var(--primary);
+    color: var(--theme);
 }
 
 /* ----------------------------------------------------------

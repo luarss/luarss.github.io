@@ -1,0 +1,15 @@
+.highlight pre [style*="color:#75715e"] {
+    color: #8b8670 !important;
+}
+
+.highlight pre [style*="color:#f92672"] {
+    color: #f93179 !important;
+}
+
+:root[data-theme="dark"] .highlight pre [style*="color:#75715e"] {
+    color: #9c9884 !important;
+}
+
+:root[data-theme="dark"] .highlight pre [style*="color:#f92672"] {
+    color: #fb5f97 !important;
+}
