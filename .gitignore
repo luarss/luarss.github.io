@@ -15,3 +15,6 @@ hugo/resources/_gen/
 
 # python
 __pycache__/
+
+# impeccable design hook cache
+.impeccable/hook.cache.json
