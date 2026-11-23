@@ -55,6 +55,24 @@ jobs:
         done
 
     - name: Deploy to GitHub Pages
+      id: deploy
+      continue-on-error: true
+      uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./hugo/public
+        publish_branch: gh-pages
+        cname: luarss.dev
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        keep_files: true
+
+    - name: Wait before retrying deploy
+      if: steps.deploy.outcome == 'failure'
+      run: sleep 20
+
+    - name: Retry deploy to GitHub Pages
+      if: steps.deploy.outcome == 'failure'
       uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
