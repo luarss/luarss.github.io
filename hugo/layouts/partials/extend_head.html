@@ -28,7 +28,7 @@
       "name": {{ site.Title }},
       "alternateName": "luarss",
       "description": {{ site.Params.description }},
-      "inLanguage": "{{ site.Language.Lang | default "en-us" }}",
+      "inLanguage": "{{ site.Language.Name | default "en-us" }}",
       "publisher": { "@id": "{{ site.BaseURL }}#person" }
     },
     {

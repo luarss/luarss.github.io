@@ -80,6 +80,9 @@ h1, h2, h3 {
 .toc,
 :root[data-theme="dark"] .toc {
     background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: var(--content-gap);
     padding: 12px 16px;
     font-size: 0.9rem;
 }
@@ -148,7 +151,7 @@ h1, h2, h3 {
 /* ----------------------------------------------------------
    Links — subtle offset underline
    ---------------------------------------------------------- */
-.post-content a {
+.post-content a:not(.anchor) {
     text-decoration: underline;
     text-decoration-color: var(--border);
     text-underline-offset: 3px;
@@ -188,7 +191,7 @@ h1, h2, h3 {
 /* ----------------------------------------------------------
    Navigation — underline active item instead of bold
    ---------------------------------------------------------- */
-.nav .menu a[aria-current="page"] {
+.header-nav .menu a[aria-current="page"] {
     font-weight: 500;
     border-bottom: 2px solid var(--primary);
     padding-bottom: 2px;
@@ -327,8 +330,8 @@ h1, h2, h3 {
     outline-offset: 2px;
 }
 
-.post-content .project-card-description,
-.post-content .publication-card-description {
+.post-content p.project-card-description,
+.post-content p.publication-card-description {
     margin: 0;
     font-size: 0.92rem;
     line-height: 1.6;
@@ -364,8 +367,8 @@ h1, h2, h3 {
     border-radius: 999px;
 }
 
-.post-content .publication-card-meta,
-.post-content .project-card-meta {
+.post-content p.publication-card-meta,
+.post-content p.project-card-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;

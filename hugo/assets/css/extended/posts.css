@@ -81,3 +81,16 @@
         transition: none;
     }
 }
+
+.post-content blockquote {
+    margin: 20px 0;
+    padding: 0 14px;
+    border-inline-start: 3px solid var(--primary);
+}
+
+.post-content table th,
+.post-content table:not(.highlight table, .gist .highlight) td {
+    padding: 8px 5px;
+    border: none;
+    border-bottom: 1px solid var(--border);
+}

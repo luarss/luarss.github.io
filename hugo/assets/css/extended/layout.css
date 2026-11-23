@@ -34,7 +34,7 @@ html {
    Header — compact two-row layout on small screens
    ---------------------------------------------------------- */
 @media (max-width: 600px) {
-    .nav {
+    .header-nav {
         line-height: 52px;
     }
 
