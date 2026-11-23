@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "hugo/assets/css/extended/posts.css"
+        ],
+        "createdAt": "2026-11-23T00:07:08.060Z",
+        "reason": "Claude triage: rule is a .post-content blockquote with a 3px var(--primary) (neutral text colour) rule, restoring the pre-bump PaperMod quote style; not a card accent"
+      }
+    ]
+  }
+}
