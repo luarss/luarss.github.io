@@ -7,13 +7,19 @@
     ".teaser{position:fixed;right:20px;bottom:112px;max-width:calc(100vw - 40px);padding:16px 24px;border:1px solid #d5d9de;border-radius:18px;background:#fff;color:#1a1a1a;font:500 20px/1.3 system-ui,-apple-system,'Segoe UI',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.12);z-index:2147483000}",
     ".teaser::after{content:'';position:absolute;right:30px;bottom:-9px;width:16px;height:16px;background:#fff;border-right:1px solid #d5d9de;border-bottom:1px solid #d5d9de;transform:rotate(45deg)}",
     ".teaser[hidden]{display:none}",
-    ".panel{position:fixed;right:20px;bottom:108px;width:min(max(480px,50vw),calc(100vw - 32px));height:calc(100vh - 140px);display:flex;flex-direction:column;background:#fff;color:#1a1a1a;border:1px solid #d5d9de;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);overflow:hidden;z-index:2147483000}",
+    ".panel{position:fixed;right:20px;bottom:108px;width:min(max(480px,50vw),calc(100vw - 32px));height:calc(100vh - 140px);height:calc(100dvh - 140px);display:flex;flex-direction:column;background:#fff;color:#1a1a1a;border:1px solid #d5d9de;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);overflow:hidden;z-index:2147483000}",
     ".panel[hidden]{display:none}",
-    ".panel.compact{width:min(380px,calc(100vw - 32px));height:min(640px,calc(100vh - 140px))}",
-    ".header{padding:12px 14px;background:#0b5cad;color:#fff;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}",
-    ".controls{display:flex;align-items:center;gap:4px}",
-    ".close,.resize{background:none;border:0;color:#fff;font-size:18px;line-height:1;cursor:pointer}",
-    ".log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.45}",
+    ".panel.compact{width:min(380px,calc(100vw - 32px));height:min(640px,calc(100vh - 140px));height:min(640px,calc(100dvh - 140px))}",
+    ".header{padding:4px 4px 4px 14px;background:#0b5cad;color:#fff;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}",
+    ".controls{display:flex;align-items:center;flex:none}",
+    ".close,.resize{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;border-radius:8px;background:none;color:#fff;cursor:pointer}",
+    ".close:hover,.resize:hover{background:rgba(255,255,255,.16)}",
+    ".close svg,.resize svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}",
+    ":focus-visible{outline:2px solid #0b5cad;outline-offset:2px}",
+    ".launcher:focus-visible{outline:3px solid #0b5cad;outline-offset:2px;border-radius:50%;box-shadow:0 0 0 2px #fff}",
+    ".close:focus-visible,.resize:focus-visible{outline:2px solid #fff;outline-offset:-4px}",
+    ".sr-only{position:fixed;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}",
+    ".log{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:12px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.45}",
     ".msg{max-width:90%;padding:8px 10px;border-radius:10px;white-space:pre-wrap;word-wrap:break-word}",
     ".user{align-self:flex-end;background:#e6f0fa}",
     ".bot{align-self:flex-start;background:#f1f3f5}",
@@ -25,29 +31,44 @@
     ".error{align-self:flex-start;background:#fdecea;color:#8a1c14}",
     ".retry{display:block;margin-top:8px;padding:5px 10px;border:1px solid #8a1c14;border-radius:8px;background:#fff;color:#8a1c14;font-size:13px;cursor:pointer}",
     ".support{margin-top:6px;font-size:12px;color:#8a1c14}",
-    ".sources{margin-top:6px;font-size:12px;color:#555;white-space:normal}",
-    ".sources a{color:#0b5cad;margin-right:8px}",
-    ".all-matches{margin-top:8px;font-size:13px}",
+    ".sources{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:10px;font-size:14px;white-space:normal}",
+    ".sources-label{color:#4b5563}",
+    ".msg a{color:#0b5cad;text-decoration:underline;text-underline-offset:2px}",
+    ".msg a:hover{color:#084684}",
+    ".note{margin-top:10px;font-size:12.5px;line-height:1.4;color:#4b5563}",
+    ".all-matches{margin-top:6px;font-size:14px}",
     ".all-matches summary{color:#0b5cad;cursor:pointer;font-weight:600}",
-    ".all-matches ol{margin:6px 0 0;padding-left:24px;max-height:240px;overflow-y:auto}",
-    ".all-matches li{margin:0 0 2px}",
-    ".all-matches a{color:#0b5cad}",
-    ".rich a{color:#0b5cad}",
+    ".all-matches ol{margin:6px 0 0;padding-left:28px}",
+    ".all-matches li{margin:0 0 4px}",
     ".suggestions{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start;max-width:100%}",
     ".suggestion{padding:6px 10px;border:1px solid #b7cde6;border-radius:14px;background:#fff;color:#0b5cad;font-size:13px;line-height:1.3;text-align:left;cursor:pointer}",
     ".suggestion:hover{background:#e6f0fa}",
     ".suggestion:disabled{opacity:.5;cursor:default}",
-    ".disclaimer{padding:6px 12px 8px;font-size:11px;line-height:1.35;color:#6b7280;text-align:center}",
-    ".form{display:flex;gap:8px;padding:10px;border-top:1px solid #e3e6ea}",
-    ".form input{flex:1;padding:9px 10px;border:1px solid #c5cad0;border-radius:8px;font-size:14px}",
-    ".form button{padding:9px 14px;border:0;border-radius:8px;background:#0b5cad;color:#fff;font-size:14px;cursor:pointer}",
+    ".disclaimer{padding:4px 14px 6px;font-size:11px;line-height:1.3;color:#6b7280;text-align:center}",
+    ".form{display:flex;align-items:flex-end;gap:8px;padding:10px;border-top:1px solid #e3e6ea}",
+    ".form textarea{flex:1;min-width:0;min-height:40px;max-height:140px;margin:0;padding:9px 10px;border:1px solid #868e96;border-radius:8px;background:#fff;color:#1a1a1a;font:14px/1.45 system-ui,-apple-system,'Segoe UI',sans-serif;resize:none;overflow-y:hidden}",
+    ".form textarea::placeholder{color:#6b7280}",
+    ".form textarea:focus-visible{border-color:#0b5cad;outline:2px solid #0b5cad;outline-offset:-1px}",
+    ".form button{min-height:40px;padding:9px 14px;border:0;border-radius:8px;background:#0b5cad;color:#fff;font-size:14px;cursor:pointer}",
     ".form button:disabled{opacity:.5;cursor:default}",
     ".credit{padding:0 12px 8px;font-size:11px;color:#6b7280;text-align:center}",
     ".credit a{color:#0b5cad;text-decoration:none}",
-    ".credit a:hover{text-decoration:underline}"
+    ".credit a:hover{text-decoration:underline}",
+    "@media (pointer:coarse){.form textarea{font-size:16px}}",
+    "@media (max-width:480px){" +
+      ".panel,.panel.compact{top:0;left:0;right:auto;bottom:auto;width:100%;height:100vh;height:100dvh;border:0;border-radius:0;box-shadow:none;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}" +
+      ".header{padding-top:calc(4px + env(safe-area-inset-top))}" +
+      ".resize{display:none}" +
+      ".credit{padding-bottom:calc(8px + env(safe-area-inset-bottom))}" +
+    "}",
+    "@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}"
   ].join("");
 
   var MAX_HISTORY = 12;
+  var MAX_QUESTION_LENGTH = 1000;
+  var ICON_CLOSE = "<path d=\"M6 6l12 12M18 6L6 18\"/>";
+  var ICON_MINIMISE = "<path d=\"M5 12h14\"/>";
+  var ICON_MAXIMISE = "<path d=\"M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7\"/>";
   var REQUEST_TIMEOUT_MS = 45000;
   var MAX_RETRIES = 2;
   var MAX_RETRY_DELAY_MS = 10000;
@@ -79,7 +100,11 @@
   var MARKDOWN_LINK = /\[([^\]]+)\]\((https:\/\/[^\s()<>"']+)\)/g;
   var INLINE_URL = /(?:https?:\/\/|www\.)[^\s<>"'()\[\]]+/gi;
   var TRAILING_PUNCTUATION = /[.,;:!?]+$/;
-  var LINKED_DOMAINS = ["scamshield.gov.sg", "csa.gov.sg"];
+  var LINKED_DOMAINS = ["scamshield.gov.sg", "csa.gov.sg", "tig.cybersg.sg"];
+
+  function icon(paths) {
+    return "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">" + paths + "</svg>";
+  }
 
   function linkTarget(text) {
     var href = /^www\./i.test(text) ? "https://" + text : text;
@@ -247,7 +272,13 @@
     body.all_matches = Array.isArray(body.all_matches) ? body.all_matches.filter(function (match) {
       return match && typeof match.name === "string" && typeof match.website === "string";
     }) : [];
+    body.notice = typeof body.notice === "string" ? body.notice.trim() : "";
     return body;
+  }
+
+  function splitNotice(answer, notice) {
+    if (!notice || answer.slice(-notice.length) !== notice) return { text: answer, notice: "" };
+    return { text: answer.slice(0, -notice.length).trim(), notice: notice };
   }
 
   function mount(config) {
@@ -274,33 +305,52 @@
     style.textContent = STYLES;
 
     var launcher = element("button", "launcher");
+    launcher.type = "button";
     launcher.setAttribute("aria-label", "Open directory chat");
+    launcher.setAttribute("aria-controls", "tig-chat-panel");
     var teaser = element("button", "teaser", config.teaser || "Have a question? Chat with us");
     teaser.type = "button";
     var panel = element("div", "panel");
+    panel.id = "tig-chat-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-labelledby", "tig-chat-title");
     panel.hidden = !config.open;
     teaser.hidden = !panel.hidden;
+    launcher.setAttribute("aria-expanded", String(!panel.hidden));
     var header = element("div", "header");
-    header.appendChild(element("span", "", config.title || "CyberSG Atlas Assistant"));
+    var title = element("span", "", config.title || "CyberSG Atlas Assistant");
+    title.id = "tig-chat-title";
+    header.appendChild(title);
     var controls = element("div", "controls");
     var resize = element("button", "resize");
     resize.type = "button";
-    var close = element("button", "close", "×");
+    var close = element("button", "close");
+    close.type = "button";
+    close.innerHTML = icon(ICON_CLOSE);
     close.setAttribute("aria-label", "Close");
+    close.title = "Close";
     controls.appendChild(resize);
     controls.appendChild(close);
     header.appendChild(controls);
     var log = element("div", "log");
+    log.setAttribute("role", "log");
+    log.setAttribute("aria-live", "off");
+    log.setAttribute("aria-label", "Conversation");
+    var announcer = element("div", "sr-only");
+    announcer.setAttribute("role", "status");
+    announcer.setAttribute("aria-live", "polite");
     var disclaimer = element(
       "div",
       "disclaimer",
       "This response is AI-generated based on directory entries. The inclusion or mention of any company does not constitute an endorsement or recommendation by CyberSG TIG Centre."
     );
     var form = element("form", "form");
-    var input = element("input");
-    input.type = "text";
-    input.maxLength = 1000;
+    var input = element("textarea");
+    input.rows = 1;
+    input.maxLength = MAX_QUESTION_LENGTH;
     input.placeholder = "Ask about Singapore cyber companies";
+    input.setAttribute("aria-label", "Your question");
+    input.setAttribute("enterkeyhint", "send");
     var send = element("button", "", "Send");
     send.type = "submit";
     form.appendChild(input);
@@ -321,7 +371,25 @@
     root.appendChild(teaser);
     root.appendChild(launcher);
     root.appendChild(panel);
+    root.appendChild(announcer);
     document.body.appendChild(host);
+
+    function announce(text) {
+      announcer.textContent = "";
+      setTimeout(function () { announcer.textContent = text; }, 100);
+    }
+
+    function fitInput() {
+      input.style.height = "auto";
+      input.style.height = input.scrollHeight + 2 + "px";
+      input.style.overflowY = input.scrollHeight + 2 > input.offsetHeight ? "auto" : "hidden";
+    }
+
+    function handleInputKey(event) {
+      if (event.key !== "Enter" || event.shiftKey || event.isComposing || event.keyCode === 229) return;
+      event.preventDefault();
+      ask(input.value);
+    }
 
     function addMessage(className, text) {
       var node = element("div", "msg " + className, text);
@@ -336,6 +404,7 @@
       });
       if (!linked.length) return;
       var container = element("div", "sources");
+      container.appendChild(element("span", "sources-label", "Websites:"));
       linked.forEach(function (source) {
         var link = element("a", "", source.name);
         link.href = source.website;
@@ -344,6 +413,13 @@
         container.appendChild(link);
       });
       messageNode.appendChild(container);
+    }
+
+    function addNotice(messageNode, notice) {
+      if (!notice) return;
+      var node = element("div", "note");
+      appendInline(node, notice);
+      messageNode.appendChild(node);
     }
 
     function addAllMatches(messageNode, matches) {
@@ -459,6 +535,7 @@
       busy = true;
       send.disabled = true;
       input.value = "";
+      fitInput();
       removeSuggestions();
       removeRetryButton();
       addMessage("user", text);
@@ -483,20 +560,33 @@
       pending.appendChild(element("div", "support", "If this keeps happening, email " + SUPPORT_EMAIL + "."));
     }
 
+    function revealReply(node) {
+      log.scrollTop += node.getBoundingClientRect().top - log.getBoundingClientRect().top - 12;
+    }
+
+    function renderReply(pending, body) {
+      var parts = splitNotice(body.answer, body.notice);
+      pending.textContent = "";
+      pending.classList.add("rich");
+      renderMarkdown(pending, parts.text);
+      addSources(pending, body.sources);
+      addNotice(pending, parts.notice);
+      addAllMatches(pending, body.all_matches);
+      revealReply(pending);
+    }
+
     function answer(text, pending) {
       history.push({ role: "user", content: text });
       requestAnswer().then(function (body) {
-        pending.textContent = "";
-        pending.classList.add("rich");
-        renderMarkdown(pending, body.answer);
-        addAllMatches(pending, body.all_matches);
-        addSources(pending, body.sources);
+        renderReply(pending, body);
         history.push({ role: "assistant", content: body.answer, signature: body.signature });
+        announce(pending.innerText || pending.textContent);
       }).catch(function (error) {
         history.pop();
         pending.className = "msg error";
         pending.textContent = error.message || UNAVAILABLE_MESSAGE;
         if (error.retryable) addRetryButton(pending, text);
+        announce(error.message || UNAVAILABLE_MESSAGE);
       }).then(function () {
         busy = false;
         send.disabled = false;
@@ -506,7 +596,7 @@
 
     function setCompact(compact) {
       panel.classList.toggle("compact", compact);
-      resize.textContent = compact ? "\u2922" : "\u2013";
+      resize.innerHTML = icon(compact ? ICON_MAXIMISE : ICON_MINIMISE);
       resize.setAttribute("aria-label", compact ? "Maximise" : "Minimise");
       resize.title = compact ? "Maximise" : "Minimise";
     }
@@ -514,11 +604,29 @@
     function toggle(show) {
       panel.hidden = !show;
       teaser.hidden = show;
-      if (show) input.focus();
+      launcher.setAttribute("aria-expanded", String(show));
+      if (show) {
+        input.focus();
+        fitInput();
+      }
+    }
+
+    function closeToLauncher() {
+      toggle(false);
+      launcher.focus();
+    }
+
+    function handleEscape(event) {
+      if (event.key !== "Escape" || panel.hidden || event.isComposing) return;
+      event.preventDefault();
+      closeToLauncher();
     }
 
     launcher.addEventListener("click", function () { toggle(panel.hidden); });
-    close.addEventListener("click", function () { toggle(false); });
+    close.addEventListener("click", closeToLauncher);
+    root.addEventListener("keydown", handleEscape);
+    input.addEventListener("keydown", handleInputKey);
+    input.addEventListener("input", fitInput);
     resize.addEventListener("click", function () { setCompact(!panel.classList.contains("compact")); });
     setCompact(Boolean(config.compact));
     teaser.addEventListener("click", function () { toggle(true); });
